@@ -1,0 +1,10 @@
+#Where do I start?
+
+= Introduction =
+
+OK, so you found this Google code project, now what should you do?
+
+
+= Details =
+
+You can now head over to http://proxmark.org/ for the forum & various downloads, and also read the [https://www.lafargue.name/proxmark3 manual].
