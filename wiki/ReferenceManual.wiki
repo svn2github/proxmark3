@@ -3,7 +3,7 @@
 
 This reference manual is valid for the current SVN version of the firmware.
 
-*Utility Commands*
+==Utility Commands==
 
  * tune
  * sweeplf
@@ -15,7 +15,7 @@ This reference manual is valid for the current SVN version of the firmware.
  * reset
  * quit
 
-*LF Commands*
+==LF Commands==
 
  * losim
  * loread
@@ -31,9 +31,9 @@ This reference manual is valid for the current SVN version of the firmware.
 
 -----
 
-_*Utility Commands*_
+==Utility Commands==
 
-*tune*
+===tune===
 
 Measure antenna tuning
 
@@ -47,7 +47,7 @@ The typical output of the 'tune' command should return values in this region :
 # HF antenna @  60 mA / 14276 mV [235 ohms] 13.56Mhz
 }}}
 
-*sweeplf*
+===sweeplf===
 
 Sweeps through the useful range of the LF stage and check the loop antenna voltage
 
@@ -55,7 +55,7 @@ Run sweeplf, wait 2 seconds then download the samples using losamples, and plot.
 
 This command can be used to check whether the LF antenna is properly tuned to the frequency you expect : typically, a 125kHz antenna should show a clear peak around the value 90.
 
-*detectreader '[l|h]'*
+===detectreader '[l|h]'===
 
 Detect external reader field (option 'l' or 'h' to limit to LF or HF)
 
@@ -116,35 +116,35 @@ proxmark3> detectreader
 }}}
 It's also great for seeing how far out the reader field extends (or how sensitive your antenna is)...
 
-*fpgaoff*
+===fpgaoff===
 
 set FPGA off
 
-*lcdreset*
+===lcdreset===
 
 Hardware reset LCD
 
-*lcd*
+===lcd===
 
 Send command/data to LCD
 
-*test*
+===test===
 
 Placeholder command for testing new code
 
-*reset*
+===reset===
 
 Resets the board
 
-*quit*
+===quit===
 
 Quit program
 
 -----
 
-_*Low Frequency Commands - 125kHz and 134kHz*_
+==Low Frequency Commands - 125kHz and 134kHz==
 
-*losim*
+===losim===
 
 Simulate a LF tag
 
@@ -152,51 +152,51 @@ This command should only be issued after acquiring, downloading and interpreting
 
 More precisely, the trace buffer should contain only zeroes and ones, which will be interpreted by the Proxmark3 as field modulation commands ("open" and "short" coil). This means you need to interpret the raw bitstream using commands such as indalademod, askdemod and others to create a meaningful modulation bitstream.
 
-*loread '[h]'*
+===loread '[h]'===
 
 Read (125/134 kHz) LF ID-only tag
 
 loread reads by default on 125kHz. In order to tune the Proxmark to 134kHz, issue loread with the "h" argument : loread h
 
-*tiread*
+===tiread===
 
 Read a TI-type 134 kHz tag
 
 Does not exist on the Proxmark3 ! This is a leftover from the Proxmark2 firmware and does not work on this device.
 
-*tibits*
+===tibits===
 
 Get raw bits for TI-type LF tag
 
 Does not exist on the Proxmark3 ! This is a leftover from the Proxmark2 firmware and does not work on this device.
 
-*tidemod*
+===tidemod===
 
 Demod raw bits for TI-type LF tag
 
 Does not exist on the Proxmark3 ! This is a leftover from the Proxmark2 firmware and does not work on this device.
 
-*vchdemod*
+===vchdemod===
 
 Demod samples for VeriChip
 
-*flexdemod*
+===flexdemod===
 
 Demod samples for FlexPass
 
-*hiddemod*
+===hiddemod===
 
 HID Prox Card II (not optimal)
 
-*hidfskdemod*
+===hidfskdemod===
 
 HID FSK demodulator, it loops continuously (or until the button is pressed) and if a HID tag enters the field it will capture and do the FSK demodulation and manchester decoding of the waveform to return the tag ID as a hex number. I know very little about HID tags but it seems the TAG ID is a 44 bit number and the number printed on the tag is bits 16 though 1 (bit 0 is always 0)
 
-*hidsimtag*
+===hidsimtag===
 
 HID tag simulator, it will take a hex number (tag ID) as a parameter and create the proper FSK manchester encoded waveform and continuously broadcast it. This could in principle be modified to run a loop and broadcast several IDs in sequence if one wanted to search for a hit in a certain range.
 
-*indalademod*
+===indalademod===
 
 Indala card demodulator
 
@@ -220,7 +220,7 @@ Occurences: 11 (expected 11)
 proxmark3>
 }}}
 
-*em410xread '[clock]'*
+===em410xread '[clock]'===
 
 Reads the ID from an EM410x tag (the plot should contain the raw tag).  Clock is optional, usually has a value of 64.
 
@@ -234,7 +234,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-*em410xsim '[tag id]'*
+===em410xsim '[tag id]'===
 
 Simulates an EM410x tag with the specified ID. Example :
 
@@ -243,7 +243,7 @@ Simulates an EM410x tag with the specified ID. Example :
 (The orange light will turn on. Press the button on the PM3 to stop emulating the tag.)
 }}}
 
-*em410xwatch*
+===em410xwatch===
 
 Watches for an EM410x tag until it detects one. Essentially "loread + losamples 2000 + em410xread" until a tag is detected. Example :
 
@@ -253,11 +253,11 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-*manmod '[clock]'*
+===manmod '[clock]'===
 
 This will Manchester modulate the graphed bitstream. It's a helper function for em410xsim but can be re-used.
 
-*detectclock*
+===detectclock===
 
 This function will auto-detect the clock rate.
 
@@ -268,15 +268,15 @@ Example :
 Auto-detected clock rate: 64
 }}}
 
-*bitstream '[clock]'*
+===bitstream '[clock]'===
 
 Converts a waveform into a bitstream. The number of "samples" is still the same but it's easier to read a stream. I've only tested this using EM4102 tags.
 
 -----
 
-_*LF Signal analysis commands*_
+==LF Signal analysis commands==
 
-*askdemod*
+===askdemod===
 
 Generic ASK demodulation routine
 
@@ -286,7 +286,7 @@ This command demodulates the stream into a binary stream into the trace buffer (
 
 askdemod can be used for analysis of simple LF tags which just modulate the field without any phase or frequency shifts. A complete example of using this command can be found at the page on LF tag operations.
 
-*mandemod*
+===mandemod===
 
 Generic Manchester demodulation routine
 
@@ -301,15 +301,15 @@ The mandemod was recently updated and supports two algorithms :
 
 -----
 
-_*ISO-15693 commands*_
+==ISO-15693 commands==
 
-*hi15read*
+===hi15read===
 
 Read HF tag (ISO 15693)
 
 This command starts to read an ISO 15693 tag. It sends an "identify" request, then waits for the response. The response is not demodulated, just left in the buffer so that it can be downloaded to a PC and processed there, using the hisamples command.
 
-*hi15reader*
+===hi15reader===
 
 New in 20090301
 
@@ -336,13 +336,13 @@ proxmark3> hi15reader
 proxmark3>
 }}}
 
-*hi15sim*
+===hi15sim===
 
 New in 20090301
 
 ISO15693 tag simulator. Tagged as 'not working too well', and indeed I was not able to make my Omnikey reader react to it at all...
 
-*hi15demod*
+===hi15demod===
 
 Demod ISO15693 from tag
 
@@ -378,9 +378,9 @@ proxmark3>
 
 -----
 
-_*ISO-14443-B commands*_
+==ISO-14443-B commands==
 
-*hi14read*
+===hi14read===
 
 Reads ISO 14443-B tag
 
@@ -388,19 +388,19 @@ This command sends the following ATQB command : 0x05, 0x00, 0x08, 0x39, 0x73 , i
 
 The second value of the output can be either 0x00000000 or 0x00000001 : if it is "1", this means the reply of the tag was received properly. If it is zero, it means not all bytes (or none) were received. In both cases, the answer should be read using the hexsamples command.
 
-*hi14bdemod*
+===hi14bdemod===
 
 Demod ISO14443 Type B from tag
 
-*hisimlisten*
+===hisimlisten===
 
 Get HF samples as fake tag
 
-*hi14sim*
+===hi14sim===
 
 Fake ISO 14443 tag
 
-*hi14snoop*
+===hi14snoop===
 
 Eavesdrop ISO14443-B
 
@@ -452,13 +452,13 @@ time        :rssi: who bytes
 proxmark3>
 }}}
 
-*hi14list*
+===hi14list===
 
 List ISO 14443 history
 
 See the command above for an example !
 
-*sri512read*
+===sri512read===
 
 Read the contents of ST Micro SRI memory tags
 
@@ -540,9 +540,9 @@ proxmark3> sri512read
 
 -----
 
-_*ISO-14443-A commands*_
+==ISO-14443-A commands==
 
-*hi14areader*
+===hi14areader===
 
 Act like a ISO-14443-A reader. The Proxmark generates a field and uses 100% ASK and Modified Miller encoding to communicate with a card or tag. The answers of the card are stored in a buffer (BigBuf) on the Proxmark and can be downloaded by hi14alist.
 
@@ -554,7 +554,7 @@ hi14asim : fake ISO 14443a tag
 
 The command hi14asim sets the Proxmark in emulation mode. Until the button is pressed the device will respond as programmed in the firmware. We programmed the Proxmark to act like a mifare Classic 4k card. Contactless readers (such as the Omnikey 5121) run the anticollision and get convinced that they communicate with an mifare Standard 4k card. They also detect the (simulated) card's UID.
 
-*hi14asnoop*
+===hi14asnoop===
 
 Sniff the communication between a reader and a tag. The communication from both directions is captured and stored in a buffer (BigBuf) on the Proxmark and can be downloaded by hi14alist.
 
@@ -566,7 +566,7 @@ The command hi14asnoop starts sniffing the communication between a reader and ca
  Reader : 93 20 <- Card : 2a 69 8c 43 8c The reader starts the anticollision to select a card and requests its UID. The card responded with its UID. The last byte is the so-called BCC18 and is the result of XOR-ing the first four UID-bytes.
  Reader : 93 70 2a 69 8c 43 8c -> Card : 08 b6 dd The reader selects the desired card by sending 93 70 followed by the UID of the card. If the card is successfully selected it will response with a SAK19 which means that the card is now ready to handle commands of the higher layer protocol. The SAK consists of one byte (08) that indicates the card type and is followed by two CRC bytes.
 
-*hi14alist*
+===hi14alist===
 
 List ISO 14443a history
 
@@ -576,35 +576,35 @@ The listing indicates time units in terms of "Proxmark ticks", i.e. the internal
 
 -----
 
-_*Raw LF/HF commands*_
+==Raw LF/HF commands==
 
-*losamples*
+===losamples===
 
 Get raw samples for LF tag
 
 By default, only download the first 128 samples. Issue "losamples" with the number of samples in argument for a different value, for example losamples 16000. The HID USB interface being slow, this takes a long time. The number of samples can be any value between 0 and 16000.
 
-*hisamples*
+===hisamples===
 
 Get raw samples for HF tag
 
-*hisampless*
+===hisampless===
 
 Get signed raw samples, HF tag
 
-*hisamplest*
+===hisamplest===
 
 Get samples HF, for testing
 
-*higet*
+===higet===
 
 Get samples HF, 'analog'
 
-*bitsamples*
+===bitsamples===
 
 Get raw samples as bitstring
 
-*hexsamples*
+===hexsamples===
 
 Dump big buffer as hex bytes
 
@@ -612,29 +612,33 @@ Used in particular for ISO14443-B reading commands.
 
 -----
 
-_*Graph commands*_
+==Graph commands==
 
-*plot*
+===plot===
 
 Shows the graph window. The graph window is automatically updated when new samples are downloaded or operations are done on the trace.
 
 When in the graph window, the following commands are available :
 
-* Up arrow : zoom out * Down arrow : zoom in * Left/Right arrow : move trace left/right * Left click : set yellow cursor * Right click : set purple cursor
+* Up arrow : zoom out
+* Down arrow : zoom in
+* Left/Right arrow : move trace left/right
+* Left click : set yellow cursor
+* Right click : set purple cursor
 
-*hide*
+===hide===
 
 Hides the graph window
 
-*autocorr*
+===autocorr===
 
 Autocorrelation over window
 
-*norm*
+===norm===
 
 Normalize max/min to +/-500
 
-*dec*
+===dec===
 
 Decimate
 
@@ -646,25 +650,25 @@ The effect of dec can clearly be seen on the example below, with an Indala tag :
 
 Indala "loread" acquisition
 
-[ReferenceManual#Indala-initial.png]
+http://code.google.com/p/proxmark3/source/browse/wiki/Indala-initial.png
 
 Same trace, decimated once
 
-[ReferenceManual#Indala-dec.png]
+http://code.google.com/p/proxmark3/source/browse/wiki/Indala-dec.png
 
 hpf
 
 Remove DC offset from trace
 
-*zerocrossings*
+===zerocrossings===
 
 Count time between zero-crossings
 
-*ltrim*
+===ltrim===
 
 Trim from left of trace
 
-*scale*
+===scale===
 
 Set cursor display scale. Setting the scale makes the differential ("dt") reading between the yellow and purple markers meaningful. Once the scale is set, the differential reading between brackets is the time duration in seconds.
 
@@ -672,12 +676,12 @@ The argument to the scale command is the carrier frequency, expressed in kHz. Fo
 
 The example below shows for example that one of the FSK frequencies of a HID Prox tag is 15.625kHz (i.e. a 0.064s period).
 
-[ReferenceManual#scale-1.png]
+http://code.google.com/p/proxmark3/source/browse/wiki/scale-1.png
 
-*save*
+===save===
 
 Save trace (from graph window)
 
-*load*
+===load===
 
 Load trace (to graph window)
