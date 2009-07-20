@@ -55,7 +55,7 @@ Run sweeplf, wait 2 seconds then download the samples using losamples, and plot.
 
 This command can be used to check whether the LF antenna is properly tuned to the frequency you expect : typically, a 125kHz antenna should show a clear peak around the value 90.
 
-*detectreader ['l'|'h']*
+*detectreader '[l|h]'*
 
 Detect external reader field (option 'l' or 'h' to limit to LF or HF)
 
@@ -152,7 +152,7 @@ This command should only be issued after acquiring, downloading and interpreting
 
 More precisely, the trace buffer should contain only zeroes and ones, which will be interpreted by the Proxmark3 as field modulation commands ("open" and "short" coil). This means you need to interpret the raw bitstream using commands such as indalademod, askdemod and others to create a meaningful modulation bitstream.
 
-*loread [h]*
+*loread '[h]'*
 
 Read (125/134 kHz) LF ID-only tag
 
@@ -220,9 +220,11 @@ Occurences: 11 (expected 11)
 proxmark3>
 }}}
 
-*em410xread [clock (optional, should always be 64 anyway)]*
+*em410xread '[clock]'*
 
-Reads the ID from an EM410x tag (the plot should contain the raw tag). Example :
+Reads the ID from an EM410x tag (the plot should contain the raw tag).  Clock is optional, usually has a value of 64.
+
+Example :
 
 {{{
 > loread
@@ -232,7 +234,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-*em410xsim [tag id]*
+*em410xsim '[tag id]'*
 
 Simulates an EM410x tag with the specified ID. Example :
 
@@ -251,7 +253,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-*manmod [clock (optional)]*
+*manmod '[clock]'*
 
 This will Manchester modulate the graphed bitstream. It's a helper function for em410xsim but can be re-used.
 
@@ -266,7 +268,7 @@ Example :
 Auto-detected clock rate: 64
 }}}
 
-*bitstream [clock (optional)]*
+*bitstream '[clock]'*
 
 Converts a waveform into a bitstream. The number of "samples" is still the same but it's easier to read a stream. I've only tested this using EM4102 tags.
 
@@ -644,11 +646,11 @@ The effect of dec can clearly be seen on the example below, with an Indala tag :
 
 Indala "loread" acquisition
 
-[Reference Manual#Indala-initial.png]
+[ReferenceManual#Indala-initial.png]
 
 Same trace, decimated once
 
-[Reference Manual#Indala-dec.png]
+[ReferenceManual#Indala-dec.png]
 
 hpf
 
@@ -670,7 +672,7 @@ The argument to the scale command is the carrier frequency, expressed in kHz. Fo
 
 The example below shows for example that one of the FSK frequencies of a HID Prox tag is 15.625kHz (i.e. a 0.064s period).
 
-[Reference Manual#scale-1.png]
+[ReferenceManual#scale-1.png]
 
 *save*
 
