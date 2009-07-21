@@ -1,0 +1,27 @@
+#summary Proxmark3 Home Page
+=Introduction=
+
+This is the home page of a group of volunteer enthusiasts commited to further enhancing the capabilities of the already awesome Proxmark3, originally developed by Jonathan Westhues and release under the terms of GPL. You are encouraged to [http://www.cq.cx/proxmark3.pl visit his site] to read his original write up on the build of the proxmark3 as well as take a look at the historical progression from the basic [http://www.cq.cx/prox.pl prox] to the [http://www.cq.cx/proxmarkii.pl markII] to the final [http://www.cq.cx/proxmark3.pl proxmark3]. Please bear in mind that any statements on Jonathan's web site relating to the abilities of the board may be little dated now, and the capabilities of the proxmark3 have been (and continue to be) further enhanced, by great enthusiasts, such as [http://gerhard.dekoninggans.nl/proxmark/software Gerhard de Koning Gans] who added ISO-14443a support and many others who continue to add features in their own time.
+
+To further help those new to the proxmark3, we have created a [ReferenceManual User's Manual] where we attempt to document all the commands and their usage. You are welcome to join us on the [http://proxmark.org/forum proxmark.org] forum, to find out the latest news, ask for help, or to discuss new ideas.
+
+=What is it=
+The proxmark3 is a powerful general purpose RFID tool, the size of a deck of cards,  designed to snoop, listen and emulate everything from Low Frequency (125kHz) to High Frequency (13.56MHz) tags.
+
+http://proxmark3.googlecode.com/svn/wiki/prox3-straight.jpg
+
+From the [http://www.cq.cx/proxmark3.pl original website] :
+
+ This device can do almost anything involving almost any kind of low ( 125 kHz) or high ( 13.56 MHz) frequency RFID tag. It can act as a reader. It can eavesdrop on a transaction between another reader and a tag. It can analyze the signal received over the air more closely, for example to perform an attack in which we derive information from the tag’s instantaneous power consumption. It can pretend to be a tag itself. It is also capable of some less obviously useful operations that might come in handy for development work.
+
+=Is it for me ?=
+
+It should be pointed out quite early that the proxmark3 is not really not for beginners. If you are not already fairly familiar with electronics, embedded programming, some RF design and ISO standards, this device will probably bring you more frustration than anything else !
+
+If you are reasonably hard core, you could build one yourself. The Eagle PCB designs, gerber files, etc are freely available. There is an updated component list which can help you source the components from any of the major suppliers. Alternatively you could buy a ready-made board from somewhere like [http://www.proxmark3.com proxmark3.com]
+
+Typically, an "out of the box" proxmark3 with the latest firmware can run acquisitions in LF and HF mode and output traces, quite useful already, decode a number of different tag types, do some operations in ISO 15693 and ISO 14443 a and b modes, but if you really want to get the most out of this device, you will need to start enhancing the firmware yourself to suit your needs.
+
+As long as you only want to add higher level functions over the RF layers that are already coded into the FPGA, you should be fine without VHDL skills, but if you want to actually go deeper and have the proxmark3 support new modulations, this will require modifying the FPGA verilog code, an interesting exercise if you’re motivated or are already a pro in that area, but very time consuming if you’re getting started !
+
+Now you should have a pretty good idea on whether this tool is for you or not !
