@@ -1,3 +1,4 @@
+#summary User's Manual
 =Reference Manual=
 ==Users manual==
 
@@ -14,9 +15,7 @@ This reference manual is valid for the current SVN version of the firmware.
 
 Measure antenna tuning
 
-This command can be issued to verify that the antennas work properly : for each frequency (125kHz, 134kHz and 13.56MHz), it outputs the voltage in the antenna. Read the section on antenna building for more details on how to use this command.
-
-The typical output of the 'tune' command should return values in this region :
+This command can be issued to verify that the antennas work properly. Run tune and wait about 8 seconds for the sweep to complete and the output values to be printed. The typical output of the 'tune' command should return values in this region:
 
 {{{
 # LF antenna @  33.97 V @   125.00Khz
@@ -25,11 +24,9 @@ The typical output of the 'tune' command should return values in this region :
 # HF antenna @  14.27 V @    13.56Mhz
 }}}
 
-===sweeplf===
+Read the section on antenna building for more details on how to use this command.
 
-Sweeps through the useful range of the LF range and checks the loop antenna voltage
-
-Run sweeplf and wait about 8 seconds for the sweep to complete and the output values to be printed. For a graphical view of the results issue the plot command. The output shows the voltage measured on the antennas at the most commonly used frequencies 125/134Khz and 13.56Mhz. It also shows where the LF antenna peak voltage occured (LF optimal value) which is where the LF antenna peak resonance is. This command can be used to check whether the LF antenna is properly tuned to the frequency you expect, typically a LF antenna should be tuned to 129Khz for best results with both 125Khz and 134Khz tags.
+For a graphical view of the results issue the plot command. The output shows the voltage measured on the antennas at the most commonly used frequencies 125/134Khz and 13.56Mhz. It also shows where the LF antenna peak voltage occured (LF optimal value) which is where the LF antenna peak resonance is. This command can be used to check whether the LF antenna is properly tuned to the frequency you expect, typically a LF antenna should be tuned to 129Khz for best results with both 125Khz and 134Khz tags.
 
 ===detectreader [l|h]===
 
@@ -526,7 +523,7 @@ proxmark3> sri512read
 
 Act like a ISO-14443-A reader. The Proxmark generates a field and uses 100% ASK and Modified Miller encoding to communicate with a card or tag. The answers of the card are stored in a buffer (BigBuf) on the Proxmark and can be downloaded by hi14alist.
 
-Technically, the Proxmark drives the antenna coils to generate a field. The field is removed with certain intervals of 2µs to communicate with a card. The Proxmark switches between sending and listening. Only the anticollision phase is executed and only the messages from the card (TAG) are stored.
+Technically, the Proxmark drives the antenna coils to generate a field. The field is removed with certain intervals of 2ï¿½s to communicate with a card. The Proxmark switches between sending and listening. Only the anticollision phase is executed and only the messages from the card (TAG) are stored.
 
 New in 20090301 : hi14areader now supports Cascade L1 and L2 for double and triple length UIDs.
 
@@ -557,7 +554,7 @@ List ISO 14443a history
 
 With this command any data captured by hi14areader or hi14asnoop can be downloaded and displayed in the Windows client.
 
-The listing indicates time units in terms of "Proxmark ticks", i.e. the internal unit used in the FPGA to measure timing. In the case of iso14443A, this is 1/8th of a bit period, the bit period length being 9.44µs.
+The listing indicates time units in terms of "Proxmark ticks", i.e. the internal unit used in the FPGA to measure timing. In the case of iso14443A, this is 1/8th of a bit period, the bit period length being 9.44ï¿½s.
 
 -----
 
