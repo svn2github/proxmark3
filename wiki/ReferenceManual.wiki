@@ -4,7 +4,7 @@
 This reference manual is valid for the current SVN version of the firmware.
 
 <table border=1>
-<tbody> <tr valign=top><td><wiki:toc max_depth="3"/></td>
+<tbody> <tr align="right" valign="top"><td><wiki:toc max_depth="3"/></td>
 <td>
 
 ==Utility Commands==
