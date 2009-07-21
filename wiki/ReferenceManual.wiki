@@ -4,9 +4,8 @@
 This reference manual is valid for the current SVN version of the firmware.
 
 <table border=1>
-<tbody> <tr><td><wiki:toc max_depth="3"/></td>
+<tbody> <tr><td valign=top><wiki:toc max_depth="3"/></td>
 <td>
------
 
 ==Utility Commands==
 
@@ -425,7 +424,11 @@ time        :rssi: who bytes
 +    822: 136: TAG 50 92 08 05 0f 91 f3 5e 11 b3 81 a1 37 2f
 +   1178:    :     1d 92 08 05 0f 00 a5 01 01 f8 46
 +   6366: 160: TAG 01 f1 e1
-+1140613746:    :     44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44   **FAIL CRC**
++1140613746:    :     44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 
+                      44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 
+                      44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 
+                      44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 
+                      44 44 44 44   **FAIL CRC**
 proxmark3>
 }}}
 
