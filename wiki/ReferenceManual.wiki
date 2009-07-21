@@ -4,11 +4,10 @@
 This reference manual is valid for the current SVN version of the firmware.
 
 <table border=0>
-<tbody> <tr align="left" valign="top"><td BGCOLOR="#CFCFCF">
+<tbody> <tr align="left" valign="top"><td width="20%">
 *TABLE OF CONTENTS*
 <wiki:toc max_depth="3"/></td>
 <td>
-
 ==Utility Commands==
 
 ===tune===
@@ -601,11 +600,11 @@ Shows the graph window. The graph window is automatically updated when new sampl
 
 When in the graph window, the following commands are available :
 
-* Up arrow : zoom out
-* Down arrow : zoom in
-* Left/Right arrow : move trace left/right
-* Left click : set yellow cursor
-* Right click : set purple cursor
+ * Up arrow : zoom out
+ * Down arrow : zoom in
+ * Left/Right arrow : move trace left/right
+ * Left click : set yellow cursor
+ * Right click : set purple cursor
 
 ===hide===
 
