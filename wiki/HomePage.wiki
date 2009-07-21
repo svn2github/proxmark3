@@ -1,4 +1,5 @@
 #summary Proxmark3 Home Page
+#sidebar Navigation
 =Introduction=
 
 This is the home page of a group of volunteer enthusiasts commited to further enhancing the capabilities of the already awesome Proxmark3, originally developed by Jonathan Westhues and release under the terms of GPL. You are encouraged to [http://www.cq.cx/proxmark3.pl visit his site] to read his original write up on the build of the proxmark3 as well as take a look at the historical progression from the basic [http://www.cq.cx/prox.pl prox] to the [http://www.cq.cx/proxmarkii.pl markII] to the final [http://www.cq.cx/proxmark3.pl proxmark3]. Please bear in mind that any statements on Jonathan's web site relating to the abilities of the board may be little dated now, and the capabilities of the proxmark3 have been (and continue to be) further enhanced, by great enthusiasts, such as [http://gerhard.dekoninggans.nl/proxmark/software Gerhard de Koning Gans] who added ISO-14443a support and many others who continue to add features in their own time.
@@ -16,7 +17,7 @@ From the [http://www.cq.cx/proxmark3.pl original website] :
 
 =Is it for me ?=
 
-It should be pointed out quite early that the proxmark3 is not really not for beginners. If you are not already fairly familiar with electronics, embedded programming, some RF design and ISO standards, this device will probably bring you more frustration than anything else !
+It should be pointed out quite early that the proxmark3 is not really for beginners. If you are not already fairly familiar with electronics, embedded programming, some RF design and ISO standards, this device will probably bring you more frustration than anything else !
 
 If you are reasonably hard core, you could build one yourself. The Eagle PCB designs, gerber files, etc are freely available. There is an updated component list which can help you source the components from any of the major suppliers. Alternatively you could buy a ready-made board from somewhere like [http://www.proxmark3.com proxmark3.com]
 
