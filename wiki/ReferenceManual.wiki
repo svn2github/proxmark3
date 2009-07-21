@@ -3,8 +3,8 @@
 
 This reference manual is valid for the current SVN version of the firmware.
 
-<table border=1>
-<tbody> <tr align="left" valign="top"><td>
+<table border=0>
+<tbody> <tr align="left" valign="top"><td BGCOLOR="#101010">
 *TABLE OF CONTENTS*
 <wiki:toc max_depth="3"/></td>
 <td>
