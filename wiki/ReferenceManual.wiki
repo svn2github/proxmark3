@@ -4,7 +4,7 @@
 This reference manual is valid for the current SVN version of the firmware.
 
 <table border=0>
-<tbody> <tr align="left" valign="top"><td BGCOLOR="#101010">
+<tbody> <tr align="left" valign="top"><td BGCOLOR="#CFCFCF">
 *TABLE OF CONTENTS*
 <wiki:toc max_depth="3"/></td>
 <td>
