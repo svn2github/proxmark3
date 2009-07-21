@@ -3,34 +3,9 @@
 
 This reference manual is valid for the current SVN version of the firmware.
 
-<wiki:toc max_depth="3" />
-
-==Utility Commands==
-
- * tune
- * sweeplf
- * detectreader
- * fpgaoff
- * lcdreset
- * lcd
- * test
- * reset
- * quit
-
-==LF Commands==
-
- * losim
- * loread
- * tiread
- * tibits
- * tidemod
- * vchdemod
- * flexdemod
- * hiddemod
- * hidfskdemod
- * hidsimtag
- * indalademod
-
+<table border=1>
+<tbody> <tr><td><wiki:toc max_depth="3"/></td></tr>
+<tr><td>
 -----
 
 ==Utility Commands==
@@ -144,7 +119,7 @@ Quit program
 
 -----
 
-==Low Frequency Commands - 125kHz and 134kHz==
+==Low Frequency Commands==
 
 ===losim===
 
@@ -687,3 +662,5 @@ Save trace (from graph window)
 ===load===
 
 Load trace (to graph window)
+</td></tr>
+</tbody></table>
