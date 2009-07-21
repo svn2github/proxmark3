@@ -3,6 +3,8 @@
 
 This reference manual is valid for the current SVN version of the firmware.
 
+<wiki:toc max_depth="3" />
+
 ==Utility Commands==
 
  * tune
@@ -650,11 +652,11 @@ The effect of dec can clearly be seen on the example below, with an Indala tag :
 
 Indala "loread" acquisition
 
-http://code.google.com/p/proxmark3/source/browse/wiki/Indala-initial.png
+http://proxmark3.googlecode.com/svn/wiki/Indala-initial.png
 
 Same trace, decimated once
 
-http://code.google.com/p/proxmark3/source/browse/wiki/Indala-dec.png
+http://proxmark3.googlecode.com/svn/wiki/Indala-dec.png
 
 hpf
 
@@ -676,7 +678,7 @@ The argument to the scale command is the carrier frequency, expressed in kHz. Fo
 
 The example below shows for example that one of the FSK frequencies of a HID Prox tag is 15.625kHz (i.e. a 0.064s period).
 
-http://code.google.com/p/proxmark3/source/browse/wiki/scale-1.png
+http://proxmark3.googlecode.com/svn/wiki/scale-1.png
 
 ===save===
 
