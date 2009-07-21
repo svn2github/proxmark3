@@ -4,7 +4,7 @@
 This reference manual is valid for the current SVN version of the firmware.
 
 <table border=1>
-<tbody> <tr valign="top"><td><wiki:toc max_depth="3"/></td>
+<tbody> <tr valign="top"><td>*TABLE OF CONTENTS*<p><wiki:toc max_depth="3"/></td>
 <td>
 
 ==Utility Commands==
@@ -13,25 +13,24 @@ This reference manual is valid for the current SVN version of the firmware.
 
 Measure antenna tuning
 
-This command can be issued to verify that the antennas work properly : for each frequency (125kHz, 134kHz and 13.56MHz), it outputs the voltage in the antenna. Read the section above about antenna building for more details on how to use this command.
+This command can be issued to verify that the antennas work properly : for each frequency (125kHz, 134kHz and 13.56MHz), it outputs the voltage in the antenna. Read the section on antenna building for more details on how to use this command.
 
 The typical output of the 'tune' command should return values in this region :
 
 {{{
-# LF antenna @  26 mA / 33972 mV [1273 ohms] 125Khz
-# LF antenna @  18 mA / 22290 mV [1187 ohms] 134Khz
-# HF antenna @  60 mA / 14276 mV [235 ohms] 13.56Mhz
+# LF antenna @  33.97 V @   125.00Khz
+# LF antenna @  22.29 V @   134.00Khz
+# LF optimal @  33.97 V @   125.00Khz
+# HF antenna @  14.27 V @    13.56Mhz
 }}}
 
 ===sweeplf===
 
-Sweeps through the useful range of the LF stage and check the loop antenna voltage
+Sweeps through the useful range of the LF range and checks the loop antenna voltage
 
-Run sweeplf, wait 2 seconds then download the samples using losamples, and plot.
+Run sweeplf and wait about 8 seconds for the sweep to complete and the output values to be printed. For a graphical view of the results issue the plot command. The output shows the voltage measured on the antennas at the most commonly used frequencies 125/134Khz and 13.56Mhz. It also shows where the LF antenna peak voltage occured (LF optimal value) which is where the LF antenna peak resonance is. This command can be used to check whether the LF antenna is properly tuned to the frequency you expect, typically a LF antenna should be tuned to 129Khz for best results with both 125Khz and 134Khz tags.
 
-This command can be used to check whether the LF antenna is properly tuned to the frequency you expect : typically, a 125kHz antenna should show a clear peak around the value 90.
-
-===detectreader '[l|h]'===
+===detectreader [l|h]===
 
 Detect external reader field (option 'l' or 'h' to limit to LF or HF)
 
@@ -94,19 +93,15 @@ It's also great for seeing how far out the reader field extends (or how sensitiv
 
 ===fpgaoff===
 
-set FPGA off
+Set FPGA off, meaning all signal lines are driven low. In this mode the FPGA does not modulate the antenna or route any inbound signals. This does not turn off power to the FPGA.
 
 ===lcdreset===
 
-Hardware reset LCD
+Hardware reset LCD by toggling it's RESET line.
 
 ===lcd===
 
 Send command/data to LCD
-
-===test===
-
-Placeholder command for testing new code
 
 ===reset===
 
@@ -128,7 +123,7 @@ This command should only be issued after acquiring, downloading and interpreting
 
 More precisely, the trace buffer should contain only zeroes and ones, which will be interpreted by the Proxmark3 as field modulation commands ("open" and "short" coil). This means you need to interpret the raw bitstream using commands such as indalademod, askdemod and others to create a meaningful modulation bitstream.
 
-===loread '[h]'===
+===loread [h]===
 
 Read (125/134 kHz) LF ID-only tag
 
@@ -138,19 +133,19 @@ loread reads by default on 125kHz. In order to tune the Proxmark to 134kHz, issu
 
 Read a TI-type 134 kHz tag
 
-Does not exist on the Proxmark3 ! This is a leftover from the Proxmark2 firmware and does not work on this device.
+Reads a Texas Instruments 134Khz tag and stores the waveform in the buffer. This tag sends a stream of 128 bits as an FM (frequency modulated) waveform. A zero consists of 16 cycles at 123.2Khz and a one consists of 16 cycles at 134.2Khz meaning the duration of ones and zeroes is slightly different therefore the bit boundaries are not at regular intervals.
 
 ===tibits===
 
 Get raw bits for TI-type LF tag
 
-Does not exist on the Proxmark3 ! This is a leftover from the Proxmark2 firmware and does not work on this device.
+Retrieves the data stream stored by tiread.
 
 ===tidemod===
 
 Demod raw bits for TI-type LF tag
 
-Does not exist on the Proxmark3 ! This is a leftover from the Proxmark2 firmware and does not work on this device.
+Tries to demodulate the data stream retrieved by tibits. Use the plot command to see a graphical output.
 
 ===vchdemod===
 
@@ -166,7 +161,7 @@ HID Prox Card II (not optimal)
 
 ===hidfskdemod===
 
-HID FSK demodulator, it loops continuously (or until the button is pressed) and if a HID tag enters the field it will capture and do the FSK demodulation and manchester decoding of the waveform to return the tag ID as a hex number. I know very little about HID tags but it seems the TAG ID is a 44 bit number and the number printed on the tag is bits 16 though 1 (bit 0 is always 0)
+HID FSK demodulator, it loops continuously (or until the button is pressed) and if a HID tag enters the field it will capture and do the FSK demodulation and manchester decoding of the waveform to return the tag ID as a hex number. It seems the TAG ID is a 44 bit number and the number printed on the tag is usually bits 16 though 1 (bit 0 is possibly a parity bit)
 
 ===hidsimtag===
 
@@ -196,7 +191,7 @@ Occurences: 11 (expected 11)
 proxmark3>
 }}}
 
-===em410xread '[clock]'===
+===em410xread [clock]===
 
 Reads the ID from an EM410x tag (the plot should contain the raw tag).  Clock is optional, usually has a value of 64.
 
@@ -210,7 +205,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-===em410xsim '[tag id]'===
+===em410xsim [tag id]===
 
 Simulates an EM410x tag with the specified ID. Example :
 
@@ -229,7 +224,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-===manmod '[clock]'===
+===manmod [clock]===
 
 This will Manchester modulate the graphed bitstream. It's a helper function for em410xsim but can be re-used.
 
@@ -244,13 +239,17 @@ Example :
 Auto-detected clock rate: 64
 }}}
 
-===bitstream '[clock]'===
+===bitstream [clock]===
 
 Converts a waveform into a bitstream. The number of "samples" is still the same but it's easier to read a stream. I've only tested this using EM4102 tags.
 
 -----
 
 ==LF Signal analysis commands==
+
+===fskdemod===
+
+This is another way to demodulate HID tags inspired by tidemod. It acts on a raw FSK waveform as captured by loread or loaded from a saved capture. It uses the same principles of signal processing as tibits to demodulate the FSK waveform. It then goes on to detect the start condition and inserts markers around the detected bits to visually aid the user in detecting bit boundaries. Finally it manchester decodes (using a method different from the one implemented in hidfskdemod) the bitstream and prints out the output to the text window as binary and hex.
 
 ===askdemod===
 
@@ -610,6 +609,10 @@ When in the graph window, the following commands are available :
 
 Hides the graph window
 
+===grid x y===
+
+This overlays a faint grid on the plot window with the x and y spacing specified. Use positive values. You can turn either or both grids back off by specifiyng a zero value.
+
 ===autocorr===
 
 Autocorrelation over window
@@ -636,7 +639,7 @@ Same trace, decimated once
 
 http://proxmark3.googlecode.com/svn/wiki/Indala-dec.png
 
-hpf
+===hpf===
 
 Remove DC offset from trace
 
@@ -647,6 +650,10 @@ Count time between zero-crossings
 ===ltrim===
 
 Trim from left of trace
+
+===threshold val===
+
+The number val can be positive or negative. The command runs through the graph buffer and replaces every sample value >= val with 1 and every other value with -1. This might be useful sometimes if you want to take an analog waveform and turn it into a clean set of highs and lows.
 
 ===scale===
 
