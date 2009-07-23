@@ -1,3 +1,4 @@
 #summary Navigation Sidebar
  * [HomePage Home Page]
+ * [TagOps LF Tag Operations]
  * [ReferenceManual User's Manual]
