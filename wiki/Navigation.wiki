@@ -2,7 +2,7 @@
  * [HomePage Home Page]
  * [HardwareDescription Hardware Description]
  * [Building Building]
- * Antennas
+ * [Antennas Antennas]
  * [RunningPM3 Running The PM3]
  * [ReferenceManual User's Manual]
  * [TagOps LF Tag Operations]
