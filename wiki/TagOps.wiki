@@ -2,6 +2,8 @@
 
 =LF Tag Operations=
 
+<wiki:toc/>
+
 ==Low frequency tag operations==
 
 This page presents how the Proxmark3 can be used for working with simple low frequency tags. The commands are valid for the current SVN version of the Proxmark (the askdemod command argument format was recently modified).
