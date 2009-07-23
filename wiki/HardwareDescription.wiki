@@ -96,11 +96,16 @@ The logic is written in Verilog, of course for webpack. I have structured the FP
 For `slow’ signals, I use an MCP6294 opamp. This has a GBW of 10 MHz, which is more than enough for the low-frequency stuff, and enough for all of the subcarrier frequencies that I know of at high frequency. In practice, the `slow’ signals are all the signals following the peak detector. These signals are usually centred around the generated voltage Vmid.
 
 {{{
-In LF read mode, the received signal goes through an analog AM demodulator (around D1). The result is typically an AC component in the tens of millivolts, sitting on top of 50 V of DC offset. The signal is then high-pass filtered to remove the DC offset and amplified.
+In LF read mode, the received signal goes through an analog AM demodulator (around D1).
+The result is typically an AC component in the tens of millivolts, sitting on top of 50 V
+of DC offset. The signal is then high-pass filtered to remove the DC offset and amplified.
 
 The ADC samples at the carrier frequency exactly, 125 kHz by default.
 
-LF sniffing would not be very hard, though Verilog tweaks would indeed be required. It would work essentially the same as LF read, except that the PWR_LO signal is held steady low. And the module is clocked off CROSS_LO (the received carrier) instead of a carrier that we generate ourselves.
+LF sniffing would not be very hard, though Verilog tweaks would indeed be required. It
+would work essentially the same as LF read, except that the PWR_LO signal is held steady
+low. And the module is clocked off CROSS_LO (the received carrier) instead of a carrier
+that we generate ourselves.
 }}}
 
 For `fast’ signals, I use an AD8052. This is a very fast voltage-feedback amplifier ( 100 MHz GBW). I use it immediately after the antenna for both the low- and high-frequency cases, as a sort of an ugly LNA. It is not optimal, but it certainly made the design easy.
@@ -163,4 +168,3 @@ The FPGA mainly does the edge detection and communicates to the ARM whether the 
 
 ===Client===
 The client application is written by Jonathan Westhues [Wes] and connects to the Proxmark via the standard HID protocol. The operating system on the ARM does not represent a proper real-time operating system in the sense that it still polls for things like USB packets. This way it is not possible to stream the retrieved samples on real-time to the PC. So when the ARM retrieves a command from the client it runs this command and stores any useful messages in its memory buffer. After the command finishes the client should send a new command to capture the data from the ARM buffer.
-
