@@ -2,6 +2,10 @@
 
 =Hardware description=
 
+<wiki:toc/>
+
+-----
+
 ==Introduction==
 
 This section dives in more details into the Proxmark3 hardware. It does not go nearly as deep as advanced electronics experts would like, but you are welcome to improve this description by providing your own material !
