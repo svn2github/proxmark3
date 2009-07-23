@@ -2,6 +2,10 @@
 
 =Building=
 
+<wiki:toc/>
+
+-----
+
 ==Can I build/buy one ?==
 Some people sell ready-made Proxmark3â€™s, such as http://proxmark3.com/. As these are made from very small production runs, the devices are not cheap, and run in the region of 400 â‚¬. I actually have no idea of the size of the actual Proxmark3 â€™marketâ€™ and whether resellers do sell a lot of devices or not.
 
