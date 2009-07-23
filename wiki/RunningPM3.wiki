@@ -93,18 +93,14 @@ Thanks to the new flashing mode (keeping the button pressed), it now is fairly s
 ===Supported tag types===
 Below is a table summarizing various tag types and operations supported on the latest SVN version of the Proxmark3 firmware : it is not limitating in any way, get back to me if you have tested other tag types
 
-TODO: turn text below into a table
-
-{{{
-Manufacturer  Tag name  Frequency  Modulation  Read  Simulate  Snoop  Comment
-ST Micro  SRI512  13.56MHz  ISO14443-B  Yes  No  Yes  UID read, memory dump.
-NXP and many others  Mifare  13.56MHz  ISO14443-A  Yes  Yes  Yes  Very Limited simulation capabilities in current firmware
-NXP  icode SLI  13.56MHz  ISO15693  Yes  No  No  Simulation code not working. Limited reading capabilities.
-EM Microelectronics  EM Marin 4200 series  125kHz  125kHz OOK  Yes  Yes  No  Simulation not tested, manchester encoded. Exists in several variants, but I only encountered the Manchester type.
-Nedap  Nedap  125kHz  120kHz OOK  Yes  Yes  No  Simulation not tested, manchested encoded, works at 125kHz
-HID (formerly Motorola)  Indala  125kHz  125kHz BPSK  Yes  Yes  No  UID is scrambled, but replay works.
-HID  HID Prox  125kHz  125kHz FSK  Yes  Yes  No  Replay works. Decoding either on the Proxmark, or in the client.
-}}}
+|| *Manufacturer* || *Tag name* || *Frequency* || *Modulation* || *Read* || *Simulate* || *Snoop* || *Comment* ||
+|| ST Micro || SRI512 || 13.56MHz || ISO14443-B || Yes || No || Yes || UID read, memory dump. ||
+|| NXP and many others || Mifare || 13.56MHz || ISO14443-A || Yes || Yes || Yes || Very Limited simulation capabilities in current firmware ||
+|| NXP || icode SLI || 13.56MHz || ISO15693 || Yes || No || No || Simulation code not working. Limited reading capabilities. ||
+|| EM Microelectronics || EM Marin <br> 4200 series || 125kHz || 125kHz OOK || Yes || Yes || No || Simulation not tested, manchester encoded. <br> Exists in several variants, but I only encountered the Manchester type. ||
+|| Nedap || Nedap || 125kHz || 120kHz OOK || Yes || Yes || No || Simulation not tested, manchested encoded, works at 125kHz ||
+|| HID (formerly Motorola) || Indala || 125kHz || 125kHz BPSK || Yes || Yes || No || UID is scrambled, but replay works. ||
+|| HID || HID Prox || 125kHz || 125kHz FSK || Yes || Yes || No || Replay works. Decoding either on the Proxmark, or in the client. ||
 
 -----
 
@@ -278,20 +274,17 @@ This is a working example of how the sector keys of mifare cards can be retrieve
 
 The trace below is taken from a hi14asnoop session followed by hi14alist to get the beginning of the authentication & encryption protocol :
 
-TODO: turn text below to a table
-{{{
-Commands  Comment
-+ 561882 : 1 : 26  REQA
-+ 64 : 2 : TAG 04 00  Answer reqa
-+ 10217 : 2 : 93 20  Select
-+ 64 : 5 : TAG 9c 59 9b 32 6c  The card’s UID is therefore : 9c 59 9b 32
-+ 12313 : 9 : 93 70 9c 59 9b 32 6c 6b 30  Select with UID
-+ 64 : 3 : TAG 08 b6 dd  Tag type (Mifare 1K)
-+ 923318 : 4 : 60 00 f5 7b  AUTH (block 00)
-+ 112 : 4 : TAG 82 a4 16 6c  Tag challenge (nt, "Nonce Tag")
-+ 6985 : 8 : a1 e4 ! 58 ce ! 6e ea ! 41 e0 !  nr XOR ks1 (Nonce Reader, encrypted, 4 bytes), ar XOR ks2 (Answer Reader to Nonce Tag, encrypted)
-+ 64 : 4 : TAG 5c ! ad f4 39 !  at XOR ks3 (Answer Tag, encrypted)
-}}}
+|| *Commands* || *Comment* ||
+|| + 561882 : 1 : 26 || REQA ||
+|| + 64 : 2 : TAG 04 00 || Answer reqa ||
+|| + 10217 : 2 : 93 20 || Select ||
+|| + 64 : 5 : TAG 9c 59 9b 32 6c || The card’s UID is therefore : 9c 59 9b 32 ||
+|| + 12313 : 9 : 93 70 9c 59 9b 32 6c 6b 30 || Select with UID ||
+|| + 64 : 3 : TAG 08 b6 dd || Tag type (Mifare 1K) ||
+|| + 923318 : 4 : 60 00 f5 7b || AUTH (block 00) ||
+|| + 112 : 4 : TAG 82 a4 16 6c || Tag challenge (nt, "Nonce Tag") ||
+|| + 6985 : 8 : a1 e4 ! 58 ce ! 6e ea ! 41 e0 ! || nr XOR ks1 (Nonce Reader, encrypted, 4 bytes), <br> ar XOR ks2 (Answer Reader to Nonce Tag, encrypted) ||
+|| + 64 : 4 : TAG 5c ! ad f4 39 ! || at XOR ks3 (Answer Tag, encrypted) ||
 
 In order to extract the key for sector 0 from the exchange, we need the following elements :
 
