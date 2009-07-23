@@ -1,12 +1,11 @@
 #summary User's Manual
 =Reference Manual=
-==Users manual==
 
 This reference manual is valid for the current SVN version of the firmware.
 
-*TABLE OF CONTENTS*
-
 <wiki:toc max_depth="3"/>
+
+-----
 
 ==Utility Commands==
 
