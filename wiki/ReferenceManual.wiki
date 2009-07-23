@@ -4,11 +4,10 @@
 
 This reference manual is valid for the current SVN version of the firmware.
 
-<table border=0>
-<tbody> <tr align="left" valign="top"><td width="30%">
 *TABLE OF CONTENTS*
-<wiki:toc max_depth="3"/></td>
-<td>
+
+<wiki:toc max_depth="3"/>
+
 ==Utility Commands==
 
 ===tune===
@@ -675,5 +674,3 @@ Save trace (from graph window)
 ===load===
 
 Load trace (to graph window)
-</td></tr>
-</tbody></table>
