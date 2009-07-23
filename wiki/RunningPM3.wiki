@@ -2,7 +2,7 @@
 
 =Running the PM3=
 
-<wiki:toc>
+<wiki:toc/>
 
 -----
 
