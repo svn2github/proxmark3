@@ -3,7 +3,7 @@
 =Antennas=
 
 ==Connecting the Proxmark3 to an antenna==
-The proxmark supports two loop antennas that are each used to transmit and receive. One is used for LF (125kHz and 134kHz frequencies) and another for HF (13.56MHz). A homegrown antenna does not have to connect through the hirose connector and can be soldered directly to the test points TP2 through TP5.
+The proxmark supports two loop antennas that are each used to transmit and receive. One is used for LF (125kHz and 134kHz frequencies) and another for HF (13.56MHz). A homegrown antenna does not have to connect through the Hirose connector and can be soldered directly to the test points TP2 through TP5.
 
 ==Hirose pinout==
 
@@ -15,12 +15,12 @@ http://proxmark3.googlecode.com/svn/wiki/hirose-pins-2.jpg
 
 High frequency coils should be connected between TP3 and TP4 either on the Hirose connector or soldered direct to the test points. A standard 13.56MHz coil is usually made out of about 4 turns of enamel wire and the coil diameter is about 5cm. The coil can be circular but deforming it into a rectangular shape can help tune it closer to the desired frequency.
 
-The tune command can be used to verify that the antenna is tuned properly. For a High freq antenna, it should return a value of 13 to 16V in the HF coil.
+The tune command can be used to verify that the antenna is tuned properly. For a High frequency antenna, it should return a value over 10 Volts in the HF coil.
 
 ==Low frequency antenna==
 Low frequency coils should be connected between TP2 and TP5 either on the Hirose connector or soldered direct to the test points.. A standard 125kHz coil is made of around a hundred turns of thin enamel wire.
 
-The tune command should return a value of about 20V for a properly tuned antenna.
+The tune command should return a value of over 20 Volts for a properly tuned antenna but it should not exceed 45 Volts.
 
 -----
 
@@ -28,9 +28,7 @@ The tune command should return a value of about 20V for a properly tuned antenna
 
 ==Roel’s Hirose antenna==
 
-This antenna design uses a standard Hirose mini USB cable to create a working 13.56MHz antenna. This is a really neat and cheap design !
-
-To make a very cheap High-Frequency (HF) antenna for all 13.56MHz modulations (MIFARE, Felica,etc.), you only need a cheap USB-Hirose cable.
+This antenna design uses a standard Hirose mini USB cable to make a neat and cheap High Frequency (HF) antenna for all 13.56MHz modulations (MIFARE, Felica,etc.).
 
 On the left you see a Hirose connector, there are multiple mini-USB cables available on the market, so make sure you buy the correct one.
 
