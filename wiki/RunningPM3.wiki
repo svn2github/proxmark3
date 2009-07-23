@@ -351,7 +351,7 @@ Found Key: [ff ff ff ff ff ff]
 ==Troubleshooting==
 ===USB Connection issues===
 
-The Proxmark3 sometimes has trouble with USB connections, especially on Linux.
+The Proxmark3 sometimes has trouble with USB connections, especially on Linux (although as of July 2009 the usb subsystem should automatically detach the Linux kernel driver, so make sure you are running the latest versions before resorting to the following fixes).
 {{{
    For a short term fix : Plug the proxmark in an USB 1.1 hub or directly in a port on the computer, so ehci_hcd does not handle it, but the old USB 1.1 driver (uhci_hcd or ohci_hcd ; unloading ehci_hcd should do the trick, too).
 }}}
