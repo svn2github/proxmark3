@@ -2,21 +2,12 @@
 
 =Running the PM3=
 
-==Using the Proxmark3==
-In this section we will discuss the various practical aspects of running the Proxmark3 in day to day operations.
+<wiki:toc>
 
 -----
 
- * Starting up
- * Firmware
- * Currently supported tag types
- * Examples
-  * Identifying an unknown tag
-  * Cloning/replaying a HID Prox tag
-  * Get the UID of a Mifare card by snooping
-  * Reading a ISO15693 tag
-  * Getting the sector key of a Mifare card
-  * Troubleshooting
+==Using the Proxmark3==
+In this section we will discuss the various practical aspects of running the Proxmark3 in day to day operations.
 
 ==Is it working ?==
 
@@ -90,7 +81,7 @@ Thanks to the new flashing mode (keeping the button pressed), it now is fairly s
 
 -----
 
-===Supported tag types===
+==Supported tag types==
 Below is a table summarizing various tag types and operations supported on the latest SVN version of the Proxmark3 firmware : it is not limitating in any way, get back to me if you have tested other tag types
 
 || *Manufacturer* || *Tag name* || *Frequency* || *Modulation* || *Read* || *Simulate* || *Snoop* || *Comment* ||
@@ -104,7 +95,7 @@ Below is a table summarizing various tag types and operations supported on the l
 
 -----
 
-===Standalone Mode — HID Prox emulation===
+==Standalone Mode - HID Prox emulation==
 The HID Standalone mode is available in SVN revision 52 and above.
 
 To get into stand-alone mode (works with or without a PC), hold the button for a second. You’ll see the lights go into a synchronized little bit. When done, the red1 LED will be lit. When using a PC, debug output will be printed so you see what’s going on.
@@ -267,8 +258,8 @@ http://proxmark3.googlecode.com/svn/wiki/15693-samples.png
 
 -----
 
-==Getting the sector key of a mifare card==
-===Snooping on Mifare communications===
+===Getting the sector key of a mifare card===
+====Snooping on Mifare communications====
 
 This is a working example of how the sector keys of mifare cards can be retrieved with a Proxmark3, using the "crapto-1" package found on Google Code.
 
