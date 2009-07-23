@@ -1,6 +1,6 @@
 #summary Navigation Sidebar
  * [HomePage Home Page]
- * Hardware Description
+ * [HardwareDescription Hardware Description]
  * [Building Building]
  * Antennas
  * Running The PM3
