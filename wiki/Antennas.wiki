@@ -2,6 +2,10 @@
 
 =Antennas=
 
+<wiki:toc/>
+
+-----
+
 ==Connecting the Proxmark3 to an antenna==
 The proxmark supports two loop antennas that are each used to transmit and receive. One is used for LF (125kHz and 134kHz frequencies) and another for HF (13.56MHz). A homegrown antenna does not have to connect through the Hirose connector and can be soldered directly to the test points TP2 through TP5.
 
