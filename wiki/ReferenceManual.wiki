@@ -26,7 +26,7 @@ Read the section on antenna building for more details on how to use this command
 
 For a graphical view of the results issue the plot command. The output shows the voltage measured on the antennas at the most commonly used frequencies 125/134Khz and 13.56Mhz. It also shows where the LF antenna peak voltage occured (LF optimal value) which is where the LF antenna peak resonance is. This command can be used to check whether the LF antenna is properly tuned to the frequency you expect, typically a LF antenna should be tuned to 129Khz for best results with both 125Khz and 134Khz tags.
 
-===detectreader [l|h]===
+===detectreader {{{[l|h]}}}===
 
 Detect external reader field (option 'l' or 'h' to limit to LF or HF)
 
@@ -119,29 +119,41 @@ This command should only be issued after acquiring, downloading and interpreting
 
 More precisely, the trace buffer should contain only zeroes and ones, which will be interpreted by the Proxmark3 as field modulation commands ("open" and "short" coil). This means you need to interpret the raw bitstream using commands such as indalademod, askdemod and others to create a meaningful modulation bitstream.
 
-===loread [h]===
+===loread {{{[h]}}}===
 
 Read (125/134 kHz) LF ID-only tag
 
 loread reads by default on 125kHz. In order to tune the Proxmark to 134kHz, issue loread with the "h" argument : loread h
 
-===tiread===
+===tireadraw===
 
 Read a TI-type 134 kHz tag
 
-Reads a Texas Instruments 134Khz tag and stores the waveform in the buffer. This tag sends a stream of 128 bits as an FM (frequency modulated) waveform. A zero consists of 16 cycles at 123.2Khz and a one consists of 16 cycles at 134.2Khz meaning the duration of ones and zeroes is slightly different therefore the bit boundaries are not at regular intervals.
+Reads a Texas Instruments 134Khz tag and stores the raw waveform in the buffer. This tag sends a stream of 128 bits as an FM (frequency modulated) waveform. A zero consists of 16 cycles at 123.2Khz and a one consists of 16 cycles at 134.2Khz meaning the duration of ones and zeroes is slightly different therefore the bit boundaries are not at regular intervals.
 
 ===tibits===
 
 Get raw bits for TI-type LF tag
 
-Retrieves the data stream stored by tiread.
+Retrieves the raw data stream stored by tireadraw.
 
 ===tidemod===
 
 Demod raw bits for TI-type LF tag
 
-Tries to demodulate the data stream retrieved by tibits. Use the plot command to see a graphical output.
+Demodulate the data stream retrieved by tibits. Performs some checks on the recovered data and prints relevant info. Use the plot command to see a graphical output of the demodulated waveform and the detected bit boundaries.
+
+===tiread===
+
+*TODO: this command isn't complete yet*
+
+Reads a TI-type 134 kHz tag and demodulates the waveform into a human readable output. Performs some checks on the recovered data and prints relevant info. 
+
+===tiwrite hi lo {{{[crc]}}}===
+
+Writes data to a TI tag
+
+Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc)
 
 ===vchdemod===
 
@@ -187,7 +199,7 @@ Occurences: 11 (expected 11)
 proxmark3>
 }}}
 
-===em410xread [clock]===
+===em410xread {{{[clock]}}}===
 
 Reads the ID from an EM410x tag (the plot should contain the raw tag).  Clock is optional, usually has a value of 64.
 
@@ -201,7 +213,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-===em410xsim [tag id]===
+===em410xsim {{{[tag id]}}}===
 
 Simulates an EM410x tag with the specified ID. Example :
 
@@ -220,7 +232,7 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
-===manmod [clock]===
+===manmod {{{[clock]}}}===
 
 This will Manchester modulate the graphed bitstream. It's a helper function for em410xsim but can be re-used.
 
@@ -235,7 +247,7 @@ Example :
 Auto-detected clock rate: 64
 }}}
 
-===bitstream [clock]===
+===bitstream {{{[clock]}}}===
 
 Converts a waveform into a bitstream. The number of "samples" is still the same but it's easier to read a stream. I've only tested this using EM4102 tags.
 
