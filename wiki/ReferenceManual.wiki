@@ -153,7 +153,7 @@ Reads a TI-type 134 kHz tag and demodulates the waveform into a human readable o
 
 Writes data to a TI tag
 
-Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc). Once the write is finished, the tag immediately transmits the data written back, so this command performs a tireadraw and stores the raw waveform in the buffer ready to be used by tibits and tidemod.
+Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc). Once the write is finished, the tag immediately transmits the data written back, so this command performs a tireadraw and stores the raw waveform in the buffer. Use tibits and tidemod to see if the write was successful. TODO: once [tiread] is implemented, tiwrite can verify the write success status by itself.
 
 Example:
 
