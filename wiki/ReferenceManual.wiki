@@ -153,7 +153,24 @@ Reads a TI-type 134 kHz tag and demodulates the waveform into a human readable o
 
 Writes data to a TI tag
 
-Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc)
+Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc). Once the write is finished, the tag immediately transmits the data written back, so this command performs a tireadraw and stores the raw waveform in the buffer ready to be used by tibits and tidemod.
+
+Example:
+
+{{{
+> tiwrite 0xfeedbeef 0xdeadfade
+#db# Writing the following data to tag:
+#db# feedbeef, deadfade, 00004bc8
+#db# Now use tibits and tidemod
+> tibits
+> tidemod
+actual data bits start at sample 5851
+length 260/238
+Info: raw tag bits = 1.1111.11.1.111111.11.1.1.1111.111111.111.11111.11.11.111.1111111...1..1111.1..1..1111111.1111.11.1.1111
+Info: Rewriteable TI tag detected.
+Info: Tag data = FEEDBEEFDEADFADE
+Info: CRC 4BC8 is good
+}}}
 
 ===vchdemod===
 
