@@ -249,6 +249,12 @@ Auto-detected clock rate: 64
 EM410x Tag ID: 1a0041375d
 }}}
 
+
+===em4x50read===
+
+Reads the transmitted data of an EM4x50 tag, the format is slightly different from EM410x tags. To be executed after a "loread + losamples 4000" (or losamples 6000 etc...).
+
+
 ===manmod {{{[clock]}}}===
 
 This will Manchester modulate the graphed bitstream. It's a helper function for em410xsim but can be re-used.
