@@ -7,7 +7,7 @@ In order to obtain the latest source code you need to check it out of the SVN re
  * Run it and from the Bookmark menu select "new project"
  * In the Project Name field type *proxmark*, then click Next.
  * In this window, leave the fields blank, just click Next.
- * In the URL field enter *http://proxmark3.googlecode.com/svn/trunk/ * and click Next.
+ * In the URL field enter *!http://proxmark3.googlecode.com/svn/trunk/ * and click Next.
  * On the next screen, do not enter anything, just press Finish.
 
 You're now ready to download the source code. In your Projects pane on the left, expand the proxmark tree and you should now see an entry called *trunk*. Right click on it and select *check out* from the menu. In the working copy path field type *C:\prox-dev\proxmark* then click OK and wait for the checkout to complete.
@@ -64,4 +64,8 @@ Type *prox fpga load ..\armsrc\obj\osimage.s19* and hit enter. This will cause t
 
 =Linux Platform=
 
+To be added.
+
 =OSX Platform=
+
+To be added.
