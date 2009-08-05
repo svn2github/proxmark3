@@ -63,7 +63,7 @@ You only have to flash the FPGA if there has been a change in the FPGA code. Thi
 
 Connect the PM3 board via the USB cable. Type
 {{{
-prox fpga fpga ..\armsrc\obj\fpgaimage.s19
+prox fpga ..\armsrc\obj\fpgaimage.s19
 }}}
 and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. While holding the button down, re-issue the previous command. The flash process begins. When the flashing is complete, release the PM3 button.
 
@@ -72,7 +72,7 @@ This is the code that changes most often and needs to be flashed.
 
 Connect the PM3 board via the USB cable. Type
 {{{
-prox fpga load ..\armsrc\obj\osimage.s19
+prox load ..\armsrc\obj\osimage.s19
 }}}
 and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. While holding the button down, re-issue the previous command. The flash process begins. When the flashing is complete, release the PM3 button.
 
