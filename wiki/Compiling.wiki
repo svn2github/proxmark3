@@ -1,4 +1,5 @@
 #summary Compiling code for the PM3
+<wiki:toc>
 =Windows Platform=
 == Setting up Subversion ==
 In order to obtain the latest source code you need to check it out of the SVN repository. To do that you can use any number of free clients. This guide will show you how to use Subcommander which is a good choice for n00bs as it has a graphical interface and does not require command line access.
@@ -23,7 +24,6 @@ Extract the archive to C:\prox-dev then check that you have the following subdir
  * devkitWIN
  * proxmark
 If not, move the extracted directories so that they sit inside C:\prox-dev
-
 == Compiling the code ==
 
 Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
@@ -40,7 +40,6 @@ and wait for the compile to finish.
  * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom-merged.s19
  * Check the directory C:\prox-dev\proxmark\winsrc to fin the file prox.exe
 If you see these files, the compile was successful. It is *not* necessary to have the PM3 board connected via USB in order to compile the code.
-
 == Flashing the board ==
 
 Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
