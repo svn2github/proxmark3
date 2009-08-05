@@ -38,7 +38,7 @@ At the prompt type
 and wait for the compile to finish.
  * Check the directory C:\prox-dev\proxmark\armsrc\obj to find the files fpgaimage.s19 and osimage.s19
  * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom-merged.s19
- * Check the directory C:\prox-dev\proxmark\winsrc to fin the file prox.exe
+ * Check the directory C:\prox-dev\proxmark\winsrc to find the file prox.exe
 If you see these files, the compile was successful. It is *not* necessary to have the PM3 board connected via USB in order to compile the code.
 == Flashing the board ==
 
