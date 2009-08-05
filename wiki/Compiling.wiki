@@ -9,7 +9,6 @@ In order to obtain the latest source code you need to check it out of the SVN re
  * In this window, leave the fields blank, just click Next.
  * In the URL field enter {{{http://proxmark3.googlecode.com/svn/trunk/ }}} and click Next.
  * On the next screen, do not enter anything, just press Finish.
-
 You're now ready to download the source code. In your Projects pane on the left, expand the proxmark tree and you should now see an entry called {{{trunk}}}. Right click on it and select {{{check out}}} from the menu. In the working copy path field type {{{C:\prox-dev\proxmark}}} then click OK and wait for the checkout to complete.
 
 Using your file explorer, browse to C:\prox-dev\proxmark and you should see a number of subdirectories with source files in them. Rejoice!
@@ -23,12 +22,14 @@ Extract the archive to C:\prox-dev then check that you have the following subdir
  * devkitARM
  * devkitWIN
  * proxmark
-
 If not, move the extracted directories so that they sit inside C:\prox-dev
 
 == Compiling the code ==
 
-Browse to the folder C:\prox-dev\proxmark\cockpit and run the file {{{0setpath.bat}}}
+Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
+{{{
+0setpath.bat
+}}}
 A command window opens up.
 At the prompt type
 {{{
@@ -38,7 +39,6 @@ and wait for the compile to finish.
  * Check the directory C:\prox-dev\proxmark\armsrc\obj to find the files fpgaiamge.s19 and osimage.s19
  * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom-merged.s19
  * Check the directory C:\prox-dev\proxmark\winsrc to fin the file prox.exe
-
 If you see these files, the compile was successful. It is *not* necessary to have the PM3 board connected via USB in order to compile the code.
 
 == Flashing the board ==
