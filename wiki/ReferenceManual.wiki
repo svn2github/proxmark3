@@ -125,35 +125,27 @@ Read (125/134 kHz) LF ID-only tag
 
 loread reads by default on 125kHz. In order to tune the Proxmark to 134kHz, issue loread with the "h" argument : loread h
 
-===tireadraw===
-
-Read a TI-type 134 kHz tag
-
-Reads a Texas Instruments 134Khz tag and stores the raw waveform in the buffer. This tag sends a stream of 128 bits as an FM (frequency modulated) waveform. A zero consists of 16 cycles at 123.2Khz and a one consists of 16 cycles at 134.2Khz meaning the duration of ones and zeroes is slightly different therefore the bit boundaries are not at regular intervals.
-
-===tibits===
-
-Get raw bits for TI-type LF tag
-
-Retrieves the raw data stream stored by tireadraw.
-
 ===tidemod===
 
 Demod raw bits for TI-type LF tag
 
-Demodulate the data stream retrieved by tibits. Performs some checks on the recovered data and prints relevant info. Use the plot command to see a graphical output of the demodulated waveform and the detected bit boundaries.
+Demodulate the data stream retrieved by hisampless following a tiread. Performs some checks on the recovered data and prints relevant info. Use the plot command to see a graphical output of the demodulated waveform and the detected bit boundaries.
 
 ===tiread===
 
-*TODO: this command isn't complete yet*
+Read a TI-type 134 kHz tag and store the raw waveform in the buffer.
 
-Reads a TI-type 134 kHz tag and demodulates the waveform into a human readable output. Performs some checks on the recovered data and prints relevant info. 
+This tag sends a stream of 128 bits as an FM (frequency modulated) waveform. A zero consists of 16 cycles at 123.2Khz and a one consists of 16 cycles at 134.2Khz meaning the duration of ones and zeroes is slightly different therefore the bit boundaries are not at regular intervals.
+
+Once the tag is read,  the waveform stored in the buffer is demodulated into a set of three hex numbers (high 32 bits, low 32 bits and crc). Some checks are performed on the recovered data and relevant info printed. The TI tag stores 64 bits of data and a 16 bit crc. On the rewriteable TI tags, the crc written to the tag doesn't have to be valid, therefore 64+16=80 bits of data can be written.
+
+At the completion of this command, the raw waveform is available in the buffer and can be retrieved by hisampless 40000.
 
 ===tiwrite hi lo {{{[crc]}}}===
 
 Writes data to a TI tag
 
-Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc). Once the write is finished, the tag immediately transmits the data written back, so this command performs a tireadraw and stores the raw waveform in the buffer. Use tibits and tidemod to see if the write was successful. TODO: once [ReferenceManual#tiread tiread] is implemented, tiwrite can verify the write success status by itself.
+Takes two hex parameters that form the 64 bit data to be written. Optionally a hex crc can be provided. If no crc is provided, one will be computed before writing. If a crc is provided, it will be written verbatim, even if it's wrong. This allows one to write up to 80 arbitrary bits to the tag (64 data + 16 crc). Once the write is finished, the tag immediately transmits the data written back, so this command reads and stores the raw waveform in the buffer.
 
 Example:
 
@@ -161,8 +153,8 @@ Example:
 > tiwrite 0xfeedbeef 0xdeadfade
 #db# Writing the following data to tag:
 #db# feedbeef, deadfade, 00004bc8
-#db# Now use tibits and tidemod
-> tibits
+#db# Now use tiread to check
+> hisampless 40000
 > tidemod
 actual data bits start at sample 5851
 length 260/238
