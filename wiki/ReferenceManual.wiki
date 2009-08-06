@@ -154,6 +154,22 @@ Example:
 #db# Writing the following data to tag:
 #db# feedbeef, deadfade, 00004bc8
 #db# Now use tiread to check
+> tiread
+#db# Info: TI tag is rewriteable
+#db# Info: TI tag ident is valid
+#db# Info: Tag data_hi, data_lo, crc = 
+#db# feedbeef, deadfade, 00004bc8
+
+#db# Info: CRC is good
+}}}
+
+Alternatively if you want to decode the tag on the client side (PC):
+
+{{{
+> tiwrite 0xfeedbeef 0xdeadfade
+#db# Writing the following data to tag:
+#db# feedbeef, deadfade, 00004bc8
+#db# Now use tiread to check
 > hisampless 40000
 > tidemod
 actual data bits start at sample 5851
