@@ -129,7 +129,7 @@ Connect the PM3 board via the USB cable. Type
 ./flasher os ../armsrc/obj/osimage.s19
 }}}
 and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down.The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
- 
+
 You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
 
 {{{
