@@ -82,7 +82,77 @@ and hit enter. This will cause the board to reset. Immediately press and hold th
 
 =Linux Platform=
 
-To be added.
+== Flashing the board ==
+
+Browse to the linux source folder in your SVN repo: .../linux
+ 
+===Flashing the bootloader===
+ 
+You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*.
+ 
+ 
+Type
+
+{{{
+./flasher boot ../bootrom/obj/bootrom.s19 f
+}}}
+
+but do not press enter yet.
+
+Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
+
+===Flashing the FPGA===
+
+You only have to flash the FPGA if there has been a change in the FPGA code. This happens fairly infrequently.
+
+Connect the PM3 board via the USB cable. Type
+ 
+{{{ 
+./flasher fpga ../armsrc/obj/fpgaimage.s19
+}}}
+ 
+and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
+
+You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
+
+{{{
+./flasher fpga ../armsrc/obj/fpgaimage.s19 f
+}}}
+
+===Flashing the ARM===
+ 
+This is the code that changes most often and needs to be flashed.
+
+Connect the PM3 board via the USB cable. Type
+ 
+{{{
+./flasher os ../armsrc/obj/osimage.s19
+}}}
+and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down.The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
+ 
+You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
+
+{{{
+./flasher os ../armsrc/obj/osimage.s19 f
+}}}
+
+===Flashing both the FPGA and the ARM in one go===
+
+If you know you need to flash both FPGA and ARM code, this will save time as it will not reboot the PM3 between flashes.
+
+Connect the PM3 board via the USB cable. Type
+
+{{{
+./flasher both ../armsrc/obj/osimage.s19 ../armsrc/obj/fpgaimage.s19
+}}}
+
+and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
+
+You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
+
+{{{
+./flasher both ../armsrc/obj/osimage.s19 ../armsrc/obj/fpgaimage.s19 f
+}}}
 
 =OSX Platform=
 
