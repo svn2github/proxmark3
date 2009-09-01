@@ -60,7 +60,7 @@ Type
 prox boot ..\bootrom\obj\bootrom.s19
 }}}
 but do not press enter yet.
-Connect the USB cable to the board while hoding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
+Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
 
 ===Flashing the FPGA===
 You only have to flash the FPGA if there has been a change in the FPGA code. This happens fairly infrequently.
