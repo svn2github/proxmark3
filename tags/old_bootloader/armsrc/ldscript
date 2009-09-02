@@ -1,0 +1,25 @@
+INCLUDE ../common/ldscript.common
+
+ENTRY(Vector)
+SECTIONS
+{
+	.fpgaimage : {
+		*(fpga_bit.data)
+	} >fpgaimage
+	.start : { *(.startos) } >osimage
+	.text : { 
+		*(.text)
+		*(.text.*)
+		*(.glue_7)
+		*(.glue_7t)
+		*(.version_information)
+	} >osimage
+	.rodata : { 
+		*(.rodata) 
+		*(.rodata*) 
+	} >osimage
+	.data : { *(.data) } >ram
+	__bss_start__ = .;
+	.bss : { *(.bss) } >ram
+	__bss_end__ = .;
+}
