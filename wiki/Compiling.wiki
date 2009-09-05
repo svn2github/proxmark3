@@ -16,10 +16,7 @@ Using your file explorer, browse to C:\prox-dev\proxmark and you should see a nu
 
 == Setting up the compile environment ==
 
-*Temporary breakage*: For SVN checkouts including and after revision 172 (2009-08-26 13:17:05 +0200) you need a new set of Windows tools from [http://www2.ploetzli.ch/~henryk/3fa25a104af320d0770125b4644028ec/2009.08.26.ProxSpace.zip this archive]. These will be moved to the main file repository some time soonish.
-
-Download the 
-[http://www.proxmark.org/files/index.php?dir=Sources/Windows-Compile-Environment/&download=2008.11.11.ProxSpace.zip Compile Environment] archive, you will need to create a free account at http://proxmark.org/forum in order to download files.
+Download the [http://proxmark3.googlecode.com/files/2009.09.05.ProxSpace.zip Compile Environment] archive.
 
 Extract the archive to C:\prox-dev then check that you have the following subdirectories:
  * devkitARM
@@ -39,7 +36,7 @@ At the prompt type
 }}}
 and wait for the compile to finish.
  * Check the directory C:\prox-dev\proxmark\armsrc\obj to find the files fpgaimage.s19 and osimage.s19
- * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom.s19 (was bootrom-merged.s19 before SVN revision 172)
+ * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom.s19
  * Check the directory C:\prox-dev\proxmark\winsrc to find the file prox.exe
 If you see these files, the compile was successful. It is *not* necessary to have the PM3 board connected via USB in order to compile the code.
 == Flashing the board ==
@@ -51,16 +48,19 @@ Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
 A command window opens up.
 
 ===Flashing the bootloader===
-*Temporary breakage*: Since SVN revision 201 (2009-09-01 16:44:38 +0200) the bootloader protocol is incompatible with old flash tools. Do not update your bootloader until a new flash tool is available for your platform. The Linux flash tool was updated in SVN revision 200. At this time, no new Windows flash tool is available. Note: Flashing a new osimage without touching the bootloader is ok, even for old bootloaders.
+Note: Since SVN revision 201 (2009-09-01 16:44:38 +0200) the bootloader protocol is incompatible with old flash tools. Please use only new flash tools to prevent any problems. The new Linux flash tool is available since SVN revision 200, the new Windows flash tool is available since SVN revision 209.
 
-You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*.
+You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*. It is however strongly recommended to update to the new revision 201 bootloader (as included in the summer '09 release), if you don't already have it (the flash tool will inform you of this).
 
 Type
 {{{
-prox boot ..\bootrom\obj\bootrom.s19
+prox bootrom ..\bootrom\obj\bootrom.s19
 }}}
 but do not press enter yet.
-Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
+
+  * For old bootloaders (before SVN revision 201/summer '09 release): Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
+  * For new bootloaders and osimages (after and including the summer '09 release): You don't have to do anything, the proxmark will automatically enter the bootloader, complete the flash sequence and reset into the OS. If you press and release the button while the bootloader is active, you'll abort the flash process, so don't do that. However, the old procedure (press button before applying power to the proxmark and keep it pressed until the flashing is complete) should still work.
+
 
 ===Flashing the FPGA===
 You only have to flash the FPGA if there has been a change in the FPGA code. This happens fairly infrequently.
@@ -69,16 +69,23 @@ Connect the PM3 board via the USB cable. Type
 {{{
 prox fpga ..\armsrc\obj\fpgaimage.s19
 }}}
-and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. While holding the button down, re-issue the previous command. The flash process begins. When the flashing is complete, release the PM3 button.
+and hit enter. See above for button pressing instructions.
 
 ===Flashing the ARM===
 This is the code that changes most often and needs to be flashed.
 
 Connect the PM3 board via the USB cable. Type
 {{{
-prox load ..\armsrc\obj\osimage.s19
+prox os ..\armsrc\obj\osimage.s19
 }}}
-and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. While holding the button down, re-issue the previous command. The flash process begins. When the flashing is complete, release the PM3 button.
+and hit enter. See above for button pressing instructions.
+
+===Flashing more than one partition at a time===
+With the new flash tool you can do things like
+{{{
+prox os,fpga ..\armsrc\obj\osimage.s19 ..\armsrc\obj\fpgaimage.s19
+}}}
+
 
 =Linux Platform=
 
@@ -88,18 +95,20 @@ Browse to the linux source folder in your SVN repo: .../linux
  
 ===Flashing the bootloader===
  
-You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*.
- 
+Note: Since SVN revision 201 (2009-09-01 16:44:38 +0200) the bootloader protocol is incompatible with old flash tools. Please use only new flash tools to prevent any problems. The new Linux flash tool is available since SVN revision 200, the new Windows flash tool is available since SVN revision 209.
+
+You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*. It is however strongly recommended to update to the new revision 201 bootloader (as included in the summer '09 release), if you don't already have it (the flash tool will inform you of this).
  
 Type
 
 {{{
-./flasher boot ../bootrom/obj/bootrom.s19 f
+./flasher bootrom ../bootrom/obj/bootrom.s19
 }}}
 
 but do not press enter yet.
 
-Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
+  * For old bootloaders (before SVN revision 201/summer '09 release): Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
+  * For new bootloaders and osimages (after and including the summer '09 release): You don't have to do anything, the proxmark will automatically enter the bootloader, complete the flash sequence and reset into the OS. If you press and release the button while the bootloader is active, you'll abort the flash process, so don't do that. However, the old procedure (press button before applying power to the proxmark and keep it pressed until the flashing is complete) should still work.
 
 ===Flashing the FPGA===
 
@@ -111,13 +120,7 @@ Connect the PM3 board via the USB cable. Type
 ./flasher fpga ../armsrc/obj/fpgaimage.s19
 }}}
  
-and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
-
-You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
-
-{{{
-./flasher fpga ../armsrc/obj/fpgaimage.s19 f
-}}}
+and hit enter. See above for button pressing instructions.
 
 ===Flashing the ARM===
  
@@ -128,13 +131,7 @@ Connect the PM3 board via the USB cable. Type
 {{{
 ./flasher os ../armsrc/obj/osimage.s19
 }}}
-and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down.The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
-
-You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
-
-{{{
-./flasher os ../armsrc/obj/osimage.s19 f
-}}}
+and hit enter. See above for button pressing instructions.
 
 ===Flashing both the FPGA and the ARM in one go===
 
@@ -143,16 +140,10 @@ If you know you need to flash both FPGA and ARM code, this will save time as it 
 Connect the PM3 board via the USB cable. Type
 
 {{{
-./flasher both ../armsrc/obj/osimage.s19 ../armsrc/obj/fpgaimage.s19
+./flasher os,fpga ../armsrc/obj/osimage.s19 ../armsrc/obj/fpgaimage.s19
 }}}
 
-and hit enter. This will cause the board to reset. Immediately press and hold the PM3 button down. The flash process begins when the PM3 is detected by the OS. When the flashing is complete, release the PM3 button.
-
-You can also append an 'f' to the command line to avoid the PM3 reset if you plugged it in with the button held down already:
-
-{{{
-./flasher both ../armsrc/obj/osimage.s19 ../armsrc/obj/fpgaimage.s19 f
-}}}
+and hit enter. See above for button pressing instructions. 
 
 =OSX Platform=
 
