@@ -1,5 +1,50 @@
- #summary Compiling code for the PM3
 <wiki:toc>
+=Generic notes=
+==Flash sections==
+The firmware of the proxmark3 contains three distinct sections that can be flashed independently: bootloader, fpga image and os image.
+
+===Bootloader===
+  * File name: `bootrom/obj/bootrom.s19`
+
+The *bootloader* (sometimes also called bootrom) is a small piece of code that enables writing to the flash over USB in the first place. It's updated very infrequently and, due to its importance, should be left alone most of the time. As long as your bootloader is intact you can recover any firmware error of your proxmark3 with just an USB connection and the provided flash tools. When you destroy your bootloader, you will need a JTAG connection and associated tools to recover the device.
+
+===FPGA image===
+  * File name: `armsrc/obj/fpgaimage.s19`
+
+The *FPGA image* is the configuration/code that runs on the FPGA that sits on the proxmark3. Since the FPGA doesn't have flash memory of its own, this configuration is stored in the flash memory of the ARM processor and downloaded into the FPGA on each boot of the device. The FPGA code (called bit stream) is updated fairly infrequently, and special tools are needed to compile the bit stream from the verilog sources. The proxmark3 firmware source releases and SVN checkouts always contain a compiled bit stream (in fpga/fpga.bit) which is then simply wrapped into an image file for you to flash onto the proxmark3.
+
+===OS image===
+  * File name: `armsrc/obj/osimage.s19`
+
+The *OS image* is the main firmware code that runs on your proxmark3. It is developed and regularly updated in the SVN, but if you don't need the latest features you are well off using the provided binary releases. (Note also: since the SVN is considered eternal work-in-progess, a current SVN version might not work or even build.) The OS image and FPGA image work in tandem, so you should always flash them from the same SVN revision.
+
+==Flash tool==
+  * Windows: `winsrc\prox.exe (bootrom|fpga|os) ...`
+  * Linux: `linux/flasher (bootrom|fpga|os) ...`
+
+===Entering the bootloader===
+Since the proxmark3 can execute in two distinct modes (main os, and bootloader) it needs to be in bootloader mode if you want to write to the flash. There are two ways of entering bootloader mode:
+  # If you press (and keep pressed) the button on the proxmark3 while applying power (or resetting the device) it will enter bootloader mode right away. This is indicated by the yellow and red LEDs staying on and the green and other red LED being off. If you let go of the button, the bootloader will exit and (try to) give control to the os image.
+  # If your osimage is intact, the bootloader can also be entered by request of the flash tool. In this case you don't need to do anything. If you press the button while the bootloader is active, your button press will override the flash tool request and the device will stay in bootloader mode as long as you keep the button pressed. That means: pressing and releasing the button aborts bootloader mode.
+
+The second option only works with a new bootrom and a new osimage (SVN revision 201 or later; summer '09 release or later), the first option should always work with all bootroms since at least SVN revision 2.
+
+==Host tool==
+  * Windows: `winsrc\prox.exe gui`
+  * Linux: `linux/proxmark3`
+
+==Known incompatibilities==
+  * Bootroms since SVN revision 201 will not work with the Linux flash tool before SVN revision 200 or Windows flash tool before SVN revision 209. If in doubt, use both bootrom and flash tool from the latest release (summer '09).
+  * FPGA image since SVN revision 179 will not work with OS image before SVN revision 179 due to a changed FPGA image format.
+  * OS image since revision 137 is not completely compatible with host tools before SVN revision 137 due to an inadvertent change. This only affects a small number of host tool commands, including hisamples and losim.
+
+=Prerequisites for compiling from source=
+For the `bootrom` and `armsrc` directories you need GNU make and a GNU arm toolchain (at least gcc and binutils).
+
+For the `linux` directory you need FIXME
+
+For the `winsrc` directory you need FIXME. This is provided in the "Windows development environment" zip file.
+
 =Windows Platform=
 == Setting up Subversion ==
 In order to obtain the latest source code you need to check it out of the SVN repository. To do that you can use any number of free clients. This guide will show you how to use Subcommander which is a good choice for n00bs as it has a graphical interface and does not require command line access.
