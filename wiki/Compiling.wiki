@@ -34,9 +34,10 @@ The second option only works with a new bootrom and a new osimage (SVN revision 
   * Linux: `linux/proxmark3`
 
 ==Known incompatibilities==
+Unless otherwise noted these incompatibilities are not mutual, f.e. a new flash tool will work with both new and old bootroms.
   * Bootroms since SVN revision 201 will not work with the Linux flash tool before SVN revision 200 or Windows flash tool before SVN revision 209. If in doubt, use both bootrom and flash tool from the latest release (summer '09).
   * FPGA image since SVN revision 179 will not work with OS image before SVN revision 179 due to a changed FPGA image format.
-  * OS image since revision 137 is not completely compatible with host tools before SVN revision 137 due to an inadvertent change. This only affects a small number of host tool commands, including hisamples and losim.
+  * OS image and host tools before and after SVN revision 137 are mutually incompatible due to an inadvertent change. This only affects a small number of host tool commands, including hisamples and losim.
 
 =Prerequisites for compiling from source=
 For the `bootrom` and `armsrc` directories you need GNU make and a GNU arm toolchain (at least gcc and binutils).
