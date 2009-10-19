@@ -21,7 +21,7 @@ With the original firmware, the boot sequence is as follows :
  * Red only
  * All LEDs off
 
-With the 20091211 version, here is what happens :
+With the 20081211 version, here is what happens :
 
 {{{
 LED boot sequence now changed, C (red) lights up when boot code jumps from flash to RAM boot code, A (yellow) lights up after clocks have been initialized, B (green) lights up when jumping from boot code to main code, then D (red led away from the others) lights up while code is being downloaded to FPGA, then all leds turn off and board is ready for action.
