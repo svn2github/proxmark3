@@ -5,5 +5,5 @@
  * [Antennas Antennas]
  * [Compiling]
  * [RunningPM3 Running The PM3]
- * [ReferenceManual User's Manual]
+ * [ReferenceManual Reference Manual]
  * [TagOps LF Tag Operations]
