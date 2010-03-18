@@ -1,5 +1,8 @@
 <wiki:toc>
 =Generic notes=
+
+NOTE: this page is currently being changed and updated to reflect the most recent changes to the USB protocol and bootloader updates.
+
 ==Flash sections==
 The firmware of the proxmark3 contains three distinct sections that can be flashed independently: bootloader, fpga image and os image.
 
@@ -18,7 +21,44 @@ The *FPGA image* is the configuration/code that runs on the FPGA that sits on th
 
 The *OS image* is the main firmware code that runs on your proxmark3. It is developed and regularly updated in the SVN, but if you don't need the latest features you are well off using the provided binary releases. (Note also: since the SVN is considered eternal work-in-progess, a current SVN version might not work or even build.) The OS image and FPGA image work in tandem, so you should always flash them from the same SVN revision.
 
-==Flash tool==
+
+==Revision history and flashing procedures==
+
+As mentioned above, the Proxmark3 is largely a constant work in progress. Its firmware started off as a big update from the older ProxmarkII project, and was mainly aimed at demonstrating a few key concepts rather than provide a polished end-user interface.
+
+Over time, and thanks to the many contributions of all the developers on the project, the firmware has evolved in many ways: new commands and features, more refined firmware architecture, etc.
+
+While very exciting, this has also led to a bit of confusion as to exactly how to load firmware onto a Proxmark3 board, and what releases should be used. This section tries to explain the main milestones and how to get from one milestone to the next.
+
+
+===Original firmware===
+
+The original firmware which is the one shipped on some pre-built Proxmark3 devices is now generally considered as outdated. If your Proxmark3 is loaded with the original firmware, you should consider upgrading to the most recent binary release.
+
+With this original firmware, there is no Linux client, and flashing is done using the "prox" windows command. Note that normally, you should never need to use those since this firmware is outdated: you should use the flashing commands provided by more recent versions of the PM3 to upgrade your board.
+
+
+===Summer '09 release (SVN r216)===
+
+* Upgrading from the original firmware: you should first of all upgrade the bootloader, by entering the (original) bootloaded by keeping the PM3's button pressed and launch the prox or flasher command depending on your OS (please refer to the 'flashing the bootloader' instructions further below on this page). Once the bootloader is upgraded, the PM3 will be confused and won't find its OS image. This is fine: by using the flasher tool you will be able to first flash the FPGA image, then OS image (instructions further below as well).
+
+
+===Winter '10 release (SVN r412)===
+
+This release introduces other major changes to the firmware, and the bootloader as well as FPGA & OS images should be updated, using the "flasher" command on both Windows and Linux. The flashing commands have changed a lot as well as the USB protocol, so you will first need to install a specific PM3 driver is you are on Windows, as described below:
+
+- Start / Control Panel / System / Hardware / Device Manager
+- Find the Proxmark under "Human Interface Devices", it will show up as a "USB Human Interface Device". Pay attention to the "USB" in the name of the device: do not choose the "HID Compliant device" with the same PID/VID
+- Right click the device and select "Update Driver"
+- Choose "No, not this time" if Windows asks you for Windows update permission
+- Choose "install from a list or specific location"
+- Select "Don't search, I will choose" and on the next dialog press "Have Disk..."
+- Browse for your PM3's driver directory
+
+
+
+==Flash tools==
+
   * Windows: `winsrc\prox.exe (bootrom|fpga|os) ...`
   * Linux: `linux/flasher (bootrom|fpga|os) ...`
 
@@ -47,6 +87,7 @@ For the `linux` directory you need pkg-config, gcc, GNU binutils, GNU make, libu
 For the `winsrc` directory you need FIXME. This is provided in the "Windows development environment" zip file.
 
 =Windows Platform=
+
 == Setting up Subversion ==
 In order to obtain the latest source code you need to check it out of the SVN repository. To do that you can use any number of free clients. This guide will show you how to use Subcommander which is a good choice for n00bs as it has a graphical interface and does not require command line access.
 
@@ -69,6 +110,7 @@ Extract the archive to C:\prox-dev then check that you have the following subdir
  * devkitWIN
  * proxmark
 If not, move the extracted directories so that they sit inside C:\prox-dev
+
 == Compiling the code ==
 
 Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
@@ -85,7 +127,11 @@ and wait for the compile to finish.
  * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom.s19
  * Check the directory C:\prox-dev\proxmark\winsrc to find the file prox.exe
 If you see these files, the compile was successful. It is *not* necessary to have the PM3 board connected via USB in order to compile the code.
+
+
 == Flashing the board ==
+
+Please refer to the Flashing instructions above, depending on your SVN revision.
 
 Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
 {{{
