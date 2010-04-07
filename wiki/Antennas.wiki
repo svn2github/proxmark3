@@ -32,7 +32,9 @@ The tune command should return a value of over 20 Volts for a properly tuned ant
 
 ==Roel’s Hirose antenna==
 
-This antenna design uses a standard Hirose mini USB cable to make a neat and cheap High Frequency (HF) antenna for all 13.56MHz modulations (MIFARE, Felica,etc.).
+This antenna design uses a standard Hirose mini USB cable to make a neat and cheap High Frequency (HF) antenna for all 13.56MHz modulations (MIFARE, Felica,etc.). 
+
+The antenna forms a LC circuit with proxmark3's C35 capacitor. This design works best when C35 is a 47pF capacitor, but some proxmark3 boards are known to have 100pF capacitors. If you have a 100pF capacitor, the inductance of L will need to be lower than the antenna of this design creates. The formula for calculating the proper value of L given a known frequency (F) and capacitor value (C) is F=1/(2*pi*sqrt(L*C)).
 
 On the left you see a Hirose connector, there are multiple mini-USB cables available on the market, so make sure you buy the correct one.
 
