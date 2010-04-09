@@ -19,7 +19,7 @@ From the [http://www.cq.cx/proxmark3.pl original website] :
 
 It should be pointed out quite early that the proxmark3 is not really for beginners. If you are not already fairly familiar with electronics, embedded programming, some RF design and ISO standards, this device will probably bring you more frustration than anything else !
 
-If you are reasonably hard core, you could build one yourself. The Eagle PCB designs, gerber files, etc are freely available. There is an updated component list which can help you source the components from any of the major suppliers. Alternatively you could buy a ready-made board from somewhere like [http://www.proxmark3.com proxmark3.com]
+If you are reasonably hard core, you could build one yourself. The Eagle PCB designs, gerber files, etc are freely available. There is an updated component list which can help you source the components from any of the major suppliers. Alternatively you could buy a ready-made board from somewhere like [http://www.proxmark3.com proxmark3.com] or [http://hackable-devices.org/products/product/proxmark3/ hackable-devices.org]
 
 Typically, an "out of the box" proxmark3 with the latest firmware can run acquisitions in LF and HF mode and output traces, quite useful already, decode a number of different tag types, do some operations in ISO 15693 and ISO 14443 a and b modes, but if you really want to get the most out of this device, you will need to start enhancing the firmware yourself to suit your needs.
 
