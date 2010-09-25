@@ -56,6 +56,9 @@ Plug it into the Proxmark and you will get an antenna with 13V. You can even opt
 
 http://proxmark3.googlecode.com/svn/wiki/antenne_in_proxmark.jpg
 
+Check this website for more tunes and tweaks for your antenna:
+http://blog.madspace.nl/2010/01/playing-with-the-proxmark3/
+
 -----
 
 =Antenna Building tips=
