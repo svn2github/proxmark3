@@ -1,0 +1,29 @@
+#summary Some ideas and notes for a possible rework of the architecture
+
+= Introduction =
+
+The current Proxmark3 architecture is basically at end-of-life. Adding new features that are slightly different of existing features has become a copy-paste-change exercise. In most cases, adding something to the FPGA is entirely impossible because it would break existing code at a hundred different (sometimes very similar) places. Using existing code paths outside of the very specific case for which they were created is impossible most of the time.
+
+Changing this in a minimally intrusive and backwards-compatible way seems infeasible. A major, deliberately backwards-incompatible, but future-proof, revamp appears necessary. The end result should be a code base with much the same functionality, but for which it is radically easier to develop new functionality.
+
+This should be guided by the following principles:
+  * Re-usable functional blocks that are applicable to more than one code path
+  * Future-proof interfaces wherever possible
+
+Most of the actual code from the existing code base can be reused. For this to happen, we must first identify and document the current level of functionality in both the ARM and the FPGA code, identify the responsible routines and their interface and interaction with other code and the ARM-FPGA interface. Then the routines need to be broken down into independent building blocks, redundancies must be eliminated and the new blocks reassembled (with some new glue code and interfaces) for the same (and enhanced) outward functionality.
+
+= Existing functionality =
+
+== User visible ==
+
+== Internal service routines ==
+
+== Provided by the FPGA ==
+
+= Interdependencies =
+
+How do the existing blocks connect to each other?
+
+= New functional blocks =
+
+What independent functional blocks are going to be necessary. (Optional: How much of the implementation exists already and can be carried over.)
