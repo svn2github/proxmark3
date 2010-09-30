@@ -27,3 +27,24 @@ How do the existing blocks connect to each other?
 = New functional blocks =
 
 What independent functional blocks are going to be necessary. (Optional: How much of the implementation exists already and can be carried over.)
+
+== FPGA ==
+Basic FPGA functionality:
+  * Passtrough (LF, HF)
+  * Carrier generation (LF, HF)
+  * RX: Hysteresis, configurable sampling intervals (LF, HF)
+  * RX: I/Q-Correlator with configurable subcarrier frequencies, configurable sampling intervals (HF) (FIXME: LF?)
+  * TX: AM from bitbanging or SSC data on configurable clock (LF, HF)
+  * TX: FIXME, what else? PSK? FSK?
+
+It should be possible to arbitrarily combine all of these as far as possible. Remember: We don't want a ISO-14443A-Thingamajig. We want a "13.56MHz carrier generator with bit-banged 100% AM on the transmission side and an I/Q-correlator on 848kHz with 106k complex samples per second on the RX side". Which can turn into "no TX side, I/Q-correlator on 848kHz with 106k complex samples per second on the RX side and hysteresis on the RX side" while sharing most of the code paths.
+
+== Internal service routines ==
+
+  * Generic CRC calculation
+  * Manipulation of radio frames in memory with methods such as append_bit or append_byte
+  * Generic encoding and decoding of most codes:
+    * modified Miller
+    * Manchester
+
+== User visible functionality ==
