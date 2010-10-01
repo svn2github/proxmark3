@@ -99,7 +99,17 @@ lf
 }}}
 
 === data amp ===
+"Amplify peaks"
+#client-internal #graphbuffer-extrema
+
+Goes through graph buffer, finds global minimum and maximum values, sets points where the sign of the slope changes (e.g. local minima/maxima) to global minimum/maximum.
+
 === data askdemod ===
+"Attempt to demodulate simple ASK tags"
+#client-internal #graphbuffer-extrema
+
+Goes through graph buffer, finds global minimum and maximum values, sets extrema to either 0 or 1 (mapping configurable, either maximum == 1 and minimum == 0 or vice versa), sets points between extrema to 0 or 1 based on the last extremum.
+
 === data autocorr ===
 === data bitsamples ===
 === data bitstream ===
