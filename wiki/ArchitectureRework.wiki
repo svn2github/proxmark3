@@ -98,6 +98,78 @@ lf
     vchdemod
 }}}
 
+=== data amp ===
+=== data askdemod ===
+=== data autocorr ===
+=== data bitsamples ===
+=== data bitstream ===
+=== data buffclear ===
+=== data dec ===
+=== data detectclock ===
+=== data fskdemod ===
+=== data grid ===
+=== data hexsamples ===
+=== data hide ===
+=== data hpf ===
+=== data load ===
+=== data ltrim ===
+=== data mandemod ===
+=== data manmod ===
+=== data norm ===
+=== data plot ===
+=== data samples ===
+=== data save ===
+=== data scale ===
+=== data threshold ===
+=== data zerocrossings ===
+=== hf 14a list ===
+=== hf 14a mifare ===
+=== hf 14a reader ===
+=== hf 14a sim ===
+=== hf 14a snoop ===
+=== hf 14b demod ===
+=== hf 14b list ===
+=== hf 14b read ===
+=== hf 14b sim ===
+=== hf 14b simlisten ===
+=== hf 14b snoop ===
+=== hf 14b sri512read ===
+=== hf 14b srix4kread ===
+=== hf 15 demod ===
+=== hf 15 read ===
+=== hf 15 reader ===
+=== hf 15 sim ===
+=== hf legic decode ===
+=== hf legic reader ===
+=== hf legic save ===
+=== hf legic load ===
+=== hf legic sim ===
+=== hf legic write ===
+=== hf legic fill ===
+=== hf tune ===
+=== hw detectreader ===
+=== hw fpgaoff ===
+=== hw lcd ===
+=== hw lcdreset ===
+=== hw readmem ===
+=== hw reset ===
+=== hw setlfdivisor ===
+=== hw setmux ===
+=== hw tune ===
+=== hw version ===
+=== lf cmdread ===
+=== lf em4x ===
+=== lf flexdemod ===
+=== lf hid ===
+=== lf indalademod ===
+=== lf read ===
+=== lf sim ===
+=== lf simbidir ===
+=== lf simman ===
+=== lf ti ===
+=== lf vchdemod ===
+
+
 == Internal service routines ==
 
 == Provided by the FPGA ==
