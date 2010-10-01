@@ -111,8 +111,22 @@ Goes through graph buffer, finds global minimum and maximum values, sets points 
 Goes through graph buffer, finds global minimum and maximum values, sets extrema to either 0 or 1 (mapping configurable, either maximum == 1 and minimum == 0 or vice versa), sets points between extrema to 0 or 1 based on the last extremum.
 
 === data autocorr ===
+"Autocorrelation over window"
+#client-internal
+
+Replaces graph buffer with a the autocorrelation result (scaled by 1/256) over a window size. The size of the resulting graph buffer is len(original graph buffer) - window size.
+
+#warning Fixed buffer on stack of maximal graph buffer size. Should be converted to dynamic buffer on heap, or even better: perform replacement in-place.
+
 === data bitsamples ===
+"Get raw samples as bitstring"
+
+Sends #CMD_DOWNLOAD_RAW_ADC_SAMPLES_125K, waits for #CMD_DOWNLOADED_RAW_ADC_SAMPLES_125K, sets graph buffer to 1-bit waveform represented by the received data contents (MSBit first). Downloads 3072 4-byte words in 12 4-byte words each for a total of 12288 bytes or 98304 values in the resulting graph buffer.
+
 === data bitstream ===
+"Convert waveform into a bitstream"
+#client-internal #graphbuffer-extrema
+
 === data buffclear ===
 === data dec ===
 === data detectclock ===
