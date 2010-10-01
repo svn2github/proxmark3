@@ -149,6 +149,9 @@ Replaces the graph buffer with a version that only contains every second sample 
 Calls #DetectClock and prints the result.
 
 === data fskdemod ===
+"Demodulate graph window as a HID FSK"
+#client-internal
+
 === data grid ===
 === data hexsamples ===
 === data hide ===
