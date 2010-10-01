@@ -127,9 +127,27 @@ Sends #CMD_DOWNLOAD_RAW_ADC_SAMPLES_125K, waits for #CMD_DOWNLOADED_RAW_ADC_SAMP
 "Convert waveform into a bitstream"
 #client-internal #graphbuffer-extrema
 
+Calls #GetClock which might call #DetectClock to get a clock rate. Separates the graph buffer into sections of length len(original graph buffer) / clock length. In each section, checks for samples that match the global maxima and minima (except for the first section). The graph buffer is replaced with a new buffer (inplace) that consists of either 0 or 1 values, one for each section. The value is carried over from the result for the last section, if both maximum and minimum were matched, otherwise it is the inverse of the result for the last section.
+
+This appears to be a (very strange) way to decode #manchester encoding, when given the exact clock rate and with no clock drift.
+
 === data buffclear ===
+"Clear sample buffer and graph window"
+
+Sends #CMD_BUFF_CLEAR and clears graph buffer.
+
 === data dec ===
+"Decimate samples"
+#client-internal
+
+Replaces the graph buffer with a version that only contains every second sample (inline).
+
 === data detectclock ===
+"Detect clock rate"
+#client-internal
+
+Calls #DetectClock and prints the result.
+
 === data fskdemod ===
 === data grid ===
 === data hexsamples ===
