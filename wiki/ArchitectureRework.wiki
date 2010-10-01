@@ -16,6 +16,88 @@ Most of the actual code from the existing code base can be reused. For this to h
 
 == User visible ==
 
+{{{
+data
+    amp
+    askdemod
+    autocorr
+    bitsamples
+    bitstream
+    buffclear
+    dec
+    detectclock
+    fskdemod
+    grid
+    hexsamples
+    hide
+    hpf
+    load
+    ltrim
+    mandemod
+    manmod
+    norm
+    plot
+    samples
+    save
+    scale
+    threshold
+    zerocrossings
+
+hf
+    14a
+        list
+        mifare
+        reader
+        sim
+        snoop
+    14b
+        demod
+        list
+        read
+        sim
+        simlisten
+        snoop
+        sri512read
+        srix4kread
+    15
+        demod
+        read
+        reader
+        sim
+    legic
+        decode
+        reader
+        save
+        load
+        sim
+        write
+        fill
+    tune
+hw
+    detectreader
+    fpgaoff
+    lcd
+    lcdreset
+    readmem
+    reset
+    setlfdivisor
+    setmux
+    tune
+    version
+lf
+    cmdread
+    em4x
+    flexdemod
+    hid
+    indalademod
+    read
+    sim
+    simbidir
+    simman
+    ti
+    vchdemod
+}}}
+
 == Internal service routines ==
 
 == Provided by the FPGA ==
