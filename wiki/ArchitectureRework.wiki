@@ -114,7 +114,7 @@ Goes through graph buffer, finds global minimum and maximum values, sets extrema
 "Autocorrelation over window"
 #client-internal
 
-Replaces graph buffer with a the autocorrelation result (scaled by 1/256) over a window size. The size of the resulting graph buffer is len(original graph buffer) - window size.
+Replaces graph buffer with the #autocorrelation result (scaled by 1/256) over a window size. The size of the resulting graph buffer is len(original graph buffer) - window size.
 
 #warning Fixed buffer on stack of maximal graph buffer size. Should be converted to dynamic buffer on heap, or even better: perform replacement in-place.
 
@@ -152,10 +152,32 @@ Calls #DetectClock and prints the result.
 "Demodulate graph window as a HID FSK"
 #client-internal
 
+Replaces the graph buffer with the output of a complex calculation that seems to contain #crosscorrelation and #manchester decoding.
+
 === data grid ===
+"overlay grid on graph window, use zero value to turn off either"
+#client-internal
+
+Changes the values of the global variables that contain the grid step parameters.
+
 === data hexsamples ===
+"Dump big buffer as hex bytes"
+
+Sends #CMD_DOWNLOAD_RAW_ADC_SAMPLES_125K and waits for #CMD_DOWNLOADED_RAW_ADC_SAMPLES_125K and then prints a #hexdump of the received response.
+
 === data hide ===
+"Hide graph window"
+
+Call the function to hide the graph window.
+
 === data hpf ===
+"Remove DC offset from trace"
+#client-internal
+
+Calculates the #mean of the graph buffer (except for the first 10 samples) and then subtracts the result from all values in the graph buffer.
+
+#warning The mean calculation magically excludes the first 10 samples (and will do funny things when there are less than 10 samples in the buffer). Also the intermediate value is stored in an int which might overflow.
+
 === data load ===
 === data ltrim ===
 === data mandemod ===
