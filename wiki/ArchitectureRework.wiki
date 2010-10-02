@@ -179,8 +179,23 @@ Calculates the #mean of the graph buffer (except for the first 10 samples) and t
 #warning The mean calculation magically excludes the first 10 samples (and will do funny things when there are less than 10 samples in the buffer). Also the intermediate value is stored in an int which might overflow.
 
 === data load ===
+"Load trace (to graph window"
+#client-internal
+
+Opens a file, interprets each line as an integer, and replaces the graph buffer contents with the results.
+
 === data ltrim ===
+"Trim samples from left of trace"
+#client-internal
+
+Accepts an offset parameter and replaces graph buffer content at position i with position i+offset.
+
 === data mandemod ===
+"Manchester demodulate binary stream (option 'i' to invert output)"
+#client-internal
+
+
+
 === data manmod ===
 === data norm ===
 === data plot ===
