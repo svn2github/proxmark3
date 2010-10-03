@@ -192,8 +192,17 @@ Accepts an offset parameter and replaces graph buffer content at position i with
 
 === data mandemod ===
 "Manchester demodulate binary stream (option 'i' to invert output)"
-#client-internal
+#client-internal #graphbuffer-extrema
 
+Calculates graph buffer extrema and possibly #GetClock to calculate clock rate. Iterates through graph buffer to find the first value that matches the global minimum which appears after the first value that matches the global maximum.
+
+#copypaste "data bitstream" If the global maximum does not equal 1, a virtually identical copy of the code from the "data bitstream" command is executed.
+
+If the global maximum does equal 1, a more generic #manchester demodulation scheme is used which allows for a slight fuzzyness in edge timings.
+
+In either case, the local temporary buffer now contains a straight 1-bit waveform, with 2 samples per bit period. This is then collapsed into a bit string with 1 sample per bit period (with some allowance for resynchronization). The result is printed as a #bindump on the screen (might consider adding a #hexdump in the future?).
+
+#warning Fixed buffer on stack of maximal graph buffer size.
 
 
 === data manmod ===
