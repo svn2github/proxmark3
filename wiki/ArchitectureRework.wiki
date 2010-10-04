@@ -204,9 +204,22 @@ In either case, the local temporary buffer now contains a straight 1-bit wavefor
 
 #warning Fixed buffer on stack of maximal graph buffer size.
 
-
 === data manmod ===
+"Manchester modulate a binary stream"
+#client-internal
+
+Calls #GetClock and then separates the graph buffer into sections of clock length samples. For each section a value is calculated that is based on the first value in that section. Then the entire section is replaced with a square wave with 50% duty cycle whose first half is the value for that section xor some values from the last section, and the second half is the value for that section xor some values from the last section xor 1.
+
+This appears to be supposed to do #manchester encoding, but the code flow (and meaning of variable wave) is not clear.
+
+#warning Behaviour when the graph buffer contains values other than 0 or 1 is probably not what is expected.
+
 === data norm ===
+"Normalize max/min to +/-500"
+#client-internal #graphbuffer-extrema
+
+Calculates the minimum and maximum values in the graph buffer (except for the first 10 samples), and if these are not equal, replaces the graph buffer contents with scaled values so that the minimum is -500 and the maximum is +500.
+
 === data plot ===
 === data samples ===
 === data save ===
