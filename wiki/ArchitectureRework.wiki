@@ -221,11 +221,42 @@ This appears to be supposed to do #manchester encoding, but the code flow (and m
 Calculates the minimum and maximum values in the graph buffer (except for the first 10 samples), and if these are not equal, replaces the graph buffer contents with scaled values so that the minimum is -500 and the maximum is +500.
 
 === data plot ===
+"Show graph window"
+#client-internal
+
+Calls ShowGraphWindow.
+
 === data samples ===
+"Get raw samples for graph window"
+
+If the argument is 0, it is set to 128. Additionally it's clamped to 16000. For every 12 in the argument, sends one #CMD_DOWNLOAD_RAW_ADC_SAMPLES_125K and waits for #CMD_DOWNLOADED_RAW_ADC_SAMPLES_125K and then appends 48 values from the received packet to the graph buffer (which is truncated beforehand).
+
+In effect this downloads 4 * argument samples (e.g. argument 32-bit words) from the device in packets of 12 words each and replaces the graph buffer with this data.
+
 === data save ===
+"Save trace (from graph window)"
+#client-internal
+
+Iterates over the graph buffer and prints each value as an integer string representation to a file.
+
 === data scale ===
+"Set cursor display scale"
+#client-internal
+
+Sets the global variable for the cursor scale factor, whatever that may be.
+
 === data threshold ===
+"Maximize/minimize every value in the graph window depending on threshold"
+#client-internal
+
+Iterates over the graph buffer and sets every value that is greater than or equal to the argument to 1, and all other values to -1.
+
 === data zerocrossings ===
+"Count time between zero-crossings"
+#client-internal
+
+Iterates over the graph buffer and finds points where the sign changes. The values between two sign change points are replaced with the number of samples between the first sign change point of the two and the sign change point before it.
+
 === hf 14a list ===
 === hf 14a mifare ===
 === hf 14a reader ===
