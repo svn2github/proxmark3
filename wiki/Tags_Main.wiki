@@ -1,0 +1,10 @@
+#summary Description of the major RFID tag types that can be used with the Proxmark3.
+#sidebar Tag_Types_Side
+
+= Information on the main RFID tags supported by ProxmarkIII =
+
+In the following pages are listed the RFID tag types supported by the ProxmarkIII device. Each RFID tag listing is accompanied by information on the usage of the ProxmarkIII with the device
+
+
+= Details =
+Please select the tag listing from the menu on the left side of the page to navigate to each of the supported RFID tags.
