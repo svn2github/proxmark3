@@ -1,0 +1,13 @@
+#summary Sidebar for Tag Types pages
+
+LF Tags
+
+* [EM_4200 EM Marin 4200 series]
+* [HID_Prox HID Prox]
+* [HID_Indala HID Indala]
+
+HF Tags
+
+* [Mifare Mifare]
+* [SRI512 ST Micro]
+* [Mifare Mifare]
