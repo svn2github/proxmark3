@@ -1,0 +1,204 @@
+#Working with mifare cards
+
+=MIFARE Tag Operations=
+
+Operations can execute from menu "hf 14a" or "hf mf"
+
+{{{
+proxmark3> hf 14a
+help             This help
+list             List ISO 14443a history
+reader           Act like an ISO14443 Type A reader
+sim              <UID> -- Fake ISO 14443a tag
+snoop            Eavesdrop ISO 14443 Type A
+
+proxmark3> hf mf
+help             This help
+dbg              Set default debug mode
+rdbl             Read MIFARE classic block
+rdsc             Read MIFARE classic sector
+wrbl             Write MIFARE classic block
+chk              Test block up to 8 keys
+mifare           Read parity error messages. param - <used card nonce>
+nested           Test nested authentication
+sim              Simulate MIFARE 1k card
+eclr             Clear simulator memory block
+eget             Get simulator memory block
+eset             Set simulator memory block
+eload            Load from file emul dump
+esave            Save to file emul dump
+ecfill           Fill simulator memory with help of keys from simulator
+ekeyprn          Print keys from simulator memory
+}}}
+
+=hf 14a=
+=== hf 14a list ===
+It lists communication log between a card and the proxmark or a reader in 'hf 14a snoop'
+sample:
+{{{
+proxmark3> hf mf rdbl 0 a ffffffffffff
+--block no:00 key type:00 key:ff ff ff ff ff ff
+#db# READ BLOCK FINISHED
+isOk:01 data:e6 84 87 f3 16 88 04 00 46 8e 45 55 4d 70 41 04
+
+proxmark3> hf 14a list
+recorded activity:
+ ETU     :rssi: who bytes
+---------+----+----+-----------
+ +      0:    :     52
+ +    236:   0: TAG 04  00
+ +      0:    :     93  20
+ +    452:   0: TAG e6  84  87  f3  16
+ +      0:    :     93  70  e6  84  87  f3  16  5e  35
+ +    308:   0: TAG 08  b6  dd
+ +      0:    :     60  00  f5  7b
+ +    428:   0: TAG 11  67  0f  29
+ +      0:    :     62  c6  da  97  5a  07  ab  21     !crc
+ +    380:   0: TAG eb! 31  34! 96!
+ +      0:    :     e0  08  2b  d1     !crc
+ +   1396:   0: TAG c4! 33! 62! 23! 46! 3d  6d  60  38  22! 04! b0  b8  82! 05 e0! 80  fe!    !crc
+ +      0:    :     40  48  02  fd     !crc
+}}}
+
+
+=== hf 14a reader ===
+It makes anticollision and reads several parameters from card.
+sample:
+{{{
+proxmark3> hf 14a reader
+ATQA : 04 00
+ UID : e6 84 87 f3 00 00 00 00 00 00 00 00
+ SAK : 08 [2]
+ SAK : MIFARE CLASSIC 1K
+proprietary non-iso14443a card found, RATS not supported
+}}}
+
+=== hf 14a sim ===
+Simulator up to end of anticollision card state.
+
+=== hf 14a snoop ===
+It snoops communication between a card and a reader.
+sample reading card from another reader.
+* anticollision
+* select
+* authenticate sector 1 with key A and key ffffffffffff
+* read block 4 (<09090909090909090909090909090909>)
+* halt
+{{{
+proxmark3> hf 14a snoop
+#db# cancelled_a
+#db# 4 0 4
+#db# 20 af 7f
+proxmark3> hf 14a list
+recorded activity:
+ ETU     :rssi: who bytes
+---------+----+----+-----------
+ +      0:   0: TAG 04  00
+ +    920:    :     93  20
+ +     64:   0: TAG e6  84  87  f3  16
+ +   1792:    :     93  70  e6  84  87  f3  16  5e  35
+ +     64:   0: TAG 08  b6  dd
+ + 666066:    :     60  04  d1  3d
+ +    112:   0: TAG 5c  22  92  7f
+ +    977:    :     3b  7c  58  2b  07  32  e7  e9     !crc
+ +     65:   0: TAG 76  b5! 82  f7!
+ + 713540:    :     d5  c1  1c  d9     !crc
+ +     72:   0: TAG 49  12! b4! ee! 88  ed  f5! ae  00  93  f1  20! 39  eb  e5
+58! 9f  c8     !crc
+ +1639720:    :     7f  7d  5f  07     !crc
+ }}}
+
+
+=hf mf=
+=== hf mf dbg ===
+It sets debug level of commands in "hf mf" menu
+debug levels:
+ * 0 - no debug messages
+ * 1 - error messages
+ * 2 - all messages
+ * 4 - extended debug mode
+ 
+Its recommanded that there must be level 1 or 0. Some commands may work in a irregular way with advanced debugging (because of time for print debug messages).
+ 
+=== hf mf rdbl ===
+It reads block from a mifare card.
+{{{hf mf rdbl <block number> <key A/B> <key (12 hex symbols)>}}}
+
+* block number must be in the interval 0x00 - 0xFF
+* key must be 'A' or 'B' (authentication commands 0x60 for 'A' and 0x61 for 'B')
+* key must be 12 hex symbols (as a sample: FFFFFFFFFFFF)
+
+Command to read block 0 from mifare card with authentication params: key A, key FFFFFFFFFFFF:
+correct execution
+{{{
+proxmark3> hf mf rdbl 0 a ffffffffffff
+--block no:00 key type:00 key:ff ff ff ff ff ff
+#db# READ BLOCK FINISHED
+isOk:01 data:e6 84 87 f3 16 88 04 00 46 8e 45 55 4d 70 41 04
+}}}
+'isOk:00' - the command is executed correctly
+'data:...' - block data
+
+incorrect execution
+{{{
+proxmark3> hf mf rdbl 0 a ffffffffffff
+--block no:00 key type:00 key:ff ff ff ff ff ff
+#db# Can't select card
+#db# READ BLOCK FINISHED
+isOk:00
+}}}
+'Can't select card' - text error
+'isOk:00' the command is not executed
+
+=== hf mf rdsc ===
+It reads sector from a mifare card.
+{{{hf mf rdsc <sector number> <key A/B> <key (12 hex symbols)>}}}
+
+* sector number must be in the interval 0x00 - 0x3F
+* key must be 'A' or 'B' (authentication commands 0x60 for 'A' and 0x61 for 'B')
+* key must be 12 hex symbols (as a sample: FFFFFFFFFFFF)
+
+Command to read sector 0 from mifare card with authentication params: key A, key FFFFFFFFFFFF:
+correct execution
+{{{
+proxmark3> hf mf rdsc 0 a ffffffffffff
+--sector no:00 key type:00 key:ff ff ff ff ff ff
+#db# READ SECTOR FINISHED
+
+isOk:01
+data:e6 84 87 f3 16 88 04 00 46 8e 45 55 4d 70 41 04
+data:02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02
+
+data:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+data:00 00 00 00 00 00 ff 07 80 69 ff ff ff ff ff ff
+}}}
+'isOk:00' - the command is executed correctly
+'data:...' - sector data. blocks 0-4 of sector
+
+incorrect execution
+{{{
+proxmark3> hf mf rdsc 0 a ffffffffffff
+--sector no:00 key type:00 key:ff ff ff ff ff ff
+#db# Can't select card
+#db# READ SECTOR FINISHED
+
+isOk:00
+}}}
+'Can't select card' - text error
+'isOk:00' the command is not executed
+
+=== hf mf wrbl ===
+=== hf mf chk ===
+=== hf mf mifare ===
+=== hf mf nested ===
+=== hf mf sim ===
+=== hf mf eclr ===
+=== hf mf eget ===
+=== hf mf eset ===
+=== hf mf eload ===
+=== hf mf esave ===
+=== hf mf ecfill ===
+=== hf mf ekeyprn ===
+
+
+
