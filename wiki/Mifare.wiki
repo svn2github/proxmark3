@@ -1,40 +1,43 @@
-#Working with mifare cards
+#summary Working with mifare cards
 
 =MIFARE Tag Operations=
 
-Operations can execute from menu "hf 14a" or "hf mf"
+Operations can be executed from menu "hf 14a" or "hf mf"
 
 {{{
 proxmark3> hf 14a
-help             This help
+help             Display help
 list             List ISO 14443a history
-reader           Act like an ISO14443 Type A reader
+reader           Acts same as ISO14443 Type A reader
 sim              <UID> -- Fake ISO 14443a tag
 snoop            Eavesdrop ISO 14443 Type A
 
+
 proxmark3> hf mf
-help             This help
+help             Display help
 dbg              Set default debug mode
 rdbl             Read MIFARE classic block
 rdsc             Read MIFARE classic sector
 wrbl             Write MIFARE classic block
 chk              Test block up to 8 keys
-mifare           Read parity error messages. param - <used card nonce>
+mifare           Read parity error messages.  Parameter - <used card nonce>
 nested           Test nested authentication
 sim              Simulate MIFARE 1k card
 eclr             Clear simulator memory block
 eget             Get simulator memory block
 eset             Set simulator memory block
-eload            Load from file emul dump
-esave            Save to file emul dump
-ecfill           Fill simulator memory with help of keys from simulator
-ekeyprn          Print keys from simulator memory
+eload            Load emul dump from file
+esave            Save emul dump to file
+ecfill           Fill simulator memory using simulator's keys
+ekeyprn          Print keys from simulator's memory
 }}}
 
-=hf 14a=
+=Command set 'hf 14a'=
 === hf 14a list ===
-It lists communication log between a card and the proxmark or a reader in 'hf 14a snoop'
+It displays the log of communication between the card and either proxmark or reader in 'hf 14a snoop'
+
 sample:
+
 {{{
 proxmark3> hf mf rdbl 0 a ffffffffffff
 --block no:00 key type:00 key:ff ff ff ff ff ff
@@ -62,8 +65,10 @@ recorded activity:
 
 
 === hf 14a reader ===
-It makes anticollision and reads several parameters from card.
+It employs anticollision and reads several parameters from the card
+
 sample:
+
 {{{
 proxmark3> hf 14a reader
 ATQA : 04 00
@@ -74,16 +79,19 @@ proprietary non-iso14443a card found, RATS not supported
 }}}
 
 === hf 14a sim ===
-Simulator up to end of anticollision card state.
+Simulator up to end of anticollision state of the card.
 
 === hf 14a snoop ===
-It snoops communication between a card and a reader.
-sample reading card from another reader.
-* anticollision
-* select
-* authenticate sector 1 with key A and key ffffffffffff
-* read block 4 (<09090909090909090909090909090909>)
-* halt
+It sniffs communication between the card and the reader.
+
+sample of reading card from another reader:
+
+ * anticollision
+ * select
+ * authenticate sector 1 with key A and key ffffffffffff
+ * read block 4 (<09090909090909090909090909090909>)
+ * halt
+
 {{{
 proxmark3> hf 14a snoop
 #db# cancelled_a
@@ -109,37 +117,43 @@ recorded activity:
  }}}
 
 
-=hf mf=
+=Command set 'hf mf'=
 === hf mf dbg ===
-It sets debug level of commands in "hf mf" menu
+It sets debug level of commands in "hf mf" menu.
+
 debug levels:
+
  * 0 - no debug messages
  * 1 - error messages
  * 2 - all messages
  * 4 - extended debug mode
  
-Its recommanded that there must be level 1 or 0. Some commands may work in a irregular way with advanced debugging (because of time for print debug messages).
+Level 1 or 0 is recommended.  With advanced debugging, some commands may work abnormally (because of the time required to print debug message).
  
 === hf mf rdbl ===
 It reads block from a mifare card.
+
 {{{hf mf rdbl <block number> <key A/B> <key (12 hex symbols)>}}}
 
-* block number must be in the interval 0x00 - 0xFF
-* key must be 'A' or 'B' (authentication commands 0x60 for 'A' and 0x61 for 'B')
-* key must be 12 hex symbols (as a sample: FFFFFFFFFFFF)
+ * block number must be between 0x00 and 0xFF
+ * key must be either 'A' or 'B' (authentication command is 0x60 for 'A' and 0x61 for 'B')
+ * key must be 12 hex symbols (for example: FFFFFFFFFFFF)
 
 Command to read block 0 from mifare card with authentication params: key A, key FFFFFFFFFFFF:
-correct execution
+
+====correct execution====
+
 {{{
 proxmark3> hf mf rdbl 0 a ffffffffffff
 --block no:00 key type:00 key:ff ff ff ff ff ff
 #db# READ BLOCK FINISHED
 isOk:01 data:e6 84 87 f3 16 88 04 00 46 8e 45 55 4d 70 41 04
 }}}
-'isOk:00' - the command is executed correctly
+'isOk:01' - the command is executed correctly
 'data:...' - block data
 
-incorrect execution
+====incorrect execution====
+
 {{{
 proxmark3> hf mf rdbl 0 a ffffffffffff
 --block no:00 key type:00 key:ff ff ff ff ff ff
@@ -147,19 +161,25 @@ proxmark3> hf mf rdbl 0 a ffffffffffff
 #db# READ BLOCK FINISHED
 isOk:00
 }}}
-'Can't select card' - text error
-'isOk:00' the command is not executed
+
+'Can't select card' - text error.
+
+'isOk:00' - the command is not executed.
+
 
 === hf mf rdsc ===
 It reads sector from a mifare card.
+
 {{{hf mf rdsc <sector number> <key A/B> <key (12 hex symbols)>}}}
 
-* sector number must be in the interval 0x00 - 0x3F
-* key must be 'A' or 'B' (authentication commands 0x60 for 'A' and 0x61 for 'B')
-* key must be 12 hex symbols (as a sample: FFFFFFFFFFFF)
+ * sector number must be between 0x00 and 0x3F
+ * key must be 'A' or 'B' (authentication command is 0x60 for 'A' and 0x61 for 'B')
+ * key must be 12 hex symbols (for example: FFFFFFFFFFFF)
 
 Command to read sector 0 from mifare card with authentication params: key A, key FFFFFFFFFFFF:
-correct execution
+
+====correct execution====
+
 {{{
 proxmark3> hf mf rdsc 0 a ffffffffffff
 --sector no:00 key type:00 key:ff ff ff ff ff ff
@@ -172,10 +192,13 @@ data:02 02 02 02 02 02 02 02 02 02 02 02 02 02 02 02
 data:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 data:00 00 00 00 00 00 ff 07 80 69 ff ff ff ff ff ff
 }}}
-'isOk:00' - the command is executed correctly
-'data:...' - sector data. blocks 0-4 of sector
+'isOk:01' - the command is executed correctly.
 
-incorrect execution
+'data:...' - sector data. blocks 0-4 of sector.
+
+
+====incorrect execution====
+
 {{{
 proxmark3> hf mf rdsc 0 a ffffffffffff
 --sector no:00 key type:00 key:ff ff ff ff ff ff
@@ -184,21 +207,151 @@ proxmark3> hf mf rdsc 0 a ffffffffffff
 
 isOk:00
 }}}
-'Can't select card' - text error
-'isOk:00' the command is not executed
+
+'Can't select card' - text error.
+
+'isOk:00' the command is not executed.
+
 
 === hf mf wrbl ===
+It writes block onto mifare card.
+
+{{{hf mf wrbl <block number> <key A/B> <key (12 hex symbols)> <block data (32 hex symbols)>}}}
+
+ * block number must be between 0x00 and 0xFF
+ * key must be 'A' or 'B' (authentication command is 0x60 for 'A' and 0x61 for 'B')
+ * key must be 12 hex symbols (8 bytes) (for example: FFFFFFFFFFFF)
+ * block data must be 32 hex symbols (16 bytes) (for example: FFFFFFFFFFFF)
+
+ Do not try to write into the sector trailers unless you know what you are doing!!!
+ 
+ It may damage the card!
+
+====correct execution====
+
+{{{
+proxmark3> hf mf wrbl 4 a ffffffffffff 01010101010101010101010101010101
+--block no:04 key type:00 key:ff ff ff ff ff ff
+--data: 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
+#db# WRITE BLOCK FINISHED
+isOk:01
+}}}
+
+'isOk:01' - the command is executed correctly.
+
+After that, I have issued the read command to check:
+
+{{{
+proxmark3> hf mf rdbl 4 a ffffffffffff
+--block no:04 key type:00 key:ff ff ff ff ff ff
+#db# READ BLOCK FINISHED
+isOk:01 data:01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
+}}}
+
+
+====incorrect execution====
+
+{{{
+proxmark3> hf mf wrbl 0 a ffffffffffff 01010101010101010101010101010101
+--block no:00 key type:00 key:ff ff ff ff ff ff
+--data: 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
+#db# Can't select card
+#db# WRITE BLOCK FINISHED
+isOk:00
+}}}
+
+'Can't select card' - text error.
+
+'isOk:00' the command is not executed.
+
+ 
 === hf mf chk ===
+It checks several keys (up to 8) in specific card sector.
+
+{{{hf mf chk <block number> <key A/B> [<key (12 hex symbols)>]}}}
+
+ * block number must be between 0x00 and 0xFF
+ * key must be either 'A' or 'B' (authentication command is 0x60 for 'A' and 0x61 for 'B')
+ * key must be 12 hex symbols (8 bytes) (for example: FFFFFFFFFFFF)
+
+ sample:
+ 
+{{{
+ proxmark3> hf mf chk 0 A FFFFFFFFFFFF a0a1a2a3a4a5 b0b1b2b3b4b5
+--block no:00 key type:00 key count:3
+isOk:01 valid key:ffffffffffff
+}}}
+ 
+'isOk:01' - the command is executed correctly.
+
+'valid key' - the correct key
+ 
 === hf mf mifare ===
 === hf mf nested ===
 === hf mf sim ===
+
+It simulates MIFARE classic tag.  Tag contents is stored into the emulator memory and can be read and written by the following commands.
+
+{{{ hf mf sim <UID 8 hex digits>}}}
+
+ * 4 byte UID if specified - replaces UID that is stored into the emulator memory.  However, the replacement doesn't get loaded into the memory.
+
+
 === hf mf eclr ===
+
+It fills the memory of emulator of a blank MIFARE 1K card with default (0xFFFFFFFFFFFF) keys.
+
 === hf mf eget ===
+It gets blocks from the card emulator dump.
 === hf mf eset ===
+It sets block in the card emulator dump.
 === hf mf eload ===
+It loads dump to the card emulator memory.
+
+{{{hf mf eload <file name>}}}
+
+ * file name without '.eml' extension.
+
 === hf mf esave ===
+It saves dump from the card emulator memory.
+
+{{{hf mf esave <file name>}}}
+
+ * file name without '.eml' extension. If the file name is empty, the file name will be
+ the first 7 bytes in hex from emulator memory. (UID location).
+
 === hf mf ecfill ===
+It fills the memory of MIFARE card emulator. It uses keys from the emulator memory 
+(to view the keys: 'hf mf ekeyprn')
+
+{{{hf mf efill <key A/B>}}}
+
+ * key must be 'A' or 'B' (authentication command is 0x60 for 'A' and 0x61 for 'B')
+
+
 === hf mf ekeyprn ===
+It prints keys from the emulator memory (MIFARE classic 1K).
 
-
-
+{{{
+proxmark3> hf mf ekeyprn
+|---|----------------|----------------|
+|sec|key A           |key B           |
+|---|----------------|----------------|
+|000|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|001|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|002|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|003|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|004|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|005|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|006|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|007|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|008|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|009|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|010|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|011|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|012|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|013|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|014|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|015|  f0f0f0f0f0f0  |  f0f0f0f0f0f0  |
+|---|----------------|----------------|
+}}}
