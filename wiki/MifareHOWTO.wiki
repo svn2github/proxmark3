@@ -44,7 +44,7 @@
  
 ==How to emulate a card with help of dump from file==
 
- * 'hf mf eload filename', where filename - dump's file name ('<filename>.eml')
+ * 'hf mf eload filename', where filename - dump's file name ({{{<filename>.eml}}})
  * 'hf mf sim'
 
 ==How to have look at the emulator memory==

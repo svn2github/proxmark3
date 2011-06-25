@@ -296,7 +296,7 @@ It implements mifare "darkside" attack.
 
  * wrong Nt - it dont use this Nt to collect statistical information.
  
-It is recommended that if 'hf mf mifare' found wrong key then run 'hf mf mifare <Nt>', where Nt - from previous run of the command.
+It is recommended that if 'hf mf mifare' found wrong key then run {{{hf mf mifare <Nt>}}}, where Nt - from previous run of the command.
 
 After executing of the attack it tests key. If it found an invalid key it prints "Found invalid key. ( Nt=XXXXXXXX".
 
@@ -386,7 +386,7 @@ the beginning of the sector (block shift) and attacks all the rest sectors with 
 
 Where:
 
- * Card memory: 0 - MINI(320 bytes), 1 - 1K, 2 - 2K, 4 - 4K, <other> - 1K
+ * Card memory: {{{0 - MINI(320 bytes), 1 - 1K, 2 - 2K, 4 - 4K, <other> - 1K}}}
  * block number must be between 0x00 and 0xFF
  * key type must be either 'A' or 'B' (authentication command is 0x60 for 'A' and 0x61 for 'B')
  * key must be 12 hex symbols (8 bytes) (for example: FFFFFFFFFFFF)
@@ -401,16 +401,15 @@ proxmark3> hf mf nested o 0 a ffffffffffff 4 a
 --block no:00 key type:00 key:ff ff ff ff ff ff  etrans:0
 --target block no:04 target key type:00
 
-
-...uid:e68487f3 len=5 trgbl=4 trgkey=0
-.uid:e68487f3 len=1 trgbl=4 trgkey=0
-.uid:e68487f3 len=5 trgbl=4 trgkey=0
-.uid:e68487f3 len=1 trgbl=4 trgkey=0
-.uid:e68487f3 len=2 trgbl=4 trgkey=0
-.uid:e68487f3 len=5 trgbl=4 trgkey=0
-.uid:e68487f3 len=3 trgbl=4 trgkey=0
-.uid:e68487f3 len=2 trgbl=4 trgkey=0
-.------------------------------------------------------------------
+..uid:e68487f3 len=5 trgbl=4 trgkey=0
+uid:e68487f3 len=1 trgbl=4 trgkey=0
+uid:e68487f3 len=5 trgbl=4 trgkey=0
+uid:e68487f3 len=1 trgbl=4 trgkey=0
+uid:e68487f3 len=2 trgbl=4 trgkey=0
+uid:e68487f3 len=5 trgbl=4 trgkey=0
+uid:e68487f3 len=3 trgbl=4 trgkey=0
+uid:e68487f3 len=2 trgbl=4 trgkey=0
+------------------------------------------------------------------
 Total keys count:1657647
 cnt=0 key= 31 09 f5 fe af ff
 cnt=1 key= ff ff ff ff ff ff
