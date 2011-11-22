@@ -1,10 +1,13 @@
-#Where do I start?
+#summary Where do I start?
+#sidebar Navigation
 
 = Introduction =
 
 OK, so you found this Google code project, now what should you do?
-
+It might be a good idea to browse the wiki pages including the [http://proxmark.org/forum/index.php ProxMark] forum.
 
 = Details =
+
+The wiki and supporting documentation is currently getting an overhaul. Expect to see some changes. If you notice something that requires a change please post in the [http://proxmark.org/forum/viewforum.php?id=27 Manual Feedback] section of the forum. Any feedback is appreciated.
 
 You can now head over to http://proxmark.org/ for the forum & various downloads, and also read the [https://www.lafargue.name/proxmark3 manual].
