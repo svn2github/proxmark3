@@ -1,4 +1,5 @@
 #summary Running the PM3
+#sidebar Navigation
 
 =Running the PM3=
 
