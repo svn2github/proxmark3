@@ -1,4 +1,5 @@
 #summary MIFARE HOWTO
+#sidebar Navigation
 
 =Short MIFARE HOWTO=
 
