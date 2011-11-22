@@ -1,9 +1,16 @@
 #summary Navigation Sidebar
  * [HomePage Home Page]
- * [HardwareDescription Hardware Description]
- * [Building Building]
- * [Antennas Antennas]
- * [Compiling Compiling and Flashing]
- * [RunningPM3 Running The PM3]
- * [ReferenceManual Reference Manual]
- * [TagOps LF Tag Operations]
+ * [GettingStarted Getting Started]
+ * *Hardware*
+  * [HardwareDescription Hardware Description]
+  * [Building Building]
+  * [Antennas Antennas]
+ * *Software / firmware*
+  * [Compiling Compiling and Flashing]
+ * *Usage*
+  * [RunningPM3 Running The PM3]
+  * [ReferenceManual Reference Manual]
+  * *Low frequency*
+   * [TagOps LF Tag Operations]
+  * *High frequency*
+   * [Mifare MIFARE Tag Operations]
