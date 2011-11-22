@@ -1,4 +1,5 @@
 #summary Proxmark3 Home Page
+#sidebar Navigation
 
 =Introduction=
 
@@ -26,17 +27,3 @@ Typically, an "out of the box" proxmark3 with the latest firmware can run acquis
 As long as you only want to add higher level functions over the RF layers that are already coded into the FPGA, you should be fine without VHDL skills, but if you want to actually go deeper and have the proxmark3 support new modulations, this will require modifying the FPGA verilog code, an interesting exercise if you’re motivated or are already a pro in that area, but very time consuming if you’re getting started !
 
 Now you should have a pretty good idea on whether this tool is for you or not !
-
-=What the next?=
-
-[http://code.google.com/p/proxmark3/wiki/GettingStarted Getting started]
-
-[http://code.google.com/p/proxmark3/wiki/Compiling Compiling from source code]
-
-[http://code.google.com/p/proxmark3/wiki/RunningPM3 Reference Manual]
-
-[http://code.google.com/p/proxmark3/wiki/TagOps LF Tag Operations]
-
-[http://code.google.com/p/proxmark3/wiki/Mifare MIFARE Tag Operations]
-
-[http://code.google.com/p/proxmark3/wiki/HardwareDescription Hardware description]
