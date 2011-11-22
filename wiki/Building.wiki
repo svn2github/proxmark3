@@ -1,4 +1,5 @@
 #summary Building a proxmark3
+#sidebar Navigation
 
 =Building=
 
