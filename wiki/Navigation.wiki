@@ -10,7 +10,9 @@
  * *Usage*
   * [RunningPM3 Running The PM3]
   * [ReferenceManual Reference Manual]
+  * [Tags_Main Supported tags]
   * *Low frequency*
    * [TagOps LF Tag Operations]
   * *High frequency*
-   * [Mifare MIFARE Tag Operations]
+   * [Mifare MIFARE Tag Operations] / [MifareHOWTO Short MIFARE HOWTO]
+ * [ArchitectureRework Rework of the architecture]
