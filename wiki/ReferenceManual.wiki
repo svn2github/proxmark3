@@ -1,4 +1,5 @@
 #summary User's Manual
+#sidebar Navigation
 =Reference Manual=
 
 This reference manual is valid for the current SVN version of the firmware.
