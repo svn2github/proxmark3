@@ -1,4 +1,5 @@
 #summary LF Tag Operations
+#sidebar Navigation
 
 =LF Tag Operations=
 
