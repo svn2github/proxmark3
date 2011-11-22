@@ -1,4 +1,5 @@
 #summary Some ideas and notes for a possible rework of the architecture
+#sidebar Navigation
 
 = Introduction =
 
@@ -335,5 +336,3 @@ It should be possible to arbitrarily combine all of these as far as possible. Re
   * Generic encoding and decoding of most codes:
     * modified Miller
     * Manchester
-
-== User visible functionality ==
