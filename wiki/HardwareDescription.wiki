@@ -1,4 +1,5 @@
 #summary Hardware Description
+#sidebar Navigation
 
 =Hardware description=
 
