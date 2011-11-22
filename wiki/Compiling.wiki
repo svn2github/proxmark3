@@ -1,3 +1,5 @@
+#summary Compiling the Proxmark from source and flashing
+#sidebar Navigation
 <wiki:toc>
 =Generic notes=
 
@@ -136,7 +138,7 @@ The second option only works with a new bootrom and a new osimage (SVN revision 
 
 ==Host tool==
   * Windows: `winsrc\prox.exe gui`
-  * Linux: `linux/proxmark3`
+  * Linux: `client/proxmark3`
 
 ==Known incompatibilities==
 Unless otherwise noted these incompatibilities are not mutual, f.e. a new flash tool will work with both new and old bootroms.
@@ -147,7 +149,7 @@ Unless otherwise noted these incompatibilities are not mutual, f.e. a new flash 
 =Prerequisites for compiling from source=
 For the `bootrom` and `armsrc` directories you need GNU make and a GNU arm toolchain (at least gcc and binutils). For Windows a complete ARM toolchain is provided in the "Windows development environment" zip file. For Linux you need to get your own toolchain, though there is a script in tools/install-gnuarm4.sh that can greatly automate the process. Optionally, to build images that contain version information, you need perl (provided in the Windows development environment) and svn.
 
-For the `linux` directory you need pkg-config, gcc, GNU binutils, GNU make, libusb, libreadline, QtCore, QtGui as well as the header/development files for the latter four packages.
+For the `client` directory you need pkg-config, gcc, GNU binutils, GNU make, libusb, libreadline, QtCore, QtGui as well as the header/development files for the latter four packages.
 
 For the `winsrc` directory you need FIXME. This is provided in the "Windows development environment" zip file.
 
@@ -249,10 +251,11 @@ prox os,fpga ..\armsrc\obj\osimage.s19 ..\armsrc\obj\fpgaimage.s19
 
 =Linux Platform=
 
+The following detail has been created for [http://www.ubuntu.com/ Ubuntu] and other Debian-like ([http://www.backtrack-linux.org/ BackTrack]) distributions...
+
 == Setting up Subversion ==
-Install subversion through whatever method is preferred on you distribution. For Ubuntu and other Debian-like distributions that would be
 {{{
-sudo aptitude install subversion
+sudo apt-get install subversion
 }}}
 
 Check out the proxmark3 subversion directory below your home directory and change into it:
@@ -262,13 +265,15 @@ cd proxmark3-read-only
 }}}
 
 == Getting the prerequisites ==
-Host tool: For Ubuntu/Debian you need to do
+For the host tool:
 {{{
-sudo aptitude install build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config
+sudo apt-get install build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config
 }}}
 
-ARM toolchain: First make sure that wget is installed (Ubuntu/Debian: `sudo aptitude install wget`) then use the provided automatic toolchain build script like this:
+For the ARM toolchain:
+Option 1: Use the provided automatic toolchain build script like this:
 {{{
+sudo apt-get install wget
 tools/install-gnuarm4.sh ~/gnuarm `pwd`/tmp
 }}}
 
@@ -279,16 +284,27 @@ export PATH=${PATH}:/home/YOURUSERNAME/gnuarm/bin/
 }}}
 You should also append these two lines to your `~/.bashrc` so that they apply every time you login.
 
+Option 2:
+{{{
+sudo apt-get install wget
+wget http://sourceforge.net/projects/devkitpro/files/devkitARM/previous/devkitARM_r32-i686-linux.tar.bz2/download
+tar jxvf devkitARM_r32-i686-linux.tar.bz2
+sudo mkdir /opt/devkitpro/
+sudo mv devkitARM /opt/devkitpro/
+export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/
+}}}
+You should also append the export line to your `~/.bashrc` so that the PATH changes apply every time you login.
+
 == Building ==
 You are now ready to simply execute 
 {{{
 make
 }}}
-from the main proxmark directory which will build all parts: bootrom (check that `bootrom/obj/bootrom.s19` is created), fpga image (`armsrc/obj/fpgaimage.s19`), os image (`armsrc/obj/osimage.s19`) and the host tool (`linux/proxmark3`).
+from the main proxmark directory which will build all parts: bootrom (check that `bootrom/obj/bootrom.s19` is created), fpga image (`armsrc/obj/fpgaimage.s19`), os image (`armsrc/obj/osimage.s19`) and the host tool (`client/proxmark3`).
 
 == Flashing the board ==
 
-Browse to the linux source folder in your SVN repo: .../linux
+Browse to the linux source folder in your SVN repo: .../client
  
 ===Flashing the bootloader===
  
