@@ -132,7 +132,7 @@ This method was documented in this proxmark.org forum post.
 {{{
 A really quick and easy way of determining if a card is HF or LF is to :
 
-1. Run the tune command a couple of times to get an idea of what your voltage readings are on LF and HF.
+1. Run the hw tune command a couple of times to get an idea of what your voltage readings are on LF and HF.
 2. place the unknown card/tag against the proxmark antennas (LF & HF)
 3. Run the tune command a couple of times again to get an idea of what the values are wth the tag in the antenna fields
 4. Look for significant voltage drops in either HF or LF, the voltage drop indicates the tag operating frequency.
@@ -178,8 +178,7 @@ Place a Mifare card on a Mifare reader (in this case, an Omnikey 5321), and put 
 
 Issue the following command :
 {{{
-proxmark3> hi14asnoop
-> hi14asnoop
+proxmark3> hf 14k snoop
 
 The Red, Yellow and Green LEDs blink with activity. After a while, once the Proxmark3 buffer is full, the "command finished" prompt is issued :
 #db# COMMAND FINISHED
@@ -228,14 +227,10 @@ ETU     :rssi: who bytes
 The image below shows the reading from a iso-15683 ski pass as used in the French alps
 
 {{{
-proxmark3> hi15read
-> hi15read
-proxmark3> hisamples
-> hisamples
-proxmark3> norm
-> norm
-proxmark3> hi15demod
-> hi15demod
+proxmark3> hf 15k read
+proxmark3> data samples
+proxmark3> data norm
+proxmark3> hf 15k demod
 SOF at 10, correlation 387
 EOF at 410
 12 octets
@@ -382,6 +377,6 @@ Just create the right rules file in udev
 {{{
 ~$ cat /etc/udev/rules.d/026-proxmark.rules
 #Proxmark3
-SYSFS{idVendor}=="9ac4", SYSFS{idProduct}=="4b8f", MODE="0660", GROUP="adm"
+SUBSYSTEM=="usb", ATTR{idVendor}=="9ac4", ATTR{idProduct}=="4b8f", MODE="0660", GROUP="adm"
 }}}
 This one gives access to the proxmark for users in the adm group...
