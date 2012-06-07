@@ -73,7 +73,7 @@ Glad to see someone else is still working with the antennas ! I’ve had decent 
 I also made up some antennas using copper tape and a few trimmer caps. This seemed to work almost as well and was a lot cheaper. With larger loops I could get 3 - 4 cm. I made a fixture for the PM3 that attaches an SMA connector to the test points. That way I could attach my homemade antennas (which also have SMA connectors) via coax. This avoids the TL effects and allows the antenna to be located pretty far away from the device.
 
 Either way you’ll probably have to tune the antennas slightly (or tune the PM3 by changing C35/C36), but you should get it to work. The RR antenna has a trimmer cap so that is nice.
-}}
+}}}
 From http://www.proxmark.org/forum/viewtopic.php?id=90 : very good description of how to build a home-made antenna.
 
 =Antenna/tag orientation=
