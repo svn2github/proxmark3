@@ -178,7 +178,7 @@ Place a Mifare card on a Mifare reader (in this case, an Omnikey 5321), and put 
 
 Issue the following command :
 {{{
-proxmark3> hf 14k snoop
+proxmark3> hf 14a snoop
 
 The Red, Yellow and Green LEDs blink with activity. After a while, once the Proxmark3 buffer is full, the "command finished" prompt is issued :
 #db# COMMAND FINISHED
@@ -202,7 +202,7 @@ You can then decode the ISO14443-A commands which were snooped :
  * the tag says "Not allowed" (04)
  * the reader says "Halt" (50 00 57 cd)
 {{{
-> hi14alist
+> hf 14a list
 recorded activity:
 ETU     :rssi: who bytes
 ---------+----+----+-----------
@@ -227,10 +227,10 @@ ETU     :rssi: who bytes
 The image below shows the reading from a iso-15683 ski pass as used in the French alps
 
 {{{
-proxmark3> hf 15k read
+proxmark3> hf 15 read
 proxmark3> data samples
 proxmark3> data norm
-proxmark3> hf 15k demod
+proxmark3> hf 15 demod
 SOF at 10, correlation 387
 EOF at 410
 12 octets
@@ -259,7 +259,7 @@ http://proxmark3.googlecode.com/svn/wiki/15693-samples.png
 
 This is a working example of how the sector keys of mifare cards can be retrieved with a Proxmark3, using the "crapto-1" package found on Google Code.
 
-The trace below is taken from a hi14asnoop session followed by hi14alist to get the beginning of the authentication & encryption protocol :
+The trace below is taken from a hi14asnoop session followed by hf 14a list to get the beginning of the authentication & encryption protocol :
 
 || *Commands* || *Comment* ||
 || + 561882 : 1 : 26 || REQA ||
