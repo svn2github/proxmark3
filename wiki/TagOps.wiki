@@ -19,16 +19,16 @@ http://proxmark3.googlecode.com/svn/wiki/tag_125.jpg
 The first and obvious operation when faced with an unknown LF tag is to excite it with either 125kHz or 134kHz in order to see how it will react :
 
 {{{
-proxmark3>loread
+proxmark3> lf read
 }}}
 
-Note : use loread h to read the tag in 134kHz more.
+Note : use lf read h to read the tag in 134kHz more.
 
-Then you can download the trace using losamples. By default, losamples only downloads the beginning of the trace. Use losamples 2000 (or any other value below 16000) to download a longer trace.
+Then you can download the trace using data samples. By default, data samples only downloads the beginning of the trace. Use data samples 2000 (or any other value below 16000) to download a longer trace.
 
 {{{
-proxmark3>losamples 2000
-proxmark3>plot
+proxmark3> data samples 2000
+proxmark3> data plot
 }}}
 
 From the waveform, the tag does a simple ASK bitstream modulation : the tag modulates the signal amplitude to transmit its bitstream to the reader.
@@ -37,7 +37,7 @@ You can use the arrow keys to navigate the trace : at this point, you should hav
 
 In order to get a meaningful reading when setting the purple and yellow markers, you can use the scale command to set the sampling frequency :
 {{{
-proxmark3>scale 125
+proxmark3> data scale 125
 }}}
 
 ==Finding the tag’s bitstream period==
@@ -45,7 +45,7 @@ proxmark3>scale 125
 Once you are satisfied with the acquired trace, the next step is to determine whether the tag’s signal is send in a periodic way (i.e. repeated) : the proper and simple way to do this is to autocorrelate the signal and find the peak period : the proxmark client offers a simple autocorrelation feature to this end :
 
 {{{
-proxmark3>autocorr 2000
+proxmark3> data autocorr 2000
 }}}
 
 The plot will be updated :
@@ -63,8 +63,7 @@ http://proxmark3.googlecode.com/svn/wiki/symbol-1.png
 Now, let’s try to extract a meaningful bitstream from the tag. By using the askdemod command which is available in firmware 20090328 and later, we can turn the analog capture into a nicer looking bitstream which will be ready for further analysis : we will try with a positive bit encoding convention. What does this mean ? Depending on the tag manufacturer’s design, field modulation will either mean a logical "0" or a logical "1". The askdemod command therefore gives a choice to decode the bitstream one way or another.
 
 {{{
-proxmark3> askdemod 1
-> askdemod 1
+proxmark3> data askdemod 1
 }}}
 
 On the trace, the bitstream now looks like this :
@@ -76,8 +75,7 @@ You can see on the trace that there are "long" and "short" zero and one modulati
 Since the July 2009 SVN versions, you do not need to give the clock rate as argument anymore, since the mandemod function can now autodetect the clock rate.
 
 {{{
-proxmark3> mandemod 64
-> mandemod 64
+proxmark3> data mandemod 64
 Unsynchronized, resync...
 (too many of those messages mean the stream is not Manchester encoded)
 Unsynchronized, resync...
