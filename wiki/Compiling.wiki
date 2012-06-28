@@ -286,7 +286,8 @@ You should also append these two lines to your `~/.bashrc` so that they apply ev
 
 Option 2:
 {{{
-download latest devkitPro for your platform manually from http://sourceforge.net/projects/devkitpro/files/latest/download
+download latest devkitPro for your platform manually from
+http://sourceforge.net/projects/devkitpro/files/latest/download
 }}}
 or use the following syntax in console
 {{{
