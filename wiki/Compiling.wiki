@@ -286,8 +286,15 @@ You should also append these two lines to your `~/.bashrc` so that they apply ev
 
 Option 2:
 {{{
+download latest devkitPro for your platform manually from http://sourceforge.net/projects/devkitpro/files/latest/download
+}}}
+or use the following syntax in console
+{{{
 sudo apt-get install wget
 wget http://sourceforge.net/projects/devkitpro/files/devkitARM/previous/devkitARM_r32-i686-linux.tar.bz2/download
+}}}
+then unpack and configure the path accordingly
+{{{
 tar jxvf devkitARM_r32-i686-linux.tar.bz2
 sudo mkdir /opt/devkitpro/
 sudo mv devkitARM /opt/devkitpro/
