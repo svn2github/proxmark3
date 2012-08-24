@@ -14,5 +14,6 @@
   * *Low frequency*
    * [TagOps LF Tag Operations]
   * *High frequency*
+   * [Generic ISO 14443 Operations]
    * [Mifare MIFARE Tag Operations] / [MifareHOWTO Short MIFARE HOWTO]
  * [ArchitectureRework Rework of the architecture]
