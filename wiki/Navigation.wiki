@@ -14,6 +14,7 @@
   * *Low frequency*
    * [TagOps LF Tag Operations]
   * *High frequency*
+   * [ePA Operations for Electronic Identification Documents]
    * [ISO14443 Generic ISO 14443 Operations]
    * [Mifare MIFARE Tag Operations] / [MifareHOWTO Short MIFARE HOWTO]
  * [ArchitectureRework Rework of the architecture]
