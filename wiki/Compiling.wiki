@@ -292,7 +292,7 @@ http://sourceforge.net/projects/devkitpro/files/latest/download
 or use the following syntax in console
 {{{
 sudo apt-get install wget
-wget http://sourceforge.net/projects/devkitpro/files/devkitARM/previous/devkitARM_r32-i686-linux.tar.bz2/download
+wget http://sourceforge.net/projects/devkitpro/files/devkitARM/previous/devkitARM_r41-i686-linux.tar.bz2/download
 }}}
 then unpack and configure the path accordingly
 {{{
