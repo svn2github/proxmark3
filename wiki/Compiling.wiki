@@ -275,9 +275,8 @@ For the ARM toolchain:
 download latest devkitPro ARM for your platform manually from
 http://sourceforge.net/projects/devkitpro/files/devkitARM/
 }}}
-or use the following syntax in console
+or use the following syntax in console that fits your system (32 or 64 bit)
 {{{
-sudo apt-get install wget
 wget http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-i686-linux.tar.bz2/download
 wget http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-x86_64-linux.tar.bz2/download
 }}}
