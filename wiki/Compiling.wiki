@@ -267,7 +267,7 @@ cd proxmark3-read-only
 == Getting the prerequisites ==
 For the host tool:
 {{{
-sudo apt-get install build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config wget
+sudo apt-get install build-essential libreadline-dev libqt4-dev perl pkg-config wget
 }}}
 
 For the ARM toolchain:
