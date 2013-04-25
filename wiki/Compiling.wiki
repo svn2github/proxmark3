@@ -279,6 +279,7 @@ or use the following syntax in console
 {{{
 sudo apt-get install wget
 wget http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-i686-linux.tar.bz2/download
+wget http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-x86_64-linux.tar.bz2/download
 }}}
 then unpack and configure the path accordingly
 {{{
