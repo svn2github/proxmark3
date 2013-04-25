@@ -287,7 +287,7 @@ sudo mkdir /opt/devkitpro/
 sudo mv devkitARM /opt/devkitpro/
 export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/
 }}}
-You should also append the export line to your `~/.bashrc` so that the PATH changes apply every time you login.
+You should also append the last line (export...) to your `~/.bashrc` so that the PATH changes apply every time you login.
 
 == Building ==
 You are now ready to simply execute 
