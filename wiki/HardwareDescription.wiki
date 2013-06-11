@@ -58,6 +58,17 @@ The microcontroller is responsible for the protocol part. It receives the digita
 
 The microcontroller (ARM) implements the transport layer. First it decodes the samples received from the FPGA. These samples are stored in a Direct Memory Access (DMA) buffer. The samples are binary sequences that represent whether the signal was high or low. The software on the ARM tries to decode these samples. When the Proxmark is in sniffing mode this is done for both the Manchester and Modified Miller at the same time. Whenever one of the decoding procedures returns a valid message, this message is stored in another buffer (BigBuf ) and both decoding procedures are set to an unsynced state. The BigBuf is limited to the available memory on the ARM. In the current firmwares, 2 KB of memory is reserved for the traces (Besides the traces the buffer also stores some temporary data that is needed in the processing). When the BigBuf buffer is full the function normally returns. A new function call from the client is needed to download the BigBuf contents to the computer. The BigBuf is especially useful for protocol investigation. Every single message is stored in this buffer. When a card is emulated or when the Proxmark is used as a reader the BigBuf can be used to store status messages or protocol exceptions.
 
+===USB===
+The USB interface interconnects the Proxmark with an external power supply and / or a computer for advanced functionality.
+
+===Antenna connector===
+The antenna connector is a Hirose Electric low profile, surface mount, right-angle 4 pin connector. This connector allows for the simultaneous connection of a low and high frequency antenna.
+
+http://proxmark3.googlecode.com/svn/wiki/Hirose-connector.png
+
+* The low frequency antenna (125/134 kHz) connects to Pin 1 (TP5) and Pin 2 (TP2).
+* The high frequency antenna (13.56MHz) connects to Pin 3 (TP4) and Pin 4 (TP3).
+
 -----
 
 Note : this is taken from the "System.txt" document from the "doc" folder in the firmware. Apparently it should be updated ?
