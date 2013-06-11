@@ -66,8 +66,8 @@ The antenna connector is a Hirose Electric low profile, surface mount, right-ang
 
 http://proxmark3.googlecode.com/svn/wiki/Hirose-connector.png
 
-* The low frequency antenna (125/134 kHz) connects to Pin 1 (TP5) and Pin 2 (TP2).
-* The high frequency antenna (13.56MHz) connects to Pin 3 (TP4) and Pin 4 (TP3).
+  * The low frequency antenna (125/134 kHz) connects to Pin 1 (TP5) and Pin 2 (TP2).
+  * The high frequency antenna (13.56MHz) connects to Pin 3 (TP4) and Pin 4 (TP3).
 
 -----
 
