@@ -7,6 +7,7 @@
   * [Antennas Antennas]
  * *Software / firmware*
   * [Compiling Compiling and Flashing]
+  * [Linux]
   * [Windows]
  * *Usage*
   * [RunningPM3 Running The PM3]
