@@ -1,357 +1,107 @@
 #summary Compiling the Proxmark from source and flashing
 #sidebar Navigation
 <wiki:toc>
-=Generic notes=
+==Before you start==
+This document has been created assuming that you have read the relevant getting started guide and configured your development environment accordingly.
 
-NOTE: this page is currently being changed and updated to reflect the most recent changes to the USB protocol and bootloader updates.
+For Windows users - Everything in this document is done from the Minimalist GNU terminal window. Start by running "`runme.bat`".
 
 ==Flash sections==
-The firmware of the proxmark3 contains three distinct sections that can be flashed independently: bootloader, fpga image and os image.
+Proxmark firmware is comprised of three logical sections: bootrom, fpga and operating system. The bootrom is a relatively small bit of code that performs some basic hardware initialization, supports reflashing the device over USB and knows how to transfer execution to the operating system. Due to the limited number of features exposed by the bootrom, it is not frequently updated and so you should only rarely need to update it when there is a compatibility conflict.
+
+http://proxmark3.googlecode.com/svn/wiki/Firmware.png
+
+The FPGA code processes analogue signals coming from the antennas and makes those signals available to the ARM. Like the bootrom code, the FPGA code is not frequently updated. Presently, the operating system is the most frequently updated portion of Proxmark code. It is responsible for receiving and executing most of the commands advertised in the client user interface. Upgrading the bootrom of your Proxmark can brick the device. Please exercise caution when upgrading the bootloader. If the bootloader is corrupted, the only way to restore your Proxmark to working order will be through the use of a JTAG programmer.
+
+An S19 (Motorola S-record) and ELF (Executable and Linkable Format) file is produced for each logical section.
+  * ELF files are used with the flasher program for upgrading the Proxmark over USB.
+  * S19 files are used with a JTAG programmer for upgrading the Proxmark.
 
 ===Bootloader===
   * File name: `bootrom/obj/bootrom.s19`
+  * File name: `bootrom/obj/bootrom.elf`
 
 The *bootloader* (sometimes also called bootrom) is a small piece of code that enables writing to the flash over USB in the first place. It's updated very infrequently and, due to its importance, should be left alone most of the time. As long as your bootloader is intact you can recover any firmware error of your proxmark3 with just an USB connection and the provided flash tools. When you destroy your bootloader, you will need a JTAG connection and associated tools to recover the device.
 
 ===FPGA image===
   * File name: `armsrc/obj/fpgaimage.s19`
+  * File name: `armsrc/obj/fpgaimage.elf`
 
 The *FPGA image* is the configuration/code that runs on the FPGA that sits on the proxmark3. Since the FPGA doesn't have flash memory of its own, this configuration is stored in the flash memory of the ARM processor and downloaded into the FPGA on each boot of the device. The FPGA code (called bit stream) is updated fairly infrequently, and special tools are needed to compile the bit stream from the verilog sources. The proxmark3 firmware source releases and SVN checkouts always contain a compiled bit stream (in fpga/fpga.bit) which is then simply wrapped into an image file for you to flash onto the proxmark3.
 
 ===OS image===
   * File name: `armsrc/obj/osimage.s19`
+  * File name: `armsrc/obj/osimage.elf`
 
 The *OS image* is the main firmware code that runs on your proxmark3. It is developed and regularly updated in the SVN, but if you don't need the latest features you are well off using the provided binary releases. (Note also: since the SVN is considered eternal work-in-progess, a current SVN version might not work or even build.) The OS image and FPGA image work in tandem, so you should always flash them from the same SVN revision.
 
-
 ==Revision history and flashing procedures==
-
 As mentioned above, the Proxmark3 is largely a constant work in progress. Its firmware started off as a big update from the older ProxmarkII project, and was mainly aimed at demonstrating a few key concepts rather than provide a polished end-user interface.
 
 Over time, and thanks to the many contributions of all the developers on the project, the firmware has evolved in many ways: new commands and features, more refined firmware architecture, etc.
 
-While very exciting, this has also led to a bit of confusion as to exactly how to load firmware onto a Proxmark3 board, and what releases should be used. This section tries to explain the main milestones and how to get from one milestone to the next.
-
-
 ===Original firmware===
-
 The original firmware which is the one shipped on some pre-built Proxmark3 devices is now generally considered as outdated. If your Proxmark3 is loaded with the original firmware, you should consider upgrading to the most recent binary release.
 
-With this original firmware, there is no Linux client, and flashing is done using the "prox" windows command. Note that normally, you should never need to use those since this firmware is outdated: you should use the flashing commands provided by more recent versions of the PM3 to upgrade your board.
+==Flashing procedure==
+Ensure that you have read the prior section before proceeding. In order to upgrade to the latest version of firmware, you will need to first upgrade the Proxmark’s bootloader.
 
+The steps below will upgrade the Proxmark bootloader to the version you checked out previously using the procedure from the getting started guide.
 
-===Summer '09 release (SVN r216)===
+  # Optional – Update your working copy to the latest revision. (Refer to the getting started documentation).
+  # If you have not already done so, open up a terminal and go to the "pm3/client" directory.
+  # Press and hold the button on the Proxmark while connecting it to your computer. Continue to hold the button until the yellow and red LEDs stay lit.
+  # Upgrade the Proxmark bootrom by executing the following command:
+    sudo ./flasher -b ../bootrom/obj/bootrom.elf
 
-* Upgrading from the original firmware: you should first of all upgrade the bootloader, by entering the (original) bootloaded by keeping the PM3's button pressed and launch the prox or flasher command depending on your OS (please refer to the 'flashing the bootloader' instructions further below on this page). Once the bootloader is upgraded, the PM3 will be confused and won't find its OS image. This is fine: by using the flasher tool you will be able to first flash the FPGA image, then OS image (instructions further below as well).
+At this point the bootrom has been updated and the Proxmark is now in a position to have its OS upgraded. The following steps will upgrade the Proxmark Operating System and FPGA code to your checked revision.
 
-
-===Winter '10 release (SVN r412)===
-
-This release introduces other major changes to the firmware, and the bootloader as well as FPGA & OS images should be updated, using the "flasher" command on both Windows and Linux. The flashing commands have changed a lot as well as the USB protocol, so you will first need to install a specific PM3 driver is you are on Windows, as described below:
-
-- Start / Control Panel / System / Hardware / Device Manager
-- Find the Proxmark under "Human Interface Devices", it will show up as a "USB Human Interface Device". Pay attention to the "USB" in the name of the device: do not choose the "HID Compliant device" with the same PID/VID
-- Right click the device and select "Update Driver"
-- Choose "No, not this time" if Windows asks you for Windows update permission
-- Choose "install from a list or specific location"
-- Select "Don't search, I will choose" and on the next dialog press "Have Disk..."
-- Browse for your PM3's driver directory
-
-Once the driver is installed, you can move on to first flashing the new bootloader, then the "fullimage.elf" provided in the ZIP archive:
-
-{{{
-D:\Documents\Hobbies\RFID\Proxmark Firmware\Winter 2010 Release r419>flasher.exe -b bootrom.elf
-Loading ELF file 'bootrom.elf'...
-Loading usable ELF segments:
-0: V 0x00100000 P 0x00100000 (0x00000200->0x00000200) [R X] @0x94
-1: V 0x00200000 P 0x00100200 (0x0000175c->0x0000175c) [R X] @0x294
-
-Waiting for Proxmark to appear on USB... Found.
-Entering bootloader...
-(Press and release the button only to abort)
-Waiting for Proxmark to reappear on USB... Found.
-
-Flashing...
-Writing segments for file: bootrom.elf
- 0x00100000..0x001001ff [0x200 / 2 blocks].. OK
- 0x00100200..0x0010195b [0x175c / 24 blocks]........................ OK
-
-Resetting hardware...
-All done.
-
-Have a nice day!
-
-D:\Documents\Hobbies\RFID\Proxmark Firmware\Winter 2010 Release r419>flasher.exe  fullimage.elf
-Loading ELF file 'fullimage.elf'...
-Loading usable ELF segments:
-0: V 0x00102000 P 0x00102000 (0x0000a4bc->0x0000a4bc) [R  ] @0xb4
-1: V 0x00110000 P 0x00110000 (0x000140b8->0x000140b8) [R X] @0xa570
-2: V 0x00200000 P 0x001240b8 (0x00000004->0x00000004) [RW ] @0x1e628
-Note: Extending previous segment from 0x140b8 to 0x140bc bytes
-
-Waiting for Proxmark to appear on USB... Found.
-Entering bootloader...
-(Press and release the button only to abort)
-Waiting for Proxmark to reappear on USB... Found.
-
-Flashing...
-Writing segments for file: fullimage.elf
- 0x00102000..0x0010c4bb [0xa4bc / 165 blocks]...................................
-................................................................................
-.................................................. OK
- 0x00110000..0x001240bb [0x140bc / 321 blocks]..................................
-................................................................................
-................................................................................
-................................................................................
-............................................... OK
-
-Resetting hardware...
-All done.
-
-Have a nice day!
-
-D:\Documents\Hobbies\RFID\Proxmark Firmware\Winter 2010 Release r419>
+  # Ensure that the Proxmark is not connected to the PC.
+  # Hold down the Proxmark’s button and connect it to the PC. After the yellow and red LEDs are lit, execute the command below:
+    {{{
+sudo ./flasher ../armsrc/obj/fpgaimage.elf
+}}}
+  # If the previous step is successful, disconnect the Proxmark.
+  # While holding the button, connect the Proxmark to the PC and wait for the yellow and red LEDs to stay lit. Execute the command below:
+    {{{
+sudo ./flasher ../armsrc/obj/osimage.elf
+}}}
+  # Disconnect the Proxmark from the PC and then reconnect it.
+  # Launch the client software by executing "./proxmark3.exe". The client should successfully connect to the Proxmark. You should see something like this:
+    {{{
+Connected units:
+1. SN: ChangeMe [bus-0/\\.\libusb0-0001--0x9ac4-0x4b8f]
+proxmark3>
 }}}
 
-From there on, you should not need to update the Bootloader upon new firmware releases - unless of course there is another large bootloader upgrade at a later stage!
-
-==Flash tools==
-
-On older SVN versions (up to Summer of '09):
-
-  * Windows: `winsrc\prox.exe (bootrom|fpga|os) ...`
-  * Linux: `linux/flasher (bootrom|fpga|os) ...`
-
-On newer SVN versions (Winter of '10 onwards):
-
-   * Both Windows and Linux use the flasher command.
-
-
-===Entering the bootloader===
-
-Since the proxmark3 can execute in two distinct modes (main os, and bootloader) it needs to be in bootloader mode if you want to write to the flash. There are two ways of entering bootloader mode:
-
-  # If you press (and keep pressed) the button on the proxmark3 while applying power (or resetting the device) it will enter bootloader mode right away. This is indicated by the yellow and red LEDs staying on and the green and other red LED being off. If you let go of the button, the bootloader will exit and (try to) give control to the os image.
-  # If your osimage is intact, the bootloader can also be entered by request of the flash tool. In this case you don't need to do anything. If you press the button while the bootloader is active, your button press will override the flash tool request and the device will stay in bootloader mode as long as you keep the button pressed. That means: pressing and releasing the button aborts bootloader mode.
-
-The second option only works with a new bootrom and a new osimage (SVN revision 201 or later; summer '09 release or later), the first option should always work with all bootroms since at least SVN revision 2.
-
-==Host tool==
-  * Windows: `winsrc\prox.exe gui`
-  * Linux: `client/proxmark3`
-
-==Known incompatibilities==
-Unless otherwise noted these incompatibilities are not mutual, f.e. a new flash tool will work with both new and old bootroms.
-  * Bootroms since SVN revision 201 will not work with the Linux flash tool before SVN revision 200 or Windows flash tool before SVN revision 209. If in doubt, use both bootrom and flash tool from the latest release (summer '09).
-  * FPGA image since SVN revision 179 will not work with OS image before SVN revision 179 due to a changed FPGA image format.
-  * OS image and host tools before and after SVN revision 137 are mutually incompatible due to an inadvertent change. This only affects a small number of host tool commands, including hisamples and losim.
-
-=Prerequisites for compiling from source=
-For the `bootrom` and `armsrc` directories you need GNU make and a GNU arm toolchain (at least gcc and binutils). For Windows a complete ARM toolchain is provided in the "Windows development environment" zip file. For Linux you need to get your own toolchain, though there is a script in tools/install-gnuarm4.sh that can greatly automate the process. Optionally, to build images that contain version information, you need perl (provided in the Windows development environment) and svn.
-
-For the `client` directory you need pkg-config, gcc, GNU binutils, GNU make, libusb, libreadline, QtCore, QtGui as well as the header/development files for the latter four packages.
-
-For the `winsrc` directory you need FIXME. This is provided in the "Windows development environment" zip file.
-
-=Windows Platform=
-
-== Setting up Subversion ==
-In order to obtain the latest source code you need to check it out of the SVN repository. To do that you can use any number of free clients. This guide will show you how to use Subcommander which is a good choice for n00bs as it has a graphical interface and does not require command line access.
-
- * Download and install [http://subcommander.tigris.org/ Subcommander].
- * Run it and from the Bookmark menu select "new project"
- * In the Project Name field type {{{proxmark}}}, then click Next.
- * In this window, leave the fields blank, just click Next.
- * In the URL field enter {{{http://proxmark3.googlecode.com/svn/trunk/ }}} and click Next.
- * On the next screen, do not enter anything, just press Finish.
-You're now ready to download the source code. In your Projects pane on the left, expand the proxmark tree and you should now see an entry called {{{trunk}}}. Right click on it and select {{{check out}}} from the menu. In the working copy path field type {{{C:\prox-dev\proxmark}}} then click OK and wait for the checkout to complete.
-
-Using your file explorer, browse to C:\prox-dev\proxmark and you should see a number of subdirectories with source files in them. Rejoice!
-
-== Setting up the compile environment ==
-
-Download the [http://proxmark3.googlecode.com/files/2009.09.05.ProxSpace.zip Compile Environment] archive.
-
-Extract the archive to C:\prox-dev then check that you have the following subdirectories:
- * devkitARM
- * devkitWIN
- * proxmark
-If not, move the extracted directories so that they sit inside C:\prox-dev
-
-== Compiling the code ==
-
-Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
-{{{
-0setpath.bat
-}}}
-A command window opens up.
-At the prompt type
-{{{
-5makeall.bat
-}}}
-and wait for the compile to finish.
- * Check the directory C:\prox-dev\proxmark\armsrc\obj to find the files fpgaimage.s19 and osimage.s19
- * Check the directory C:\prox-dev\proxmark\bootrom\obj to find the file bootrom.s19
- * Check the directory C:\prox-dev\proxmark\winsrc to find the file prox.exe
-If you see these files, the compile was successful. It is *not* necessary to have the PM3 board connected via USB in order to compile the code.
-
-
-== Flashing the board ==
-
-Please refer to the Flashing instructions above, depending on your SVN revision.
-
-Browse to the folder C:\prox-dev\proxmark\cockpit and run the file
-{{{
-0setpath.bat
-}}}
-A command window opens up.
-
-===Flashing the bootloader===
-
-Note: Since SVN revision 201 (2009-09-01 16:44:38 +0200) the bootloader protocol is incompatible with old flash tools. Please use only new flash tools to prevent any problems. The new Linux flash tool is available since SVN revision 200, the new Windows flash tool is available since SVN revision 209.
-
-On Windows, newer SVN versions require a libUSB driver to be installed on your computer, not the standard HID driver. Instructions for upgrade/installation are documented in the "Winter of '10" section above.
-
-You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*. It is however strongly recommended to update to the new revision 201 bootloader (as included in the summer '09 release), if you don't already have it (the flash tool will inform you of this).
-
-Type
-{{{
-prox bootrom ..\bootrom\obj\bootrom.s19
-}}}
-but do not press enter yet.
-
-  * For old bootloaders (before SVN revision 201/summer '09 release): Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
-  * For new bootloaders and osimages (after and including the summer '09 release): You don't have to do anything, the proxmark will automatically enter the bootloader, complete the flash sequence and reset into the OS. If you press and release the button while the bootloader is active, you'll abort the flash process, so don't do that. However, the old procedure (press button before applying power to the proxmark and keep it pressed until the flashing is complete) should still work.
-
-
-===Flashing the FPGA===
-You only have to flash the FPGA if there has been a change in the FPGA code. This happens fairly infrequently.
-
-Connect the PM3 board via the USB cable. Type
-{{{
-prox fpga ..\armsrc\obj\fpgaimage.s19
-}}}
-and hit enter. See above for button pressing instructions.
-
-===Flashing the ARM===
-This is the code that changes most often and needs to be flashed.
-
-Connect the PM3 board via the USB cable. Type
-{{{
-prox os ..\armsrc\obj\osimage.s19
-}}}
-and hit enter. See above for button pressing instructions.
-
-===Flashing more than one partition at a time===
-With the new flash tool you can do things like
-{{{
-prox os,fpga ..\armsrc\obj\osimage.s19 ..\armsrc\obj\fpgaimage.s19
-}}}
-
-
-=Linux Platform=
-
-The following detail has been created for [http://www.ubuntu.com/ Ubuntu] and other Debian-like ([http://www.backtrack-linux.org/ BackTrack]) distributions...
-
-== Setting up Subversion ==
-{{{
-sudo apt-get install subversion
-}}}
-
-Check out the proxmark3 subversion directory below your home directory and change into it:
-{{{
-svn co http://proxmark3.googlecode.com/svn/trunk proxmark3-read-only
-cd proxmark3-read-only
-}}}
-
-== Getting the prerequisites ==
-For the host tool:
-{{{
-sudo apt-get install build-essential libreadline-dev libqt4-dev perl pkg-config wget gtk2-engines-pixbuf
-}}}
-
-For the ARM toolchain:
-{{{
-download latest devkitPro ARM for your platform manually from
-http://sourceforge.net/projects/devkitpro/files/devkitARM/
-}}}
-or use the following syntax in console that fits your system (32 or 64 bit)
-{{{
-wget http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-i686-linux.tar.bz2/download
-wget http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-x86_64-linux.tar.bz2/download
-}}}
-then unpack and configure the path accordingly
-{{{
-tar jxvf devkitARM_r41-i686-linux.tar.bz2
-sudo mkdir /opt/devkitpro/
-sudo mv devkitARM /opt/devkitpro/
-export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/
-}}}
-You should also append the last line (export...) to your `~/.bashrc` so that the PATH changes apply every time you login.
-
-== Building ==
-You are now ready to simply execute 
-{{{
-make
-}}}
-from the main proxmark directory which will build all parts: bootrom (check that `bootrom/obj/bootrom.s19` is created), fpga image (`armsrc/obj/fpgaimage.s19`), os image (`armsrc/obj/osimage.s19`) and the host tool (`client/proxmark3`).
-
-== Flashing the board ==
-
-Browse to the linux source folder in your SVN repo: .../client
- 
-===Flashing the bootloader===
- 
-Note: Since SVN revision 201 (2009-09-01 16:44:38 +0200) the bootloader protocol is incompatible with old flash tools. Please use only new flash tools to prevent any problems. The new Linux flash tool is available since SVN revision 200, the new Windows flash tool is available since SVN revision 209.
-
-You only have to do this step once if you have an older or unknown firmware board. It is *not recommended* to keep reflashing the bootloader every time there's a code change *unless the change applies to the bootloader*. It is however strongly recommended to update to the new revision 201 bootloader (as included in the summer '09 release), if you don't already have it (the flash tool will inform you of this).
- 
-Type
-
-{{{
-./flasher bootrom ../bootrom/obj/bootrom.s19
-}}}
-
-but do not press enter yet.
-
-  * For old bootloaders (before SVN revision 201/summer '09 release): Connect the USB cable to the board while holding the button on the PM3 board down. While continuing to hold the PM3 button down, press enter on the keyboard. Only release the PM3 button when the flash operation has completed.
-  * For new bootloaders and osimages (after and including the summer '09 release): You don't have to do anything, the proxmark will automatically enter the bootloader, complete the flash sequence and reset into the OS. If you press and release the button while the bootloader is active, you'll abort the flash process, so don't do that. However, the old procedure (press button before applying power to the proxmark and keep it pressed until the flashing is complete) should still work.
-
-===Flashing the FPGA===
-
-You only have to flash the FPGA if there has been a change in the FPGA code. This happens fairly infrequently.
-
-Connect the PM3 board via the USB cable. Type
- 
-{{{ 
-./flasher fpga ../armsrc/obj/fpgaimage.s19
-}}}
- 
-and hit enter. See above for button pressing instructions.
-
-===Flashing the ARM===
- 
-This is the code that changes most often and needs to be flashed.
-
-Connect the PM3 board via the USB cable. Type
- 
-{{{
-./flasher os ../armsrc/obj/osimage.s19
-}}}
-and hit enter. See above for button pressing instructions.
-
-===Flashing both the FPGA and the ARM in one go===
-
-If you know you need to flash both FPGA and ARM code, this will save time as it will not reboot the PM3 between flashes.
-
-Connect the PM3 board via the USB cable. Type
-
-{{{
-./flasher os,fpga ../armsrc/obj/osimage.s19 ../armsrc/obj/fpgaimage.s19
-}}}
-
-and hit enter. See above for button pressing instructions. 
-
-=OSX Platform=
-
-To be added.
+==JTAG Recovery Procedure==
+If for whatever reason the USB upgrade procedure (section above) failed and the Proxmark will no longer boot, you will need to load the bootrom on to the Proxmark using the JTAG interface. This procedure assumes that you have a Segger J-LINK for the recovery process and J-Flash ARM installed on a PC running Windows 7.
+
+  # Plug the Proxmark and the Segger J-LINK in to the computer.
+  # Attach the J-LINK to the Proxmark JTAG port.
+  # Open J-Flash ARM.
+  # Create a new project by selecting File > New project.
+  # Change the project settings by going to Options > Project settings…
+    - or -
+	Alt + F7.
+  # Click on the Target Interface tab.
+  # Change the JTAG speed before init to 200 kHz.
+  # Click on the CPU tab.
+  # Select the Device radio button and select Atmel AT91SAM7S256 from the drop down list.
+  # Change the Clock speed to Auto detection.
+  # Apply and OK the changes.
+  # Test connectivity to the Proxmark by selecting Target > Connect.
+  # Disconnect from the Proxmark by selecting Target > Disconnect.
+  # Open the data file by selecting File > Open data file…
+    - or -
+	Ctrl + O.
+  # Open the file "bootrom.s19" which should be located in the "pm3\bootrom\obj" folder. If it is not there, you will need to re-build the project.
+  # Program the Proxmark and verify the process by selecting Target > Program & Verify
+    - or -
+	F6.
+  # You should expect to see an error saying that the program does not fit into the selected flash sectors. Select Yes to relocate and continue.
+  # Disconnect from the Proxmark by selecting Target > Disconnect.
+  # Exit J-Flash ARM.
+  # Remove the J-LINK from the Proxmark.
+  # Wait a little while and the Proxmark should automatically re-start. You can always un-plug and re-plug the Proxmark if you wish. You can then attempt to re-connect to the Proxmark using the client software.
+  

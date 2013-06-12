@@ -9,7 +9,7 @@ It is assumed that the reader of this document is the local administrator of a m
   * A computer running Ubuntu 11.10 with an available USB port.
   * This guide will most likely work with:
    * Ubuntu 11.04, 10.10 and 10.04.
-   * BackTrack 5 R1 and 4 R2.
+   * `BackTrack 5 R1` and `4 R2`.
   * A USB Mini-B lead.
   * A Proxmark III.
   * HF and / or LF antenna for the Proxmark.
@@ -17,28 +17,36 @@ A technical understanding of the Proxmark III is not required for the installati
 
 =Development environment installation=
   # Open a terminal: CTRL + ALT + T .
-  # Download (and install) TortoiseSVN, p7zip, and components essential to build the Proxmark from soruce: “sudo apt-get install subversion p7zip build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config wget”.
-  # Check out the latest revision of the Proxmark project: “svn checkout http://proxmark3.googlecode.com/svn/trunk pm3”.
-  # Get devkitARM release 32 (4.5.1) from SourceForge: http://sourceforge.net/projects/devkitpro/files/devkitARM/previous/devkitARM_r32-i686-linux.tar.bz2/download
-  # Extract the contents of the .tar.bz2: “tar jxvf devkitARM_r32-i686-linux.tar.bz2”.
-  # Create a directory for the arm dev kit: “sudo mkdir /opt/devkitpro/”.
-  # Move the ARM developer kit to the newly created directory: “sudo mv devkitARM /opt/devkitpro/”.
-  # Add the appropriate environment variable: “export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/”.
-  # Add the environment variable to your profile: “echo 'PATH=${PATH}:/opt/devkitpro/devkitARM/bin/' >> ~/.bashrc”.
+  # Download (and install) TortoiseSVN, p7zip, and components essential to build the Proxmark from soruce: "`sudo apt-get install subversion p7zip build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config wget`".
+  # Check out the latest revision of the Proxmark project: "svn checkout http://proxmark3.googlecode.com/svn/trunk pm3".
+  # Get devkitARM release 32 (4.5.1) from [http://sourceforge.net/projects/devkitpro/ SourceForge]: http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-x86_64-linux.tar.bz2/download
+  # Extract the contents of the .tar.bz2: "`tar jxvf devkitARM_r41-x86_64-linux.tar.bz2`".
+  # Create a directory for the arm dev kit: "`sudo mkdir /opt/devkitpro/`".
+  # Move the ARM developer kit to the newly created directory: "`sudo mv devkitARM /opt/devkitpro/`".
+  # Add the appropriate environment variable: "`export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/`".
+  # Add the environment variable to your profile: "`echo 'PATH=${PATH}:/opt/devkitpro/devkitARM/bin/' >> ~/.bashrc`".
 
 =PROXMARK DRIVER INSTALLATION=
   # No drivers are required to use the Proxmark within Linux. You will however need to run the client as root.
-   
+
+If you want to get rid of being root (run with sudo) to access the device, then add yourself to the dialout group:
+"`sudo adduser <username> dialout`"
+You will need to logoff before the changes will take effect.
+
+If the flasher program is waiting for the proxmark to re-appear, but produces unlimited dots......., then remove the modem-manager:
+"`sudo apt-get purge modemmanager`"
+You might need to reboot for this to take effect.
+  
 =Testing the Proxmark=
 You are now at the stage where you should be able to communicate with your Proxmark.
-  # Go in to your Proxmark project folder and run the Proxmark software – “sudo ./client/proxmark3.exe”.
+  # Go in to your Proxmark project folder and run the Proxmark software - "`sudo ./client/proxmark3.exe`".
    # You should see something like this:
      {{{
 Connected units:
 1. SN: ChangeMe [bus-0/\\.\libusb0-0001--0x9ac4-0x4b8f]
 proxmark3>
 }}}
-  # Next, check what firmware you are running – “hw version”.
+  # Next, check what firmware you are running - "`hw version`".
    # You should see something like this:
      {{{
 #db# Prox/RFID mark3 RFID instrument
@@ -46,7 +54,7 @@ proxmark3>
 #db# os: svn 486-suspect 2011-07-18 12:48:57
 #db# FPGA image built on 2009/12/ 8 at 8: 3:54
 }}}
-  # Connect your antenna(s) to the Proxmark and type in “hw tune”.
+  # Connect your antenna(s) to the Proxmark and type in "`hw tune`".
    # You should see something like this:
      {{{
 #db# Measuring antenna characteristics, please wait.
@@ -55,23 +63,23 @@ proxmark3>
 # LF optimal: 41.76 V @ 127.66 kHz
 # HF antenna: 7.28 V @ 13.56 MHz
 }}}
-  # Type “quit” to exit out of the program.
+  # Type "`quit`" to exit out of the program.
   
 =Notes=
-There are many commands available within the Proxmark client. Type "help" to list the commands available to you. You get a list of following subcommands by typing in the command you’re interested followed by help (Eg. "hf help"). For detailed help please read the Proxmark User Manual.
+There are many commands available within the Proxmark client. Type "`help`" to list the commands available to you. You get a list of following subcommands by typing in the command you're interested followed by help (Eg. "`hf help`"). For detailed help please read the Proxmark User Manual.
 
-Command shortcutting is permitted. For instance typing "hf mf re" will achieve the same results as typing "hf mf restore1k" because it is the only "hf mf" command available that begins with "re".
+Command shortcutting is permitted. For instance typing "`hf mf re`" will achieve the same results as typing "`hf mf restore1k`" because it is the only "`hf mf`" command available that begins with "`re`".
 
-You might have noticed when you executed the command "hw version" there was a "-unclean" or "-suspect" in the "bootrom" or "os" version information. This information indicates that the code may have changes in the local code versus the subversion revision.
+You might have noticed when you executed the command "`hw version`" there was a "`-unclean`" or "`-suspect`" in the "`bootrom`" or "`os`" version information. This information indicates that the code may have changes in the local code versus the subversion revision.
 
   * A clean build is a build that has no local changes versus the subversion revision.
   * Unclean builds have local changes versus the subversion revision.
   * Suspect builds cannot be compared against the subversion revision.
 
 ==Next steps==
-From here on in the rest is up to you. You might want to confirm that the firmware you’re running is the latest. In addition to this you might want to begin reading through the Proxmark source code and making changes of your own.
+From here on in the rest is up to you. You might want to confirm that the firmware you're running is the latest. In addition to this you might want to begin reading through the Proxmark source code and making changes of your own.
 
 We suggest you read the following documentation:
-  * Compiling Proxmark source and firmware upgrading
-  * Proxmark User Manual
-  * Antenna Construction Guide
+  * [Compiling Proxmark source and firmware upgrading]
+  * [RunningPM3 Proxmark User Manual]
+  * [Antennas Antenna Construction Guide]
