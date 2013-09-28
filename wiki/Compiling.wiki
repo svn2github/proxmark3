@@ -75,6 +75,8 @@ proxmark3>
 }}}
 
 ==JTAG Recovery Procedure==
+If for whatever reason the USB upgrade procedure (section above) failed and the Proxmark will no longer boot, you will need to load the bootrom on to the Proxmark using the JTAG interface. This procedure assumes that you have a Segger J-LINK for the recovery process and J-link commander installed.
+
 Plug both the Proxmark and the Segger J-LINK in to the computer.
 Attach the J-LINK to the Proxmark JTAG port.
 
@@ -88,39 +90,11 @@ loadbin "C:\proxmark3\recovery\proxmark3_recovery.bin" 0x100000
 
 that is it!
 
-for flashing either the bootrom or firmware, these are the addresses:
+for flashing either the bootrom or firmware, these are the files and addresses:
 {{{
-bootrom = 0x100000
-fullimage = 0x102000
+bootrom.bin = 0x100000
+fullimage.bin = 0x102000
 }}}
 
-If for whatever reason the USB upgrade procedure (section above) failed and the Proxmark will no longer boot, you will need to load the bootrom on to the Proxmark using the JTAG interface. This procedure assumes that you have a Segger J-LINK for the recovery process and J-Flash ARM installed on a PC running Windows 7.
-
-  # Plug the Proxmark and the Segger J-LINK in to the computer.
-  # Attach the J-LINK to the Proxmark JTAG port.
-  # Open J-Flash ARM.
-  # Create a new project by selecting File > New project.
-  # Change the project settings by going to Options > Project settings�
-    - or -
-	Alt + F7.
-  # Click on the Target Interface tab.
-  # Change the JTAG speed before init to 200 kHz.
-  # Click on the CPU tab.
-  # Select the Device radio button and select Atmel AT91SAM7S256 from the drop down list.
-  # Change the Clock speed to Auto detection.
-  # Apply and OK the changes.
-  # Test connectivity to the Proxmark by selecting Target > Connect.
-  # Disconnect from the Proxmark by selecting Target > Disconnect.
-  # Open the data file by selecting File > Open data file�
-    - or -
-	Ctrl + O.
-  # Open the file "bootrom.s19" which should be located in the "pm3\bootrom\obj" folder. If it is not there, you will need to re-build the project.
-  # Program the Proxmark and verify the process by selecting Target > Program & Verify
-    - or -
-	F6.
-  # You should expect to see an error saying that the program does not fit into the selected flash sectors. Select Yes to relocate and continue.
-  # Disconnect from the Proxmark by selecting Target > Disconnect.
-  # Exit J-Flash ARM.
-  # Remove the J-LINK from the Proxmark.
-  # Wait a little while and the Proxmark should automatically re-start. You can always un-plug and re-plug the Proxmark if you wish. You can then attempt to re-connect to the Proxmark using the client software.
+You can always un-plug and re-plug the Proxmark if you wish. You can then attempt to re-connect to the Proxmark using the client software.
   
