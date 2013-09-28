@@ -44,11 +44,11 @@ Over time, and thanks to the many contributions of all the developers on the pro
 The original firmware which is the one shipped on some pre-built Proxmark3 devices is now generally considered as outdated. If your Proxmark3 is loaded with the original firmware, you should consider upgrading to the most recent binary release.
 
 ==Flashing procedure==
-Ensure that you have read the prior section before proceeding. In order to upgrade to the latest version of firmware, you will need to first upgrade the Proxmark’s bootloader.
+Ensure that you have read the prior section before proceeding. In order to upgrade to the latest version of firmware, you will need to first upgrade the Proxmarkï¿½s bootloader.
 
 The steps below will upgrade the Proxmark bootloader to the version you checked out previously using the procedure from the getting started guide.
 
-  # Optional – Update your working copy to the latest revision. (Refer to the getting started documentation).
+  # Optional ï¿½ Update your working copy to the latest revision. (Refer to the getting started documentation).
   # If you have not already done so, open up a terminal and go to the "pm3/client" directory.
   # Press and hold the button on the Proxmark while connecting it to your computer. Continue to hold the button until the yellow and red LEDs stay lit.
   # Upgrade the Proxmark bootrom by executing the following command:
@@ -57,7 +57,7 @@ The steps below will upgrade the Proxmark bootloader to the version you checked 
 At this point the bootrom has been updated and the Proxmark is now in a position to have its OS upgraded. The following steps will upgrade the Proxmark Operating System and FPGA code to your checked revision.
 
   # Ensure that the Proxmark is not connected to the PC.
-  # Hold down the Proxmark’s button and connect it to the PC. After the yellow and red LEDs are lit, execute the command below:
+  # Hold down the Proxmarkï¿½s button and connect it to the PC. After the yellow and red LEDs are lit, execute the command below:
     {{{
 sudo ./flasher ../armsrc/obj/fpgaimage.elf
 }}}
@@ -75,13 +75,32 @@ proxmark3>
 }}}
 
 ==JTAG Recovery Procedure==
+Plug both the Proxmark and the Segger J-LINK in to the computer.
+Attach the J-LINK to the Proxmark JTAG port.
+
+Run J-link commander. Then:
+{{{
+exec device = AT91SAM7S256
+exec EnableFlashDL
+h
+loadbin "C:\proxmark3\recovery\proxmark3_recovery.bin" 0x100000
+}}}
+
+that is it!
+
+for flashing either the bootrom or firmware, these are the addresses:
+{{{
+bootrom = 0x100000
+fullimage = 0x102000
+}}}
+
 If for whatever reason the USB upgrade procedure (section above) failed and the Proxmark will no longer boot, you will need to load the bootrom on to the Proxmark using the JTAG interface. This procedure assumes that you have a Segger J-LINK for the recovery process and J-Flash ARM installed on a PC running Windows 7.
 
   # Plug the Proxmark and the Segger J-LINK in to the computer.
   # Attach the J-LINK to the Proxmark JTAG port.
   # Open J-Flash ARM.
   # Create a new project by selecting File > New project.
-  # Change the project settings by going to Options > Project settings…
+  # Change the project settings by going to Options > Project settingsï¿½
     - or -
 	Alt + F7.
   # Click on the Target Interface tab.
@@ -92,7 +111,7 @@ If for whatever reason the USB upgrade procedure (section above) failed and the 
   # Apply and OK the changes.
   # Test connectivity to the Proxmark by selecting Target > Connect.
   # Disconnect from the Proxmark by selecting Target > Disconnect.
-  # Open the data file by selecting File > Open data file…
+  # Open the data file by selecting File > Open data fileï¿½
     - or -
 	Ctrl + O.
   # Open the file "bootrom.s19" which should be located in the "pm3\bootrom\obj" folder. If it is not there, you will need to re-build the project.
