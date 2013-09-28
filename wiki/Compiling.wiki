@@ -96,5 +96,5 @@ bootrom.bin = 0x100000
 fullimage.bin = 0x102000
 }}}
 
-You can always un-plug and re-plug the Proxmark if you wish. You can then attempt to re-connect to the Proxmark using the client software.
+Now un-plug the proxmark USB and JTAG and re-plug the Proxmark USB to the computer.
   
