@@ -3,10 +3,10 @@
 <wiki:toc>
 =Getting started=
 
-It is assumed that the reader of this document is the local administrator of a machine running Windows 7. This document is intended as a guide only. Group policies and custom configurations are outside the scope of this document. This guide has not been tested against the "Home" or "Starter" editions of Windows 7.
+It is assumed that the reader of this document is the local administrator of a machine running Linux. This document is intended as a guide only. Group policies and custom configurations are outside the scope of this document. This guide has been tested against the Ubnutu distribution, but should work for most flavours of Linux with minor adjustments.
 
 =Requirements=
-  * A computer running Ubuntu 11.04 or greater with an available USB port.
+  * A computer running Ubuntu 10.04 or greater with an available USB port.
   * This guide will most likely work with any recent version, but has been tested with:
    * Ubuntu 10.04, 10.10, 11.04, 12.04 and 13.04
    * `BackTrack 5 R1` and `4 R2`.
