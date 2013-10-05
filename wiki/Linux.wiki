@@ -1,4 +1,4 @@
-#summary Configuring the development environment in Windows.
+#summary Configuring the development environment in Linux.
 #sidebar Navigation
 <wiki:toc>
 =Getting started=
