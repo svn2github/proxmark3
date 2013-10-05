@@ -6,9 +6,9 @@
 It is assumed that the reader of this document is the local administrator of a machine running Windows 7. This document is intended as a guide only. Group policies and custom configurations are outside the scope of this document. This guide has not been tested against the "Home" or "Starter" editions of Windows 7.
 
 =Requirements=
-  * A computer running Ubuntu 11.10 with an available USB port.
-  * This guide will most likely work with:
-   * Ubuntu 11.04, 10.10 and 10.04.
+  * A computer running Ubuntu 11.04 or greater with an available USB port.
+  * This guide will most likely work with any recent version, but has been tested with:
+   * Ubuntu 10.04, 10.10, 11.04, 12.04 and 13.04
    * `BackTrack 5 R1` and `4 R2`.
   * A USB Mini-B lead.
   * A Proxmark III.
@@ -16,54 +16,125 @@ It is assumed that the reader of this document is the local administrator of a m
 A technical understanding of the Proxmark III is not required for the installation process.
 
 =Development environment installation=
-  # Open a terminal: CTRL + ALT + T .
-  # Download (and install) TortoiseSVN, p7zip, and components essential to build the Proxmark from soruce: "`sudo apt-get install subversion p7zip build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config wget`".
-  # Check out the latest revision of the Proxmark project: "svn checkout http://proxmark3.googlecode.com/svn/trunk pm3".
-  # Get devkitARM release 32 (4.5.1) from [http://sourceforge.net/projects/devkitpro/ SourceForge]: http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-x86_64-linux.tar.bz2/download
-  # Extract the contents of the .tar.bz2: "`tar jxvf devkitARM_r41-x86_64-linux.tar.bz2`".
-  # Create a directory for the arm dev kit: "`sudo mkdir /opt/devkitpro/`".
-  # Move the ARM developer kit to the newly created directory: "`sudo mv devkitARM /opt/devkitpro/`".
-  # Add the appropriate environment variable: "`export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/`".
-  # Add the environment variable to your profile: "`echo 'PATH=${PATH}:/opt/devkitpro/devkitARM/bin/' >> ~/.bashrc`".
+  * Open a terminal:
+
+    `CTRL + ALT + T`
+
+  * Download (and install) TortoiseSVN, p7zip, and components essential to build the Proxmark from soruce:
+
+     `sudo apt-get install subversion p7zip build-essential libreadline5 libreadline-dev libusb-0.1-4 libusb-dev libqt4-dev perl pkg-config wget`
+
+  * Check out the latest revision of the Proxmark project:
+
+     `svn checkout http://proxmark3.googlecode.com/svn/trunk pm3`
+
+
+  * Get devkitARM release 32 (4.5.1) from [http://sourceforge.net/projects/devkitpro/ SourceForge]: 
+
+    `http://sourceforge.net/projects/devkitpro/files/devkitARM/devkitARM_r41-x86_64-linux.tar.bz2/download`
+
+  * Extract the contents of the .tar.bz2: 
+
+    `tar jxvf devkitARM_r41-x86_64-linux.tar.bz2`
+
+  * Create a directory for the arm dev kit: 
+
+    `sudo mkdir /opt/devkitpro/`
+
+  * Move the ARM developer kit to the newly created directory: 
+
+    `sudo mv devkitARM /opt/devkitpro/`
+
+  * Add the appropriate environment variable: 
+
+    `export PATH=${PATH}:/opt/devkitpro/devkitARM/bin/`
+
+  * Add the environment variable to your profile: 
+
+    `echo 'PATH=${PATH}:/opt/devkitpro/devkitARM/bin/' >> ~/.bashrc`
+
+  * Re-load your profile: 
+
+    `. ~/.bashrc`
 
 =PROXMARK DRIVER INSTALLATION=
-  # No drivers are required to use the Proxmark within Linux. You will however need to run the client as root.
+No drivers are required to use the Proxmark within Linux. You will however need to do a couple of things as root:
 
-If you want to get rid of being root (run with sudo) to access the device, then add yourself to the dialout group:
-"`sudo adduser <username> dialout`"
-You will need to logoff before the changes will take effect.
+  * Add yourself to the dialout group: 
 
-If the flasher program is waiting for the proxmark to re-appear, but produces unlimited dots......., then remove the modem-manager:
-"`sudo apt-get purge modemmanager`"
-You might need to reboot for this to take effect.
-  
+    `sudo adduser <username> dialout`
+
+    (You will need to logoff before the changes will take effect.)
+
+  * Configure modem-manager to ignore the proxmark (this is important as it will block flashing):
+
+    `sudo vi /lib/udev/rules.d/77-mm-usb-device-blacklist.rules`
+
+    * Add the following 2 lines (at the end of the file, before the LABEL line):
+       {{{
+# proxmark3 - http://www.proxmark.org/
+ATTRS{idVendor}=="2d2d" ATTRS{idProduct}=="504d", ENV{ID_MM_DEVICE_IGNORE}="1"
+}}}
+
+  * restart udev hotplug control:
+
+    `sudo udevadm control --reload-rules`
+
+Note that this change may be overwritten by system updates. We will try to get it it added to the main linux distributions, but in the meantime you may have to re-do this step from time to time.
+
 =Testing the Proxmark=
 You are now at the stage where you should be able to communicate with your Proxmark.
-  # Go in to your Proxmark project folder and run the Proxmark software - "`sudo ./client/proxmark3.exe`".
-   # You should see something like this:
-     {{{
-Connected units:
-1. SN: ChangeMe [bus-0/\\.\libusb0-0001--0x9ac4-0x4b8f]
-proxmark3>
+  * Plug in and check which port is came up as:
+    `dmesg`
+
+      * You should see something like:
+        {{{
+[59751.565721] usb 2-1.2: new full-speed USB device number 68 using ehci-pci
+[59751.659024] usb 2-1.2: New USB device found, idVendor=2d2d, idProduct=504d
+[59751.659035] usb 2-1.2: New USB device strings: Mfr=1, Product=0, SerialNumber=0
+[59751.659041] usb 2-1.2: Manufacturer: proxmark.org
+[59751.659767] cdc_acm 2-1.2:1.0: This device cannot do calls on its own. It is not a modem.
+[59751.659804] cdc_acm 2-1.2:1.0: ttyACM3: USB ACM device
 }}}
-  # Next, check what firmware you are running - "`hw version`".
-   # You should see something like this:
-     {{{
-#db# Prox/RFID mark3 RFID instrument
-#db# bootrom: svn 486-suspect 2011-07-18 12:48:52
-#db# os: svn 486-suspect 2011-07-18 12:48:57
-#db# FPGA image built on 2009/12/ 8 at 8: 3:54
+  * Go in to your Proxmark project folder and run the Proxmark software:
+
+    `./client/proxmark3 /dev/ttyACM3`
+
+    * You should get the proxmark command prompt:
+
+    `proxmark3> `
+
+    * Get the proxmark version info:
+
+    `hw version`
+   
+     * You should see something like this:
+       {{{
+#db# Prox/RFID mark3 RFID instrument                 
+#db# bootrom: svn 715 2013-05-16 15:34:53                 
+#db# os: svn 798-unclean 2013-10-04 20:02:30                 
+#db# FPGA image built on 2012/ 1/ 6 at 15:27:56                 
+uC: AT91SAM7S256 Rev A          
+Embedded Processor: ARM7TDMI          
+Nonvolatile Program Memory Size: 256K bytes          
+Second Nonvolatile Program Memory Size: None          
+Internal SRAM Size: 256K bytes          
+Architecture Identifier: AT91SAM7Sxx Series          
+Nonvolatile Program Memory Type: Embedded Flash Memory
 }}}
-  # Connect your antenna(s) to the Proxmark and type in "`hw tune`".
-   # You should see something like this:
-     {{{
+  * Connect your antenna(s) to the Proxmark and type in:
+
+    `hw tune`
+
+     * You should see something like this:
+       {{{
 #db# Measuring antenna characteristics, please wait.
 # LF antenna: 33.17 V @ 125.00 kHz
 # LF antenna: 41.89 V @ 134.00 kHz
 # LF optimal: 41.76 V @ 127.66 kHz
 # HF antenna: 7.28 V @ 13.56 MHz
 }}}
-  # Type "`quit`" to exit out of the program.
+  * Type "`quit`" to exit out of the program.
   
 =Notes=
 There are many commands available within the Proxmark client. Type "`help`" to list the commands available to you. You get a list of following subcommands by typing in the command you're interested followed by help (Eg. "`hf help`"). For detailed help please read the Proxmark User Manual.
