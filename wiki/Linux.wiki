@@ -68,9 +68,9 @@ No drivers are required to use the Proxmark within Linux. You will however need 
 
   * Configure modem-manager to ignore the proxmark (this is important as it will block flashing):
 
-    `sudo vi /lib/udev/rules.d/77-mm-usb-device-blacklist.rules`
+    `sudo vi /etc/udev/rules.d/77-mm-usb-device-blacklist.rules`
 
-    * Add the following 2 lines (at the end of the file, before the LABEL line):
+    * Create this file if it doesn't already exist, and add the following:
        {{{
 # proxmark3 - http://www.proxmark.org/
 ATTRS{idVendor}=="2d2d" ATTRS{idProduct}=="504d", ENV{ID_MM_DEVICE_IGNORE}="1"
@@ -79,8 +79,6 @@ ATTRS{idVendor}=="2d2d" ATTRS{idProduct}=="504d", ENV{ID_MM_DEVICE_IGNORE}="1"
   * restart udev hotplug control:
 
     `sudo udevadm control --reload-rules`
-
-Note that this change may be overwritten by system updates. We will try to get it it added to the main linux distributions, but in the meantime you may have to re-do this step from time to time.
 
 =Testing the Proxmark=
 You are now at the stage where you should be able to communicate with your Proxmark.
@@ -98,7 +96,7 @@ You are now at the stage where you should be able to communicate with your Proxm
 }}}
   * Go in to your Proxmark project folder and run the Proxmark software:
 
-    `./client/proxmark3 /dev/ttyACM3`
+    `cd client; ./proxmark3 /dev/ttyACM3`
 
     * You should get the proxmark command prompt:
 
