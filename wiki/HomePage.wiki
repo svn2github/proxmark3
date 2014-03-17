@@ -1,9 +1,15 @@
 #summary Proxmark3 Home Page
 #sidebar Navigation
 
+=NOTICE=
+(2014-03-17)
+Moving this repository to GitHub is up for discussion! Please check out the following thread and post your comments...
+[http://www.proxmark.org/forum/viewtopic.php?id=1902 Move repo to Github]
+Discussions will close on March 31st.
+
 =Introduction=
 
-This is the home page of a group of volunteer enthusiasts commited to further enhancing the capabilities of the already awesome Proxmark3, originally developed by Jonathan Westhues and release under the terms of GPL. You are encouraged to [http://www.cq.cx/proxmark3.pl visit his site] to read his original write up on the build of the proxmark3 as well as take a look at the historical progression from the basic [http://www.cq.cx/prox.pl prox] to the [http://www.cq.cx/proxmarkii.pl markII] to the final [http://www.cq.cx/proxmark3.pl proxmark3]. Please bear in mind that any statements on Jonathan's web site relating to the abilities of the board may be little dated now, and the capabilities of the proxmark3 have been (and continue to be) further enhanced, by great enthusiasts, such as [http://gerhard.dekoninggans.nl/proxmark/software Gerhard de Koning Gans] who added ISO-14443a support and many others who continue to add features in their own time.
+This is the home page of a group of volunteer enthusiasts committed to further enhancing the capabilities of the already awesome Proxmark3, originally developed by Jonathan Westhues and release under the terms of GPL. You are encouraged to [http://www.cq.cx/proxmark3.pl visit his site] to read his original write up on the build of the proxmark3 as well as take a look at the historical progression from the basic [http://www.cq.cx/prox.pl prox] to the [http://www.cq.cx/proxmarkii.pl markII] to the final [http://www.cq.cx/proxmark3.pl proxmark3]. Please bear in mind that any statements on Jonathan's web site relating to the abilities of the board may be little dated now, and the capabilities of the proxmark3 have been (and continue to be) further enhanced, by great enthusiasts, such as [http://gerhard.dekoninggans.nl/proxmark/software Gerhard de Koning Gans] who added ISO-14443a support and many others who continue to add features in their own time.
 
 To further help those new to the proxmark3, we have created a [ReferenceManual User's Manual] where we attempt to document all the commands and their usage. You are welcome to join us on the [http://proxmark.org/forum proxmark.org] forum, to find out the latest news, ask for help, or to discuss new ideas.
 
@@ -14,7 +20,7 @@ http://proxmark3.googlecode.com/svn/wiki/prox3-straight.jpg
 
 From the [http://www.cq.cx/proxmark3.pl original website] :
 
- This device can do almost anything involving almost any kind of low ( 125 kHz) or high ( 13.56 MHz) frequency RFID tag. It can act as a reader. It can eavesdrop on a transaction between another reader and a tag. It can analyze the signal received over the air more closely, for example to perform an attack in which we derive information from the tag’s instantaneous power consumption. It can pretend to be a tag itself. It is also capable of some less obviously useful operations that might come in handy for development work.
+ This device can do almost anything involving almost any kind of low ( 125 kHz) or high ( 13.56 MHz) frequency RFID tag. It can act as a reader. It can eavesdrop on a transaction between another reader and a tag. It can analyse the signal received over the air more closely, for example to perform an attack in which we derive information from the tag’s instantaneous power consumption. It can pretend to be a tag itself. It is also capable of some less obviously useful operations that might come in handy for development work.
 
 =Is it for me ?=
 
