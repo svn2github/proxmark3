@@ -2,11 +2,21 @@
 #sidebar Navigation
 
 =NOTICE=
+(2014-03-31)
+THIS REPOSITORY HAS MOVED TO GITHUB! PLEASE DO NOT COMMIT YOUR CHANGES HERE!
+Please visit https://github.com/Proxmark/proxmark3 for the latest version of the repository.
+
+For those unfamiliar with git:
+http://try.github.io/levels/1/challenges/1
+http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
+http://lifehacker.com/5983680/how-the-heck-do-i-use-github
+
 (2014-03-17)
 Moving this repository to GitHub is up for discussion! Please check out the following thread and post your comments...
 [http://www.proxmark.org/forum/viewtopic.php?id=1902 Move repo to Github]
 Discussions will close on March 31st.
 
+<font color="grey">
 =Introduction=
 
 This is the home page of a group of volunteer enthusiasts committed to further enhancing the capabilities of the already awesome Proxmark3, originally developed by Jonathan Westhues and release under the terms of GPL. You are encouraged to [http://www.cq.cx/proxmark3.pl visit his site] to read his original write up on the build of the proxmark3 as well as take a look at the historical progression from the basic [http://www.cq.cx/prox.pl prox] to the [http://www.cq.cx/proxmarkii.pl markII] to the final [http://www.cq.cx/proxmark3.pl proxmark3]. Please bear in mind that any statements on Jonathan's web site relating to the abilities of the board may be little dated now, and the capabilities of the proxmark3 have been (and continue to be) further enhanced, by great enthusiasts, such as [http://gerhard.dekoninggans.nl/proxmark/software Gerhard de Koning Gans] who added ISO-14443a support and many others who continue to add features in their own time.
@@ -33,3 +43,4 @@ The Proxmark III is a RFID development tool. Typically, an "out of the box" prox
 As long as you only want to add higher level functions over the RF layers that are already coded into the FPGA, you should be fine without VHDL skills, but if you want to actually go deeper and have the proxmark3 support new modulations, this will require modifying the FPGA verilog code, an interesting exercise if you’re motivated or are already a pro in that area, but very time consuming if you’re getting started !
 
 Now you should have a pretty good idea on whether this tool is for you or not !
+</font>
