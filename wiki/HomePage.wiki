@@ -2,20 +2,20 @@
 #sidebar Navigation
 
 =NOTICE=
-(2014-03-31)
-THIS REPOSITORY HAS MOVED TO GITHUB! PLEASE DO NOT COMMIT YOUR CHANGES HERE!
-Please visit https://github.com/Proxmark/proxmark3 for the latest version of the repository.
-
-For those unfamiliar with git:
-http://try.github.io/levels/1/challenges/1
-http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
-http://lifehacker.com/5983680/how-the-heck-do-i-use-github
-
-(2014-03-17)
-Moving this repository to GitHub is up for discussion! Please check out the following thread and post your comments...
-[http://www.proxmark.org/forum/viewtopic.php?id=1902 Move repo to Github]
-Discussions will close on March 31st.
-
+===(2014-03-31)===<br/>
+THIS REPOSITORY HAS MOVED TO GITHUB! PLEASE DO NOT COMMIT YOUR CHANGES HERE!<br/>
+Please visit https://github.com/Proxmark/proxmark3 for the latest version of the repository.<br/>
+<br/>
+For those unfamiliar with git:<br/>
+http://try.github.io/levels/1/challenges/1<br/>
+http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1<br/>
+http://lifehacker.com/5983680/how-the-heck-do-i-use-github<br/>
+<br/>
+===(2014-03-17)===<br/>
+Moving this repository to GitHub is up for discussion! Please check out the following thread and post your comments...<br/>
+[http://www.proxmark.org/forum/viewtopic.php?id=1902 Move repo to Github]<br/>
+Discussions will close on March 31st.<br/>
+<br/><br/>
 <font color="grey">
 =Introduction=
 
